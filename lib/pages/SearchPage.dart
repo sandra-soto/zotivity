@@ -198,8 +198,41 @@ class _SearchPageState extends State<SearchPage> {
       ...
       End of description
       ''');
+  Activity exercise3 = Activity(
+      "Learn a Dance",
+      "https://img.grouponcdn.com/deal/fsBGAB33wyPkpHBk5e76/gD-2048x1229/v1/t440x300.jpg",
+      "exercise",
+      60, '''Description for learning a dance
+    Simulating a very long description
+      This should be scrollable
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      End of description
+      ''');
 
   Widget build(BuildContext context) {
+    var database = [exercise1,exercise2,baking1,baking2,baking3,cooking1,cooking2,cooking3,cooking4];
+    List getCategoryList(String categoryName) {
+      var categoryList = [];
+      for(int i = 0; i < database.length; i++){
+        if(database[i].getCategory() == categoryName){
+          categoryList.add(database[i]);
+        }
+      }
+      return categoryList;
+    }
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Search Page"),
@@ -224,7 +257,7 @@ class _SearchPageState extends State<SearchPage> {
                     context,
                     new MaterialPageRoute(
                         builder: (__) => new CategoryPage(
-                            categoryName: "Exercise", categoryList: [exercise1,exercise2])));
+                            categoryName: "Exercise", categoryList: getCategoryList("exercise"))));
               },
               child: Text("Exercise"),
             ),
@@ -234,7 +267,7 @@ class _SearchPageState extends State<SearchPage> {
                     context,
                     new MaterialPageRoute(
                         builder: (__) => new CategoryPage(
-                            categoryName: "Baking", categoryList: [baking1,baking2,baking3])));
+                            categoryName: "Baking", categoryList: getCategoryList("baking"))));
               },
               child: Text("Baking"),
             ),
@@ -244,7 +277,7 @@ class _SearchPageState extends State<SearchPage> {
                     context,
                     new MaterialPageRoute(
                         builder: (__) => new CategoryPage(
-                            categoryName: "Cooking", categoryList: [cooking1,cooking2,cooking3,cooking4])));
+                            categoryName: "Cooking", categoryList: getCategoryList("cooking"))));
               },
               child: Text("Cooking"),
             ),

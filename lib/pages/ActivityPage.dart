@@ -30,7 +30,7 @@ class _ActivityPageState extends State<ActivityPage> {
               padding: EdgeInsets.all(16.0),
               child: Text(
                 widget.activity.getName(),
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 30),
                 textAlign: TextAlign.center,
               ),
             ),
