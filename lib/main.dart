@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/widgets.dart';
+import 'package:zotivity/screens/activity_preferences.dart';
 import 'dart:async';
 import 'database.dart';
 import 'screens/profile_creation.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
       ),
       home: ProfileCreation(),
+      // home: ActivityPreferences(),
     );
   }
 }
