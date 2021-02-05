@@ -4,31 +4,31 @@ import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'database.dart';
 import 'login.dart' as login;
+import 'package:firebase_database/firebase_database.dart';
+
 
 
 
 
 void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
 //  /* DB STUFF*/
-//  // Importing 'package:flutter/widgets.dart' is required.
-//  WidgetsFlutterBinding.ensureInitialized();
-//  DatabaseProvider db = DatabaseProvider.db;
-//
-//  var fido = Dog(
-//    id: 1,
-//    name: 'Fido',
-//    age: 36,
-//  );
-//  // this will delete any dogs added, remove this line to keep dogs on app close/open
-//  db.deleteAllDogs();
-//  List<Dog> dogs = await db.dogs();
-//  dogs.forEach((element) => print(element)); // should not print anything since all dogs were deleted
-//  print("before ^^^^ ======================== after vvvvv");
-//  db.insertDog(fido);
-//  dogs = await db.dogs();
-//  dogs.forEach((element) => print(element));
-//  /* DB STUFF END*/
-
+  final databaseReference = FirebaseDatabase.instance.reference();
+  databaseReference.child("chocolate chip cookies").set({
+    'category': 'baking',
+    'name': 'chocolate chip cookies',
+    'description':"",
+    'resources':"https://basicswithbabish.co/basicsepisodes/2017/10/23/baressentials-7xwwz",
+  });
+  databaseReference.child("dinner rolls").set({
+    'category': 'baking',
+    'name': 'dinner rolls',
+    'description':"",
+    'resources':"https://youtu.be/jFsjf7LevEU",
+  });
+  databaseReference.once().then((DataSnapshot snapshot) {
+    print('Data : ${snapshot.value}');
+  });
   runApp(LoginPage());
 }
 
