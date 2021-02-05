@@ -8,6 +8,7 @@ import './pages/HomePage.dart';
 import './pages/SearchPage.dart';
 import './pages/CategoryPage.dart';
 import './pages/ActivityPage.dart';
+import './models/Activity.dart';
 
 
 
@@ -32,13 +33,35 @@ void main() async{
   dogs.forEach((element) => print(element));
   /* DB STUFF END*/
 
+  Activity a = Activity(
+      "Take a Walk",
+      "https://www.readytowakeup.biz/wp-content/uploads/2017/03/161018141431-silicon-valley-walk-stock-780x439.jpg",
+      "outdoors",
+      30,
+      '''Description for Taking A Walk
+      Simulating a very long description
+      This should be scrollable
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      ...
+      End of description
+      ''');
+
   runApp(MaterialApp(
     initialRoute: '/',
     routes: {
       '/': (context) => HomePage(),
       '/searchPage': (context) => SearchPage(),
       '/categoryPage': (context) => CategoryPage(),
-      '/activityPage': (context) => ActivityPage(),
     },
   ));
 }
