@@ -1,8 +1,10 @@
+//import 'package:flutter/material.dart';
+//import 'package:english_words/english_words.dart';
+//import 'package:flutter/widgets.dart';
+//import 'dart:async';
+//import 'database.dart';
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
-import 'package:flutter/widgets.dart';
-import 'dart:async';
-import 'database.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 
 
@@ -140,3 +142,96 @@ class RandomWords extends StatefulWidget {
   @override
   RandomWordsState createState() => new RandomWordsState();
 }
+
+class MoodPage extends StatelessWidget {
+// support function here
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        centerTitle: true,
+        backgroundColor: Colors.lightGreen,
+
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // navigate to home page WRITE HERE
+              Navigator.push(context,MaterialPageRoute(builder: (context) => CalenderPage()));
+            },
+          )
+        ],
+      ),
+      body: Center(
+
+        child: Column(
+
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            RawMaterialButton(onPressed: () {}, //keep recommendation
+              elevation: 2.0,
+              fillColor: Colors.lightGreen,
+              child: Icon(
+                Icons.thumb_up,
+                color: Colors.white,
+                size: 30.0,
+              ),
+              padding: EdgeInsets.all(50.0),
+              shape: CircleBorder(),),
+
+            RawMaterialButton(onPressed: () {}, //not recommend this activity again
+              elevation: 2.0,
+              fillColor: Colors.redAccent,
+              child: Icon(
+                Icons.thumb_down,
+                color: Colors.white,
+                size: 30.0,
+              ),
+              padding: EdgeInsets.all(50.0),
+              shape: CircleBorder(),),
+          ],
+        ),
+      ),
+      // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class CalenderPage extends StatefulWidget {
+  @override
+  _CalenderPageState createState() => _CalenderPageState();
+}
+
+class _CalenderPageState extends State<CalenderPage> {
+  CalendarController _controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller = CalendarController();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Calendar'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            TableCalendar(
+              calendarController: _controller,
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
