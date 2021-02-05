@@ -15,7 +15,7 @@ class _ActivityPageState extends State<ActivityPage> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Activity Page"),
+        title: Text("Activity: " + widget.activity.getName()),
         backgroundColor: Colors.blue,
       ),
       body: Container(
@@ -30,7 +30,7 @@ class _ActivityPageState extends State<ActivityPage> {
               padding: EdgeInsets.all(16.0),
               child: Text(
                 widget.activity.getName(),
-                style: TextStyle(fontSize: 28),
+                style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
             ),

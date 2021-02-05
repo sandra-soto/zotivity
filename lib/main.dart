@@ -61,7 +61,6 @@ void main() async{
     routes: {
       '/': (context) => HomePage(),
       '/searchPage': (context) => SearchPage(),
-      '/categoryPage': (context) => CategoryPage(),
     },
   ));
 }
