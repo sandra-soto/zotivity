@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import "sign_in.dart";
-
-
+// UI for login screen, alrady connected to backend
+// should be imported
+// call LoginPage() in the MyApp function
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();

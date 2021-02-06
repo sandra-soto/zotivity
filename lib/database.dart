@@ -1,6 +1,9 @@
 import 'package:path/path.dart' as Path;
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
+// this is a dummy sqlite  file
+// we're using firebase now so no need to import anything from here
+
 // Update the Dog class to include a `toMap` method.
 class Dog {
   final int id;
