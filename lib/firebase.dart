@@ -1,4 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'models/user.dart';
+import 'package:zotivity/models/activityCategory.dart';
 
 // showing uses of the firebase DB
 // should be imported in the main.dart
@@ -19,6 +21,19 @@ addSomeData(){
     'name': 'dinner rolls',
     'description':"",
     'resources':"https://youtu.be/jFsjf7LevEU",
+  });
+}
+
+addUser(User _user) {
+  Map<ActivityCategory, bool> _interests = _user.getInterests();
+
+  databaseReference.child(_user.firstName).set({
+    'firstName': _user.getFirstName(),
+    'lastName':  _user.getLastName(),
+    'age': _user.getAge(),
+    'exercise': _interests[ActivityCategory.exercise],
+    'cooking': _interests[ActivityCategory.cooking],
+    'baking': _interests[ActivityCategory.baking]
   });
 }
 

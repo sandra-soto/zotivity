@@ -4,11 +4,10 @@ import '../models/activity.dart';
 import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/models/checkboxFormField.dart';
 import '../models/user.dart';
+import '../firebase.dart';
 
 class ActivityPreferencesState extends State<ActivityPreferences> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final List<ActivityCategory> categories = Activity.getAllCategories();
-  User _user = User();
 
   Widget _buildExercise() {
     return Container(
@@ -25,7 +24,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              _user.setInterest(categories[0], value);
+              setInterest(ActivityCategory.exercise, value);
             },
           )
         ],
@@ -48,7 +47,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              _user.setInterest(categories[1], value);
+              setInterest(ActivityCategory.cooking, value);
             },
           )
         ],
@@ -71,7 +70,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              _user.setInterest(categories[2], value);
+              setInterest(ActivityCategory.baking, value);
             },
           )
         ],
@@ -101,12 +100,12 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
                   child: ElevatedButton(
                     onPressed: () {
                       // Validate returns true if the form is valid, or false otherwise.
-                      if (_formKey.currentState.validate()) {
-                        // If the form is valid, display a Snackbar.
-                        // Scaffold.of(context)
-                        //     .showSnackBar(SnackBar(content: Text('Processing Data')));
-                        
+                      if (!_formKey.currentState.validate()) {
+                        return;
                       }
+
+                      _formKey.currentState.save();
+                      submitDB();
                     },
                     child: Text('Submit'),
                   ),
@@ -114,12 +113,28 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ],
             ),
           )
-        ))
+        )
+      )
     );
+  }
+
+  void setInterest(ActivityCategory category, bool interest) {
+    widget.prevInfo.setInterest(category, interest);
+  }
+
+  void submitDB() {
+    print(widget.prevInfo);
+    print(widget.prevInfo.interests);
+    addUser(widget.prevInfo);
+    printAllActivities();
   }
 }
 
 class ActivityPreferences extends StatefulWidget {
+  final User prevInfo; 
+
+  ActivityPreferences(this.prevInfo);
+
   @override
   ActivityPreferencesState createState() => new ActivityPreferencesState();
 }

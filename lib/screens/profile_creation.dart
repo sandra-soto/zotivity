@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/user.dart';
+import 'activity_preferences.dart';
 
 class ProfileCreationState extends State<ProfileCreation> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -178,13 +179,21 @@ class ProfileCreationState extends State<ProfileCreation> {
                   child: ElevatedButton(
                     onPressed: () {
                       // Validate returns true if the form is valid, or false otherwise.
-                      if (_formKey.currentState.validate()) {
-                        // If the form is valid, display a Snackbar.
-                        // Scaffold.of(context)
-                        //     .showSnackBar(SnackBar(content: Text('Processing Data')));
-                        
-                        print(_user);
+                      if (!_formKey.currentState.validate()) {
+                        return;
                       }
+
+                      _formKey.currentState.save();
+                      print(_user);
+                      
+                      //https://stackoverflow.com/questions/59706862/flutter-form-multi-screens
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ActivityPreferences(_user);  // transfer user info to the next page
+                          }
+                        ),
+                      );
                     },
                     child: Text('Submit'),
                   ),
@@ -192,7 +201,8 @@ class ProfileCreationState extends State<ProfileCreation> {
               ],
             ),
           )
-        ))
+        )
+      )
     );
   }
 }

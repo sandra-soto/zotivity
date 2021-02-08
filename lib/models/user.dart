@@ -42,6 +42,26 @@ class User {
     interests[category] = interest;
   }
 
+  String getFirstName() {
+    return firstName;
+  }
+
+  String getLastName() {
+    return lastName;
+  }
+
+  String getEmail() {
+    return email;
+  }
+
+  int getAge() {
+    return age;
+  }
+
+  Map<ActivityCategory, bool> getInterests() {
+    return interests;
+  }
+
   @override
   String toString() {
     return '''
