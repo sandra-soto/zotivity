@@ -34,6 +34,10 @@ dependencies:
   firebase_auth: ^0.18.0+1
   google_sign_in: ^4.5.3
   firebase_database: 4.0.0
+  flutter_local_notifications: ^1.4.4+1
+  rxdart: ^0.24.1
+  path_provider: ^1.6.11
+  http: ^0.12.1
 
 dev_dependencies:
   flutter_test:
