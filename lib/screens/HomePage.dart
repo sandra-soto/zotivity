@@ -5,7 +5,6 @@ import '../models/Activity.dart';
 import './ActivityPage.dart';
 
 class HomePage extends StatelessWidget {
-  @override
   Activity a = Activity(
       "Take a Walk",
       "https://www.readytowakeup.biz/wp-content/uploads/2017/03/161018141431-silicon-valley-walk-stock-780x439.jpg",
@@ -69,7 +68,7 @@ class HomePage extends StatelessWidget {
       ...
       End of description
       ''');
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

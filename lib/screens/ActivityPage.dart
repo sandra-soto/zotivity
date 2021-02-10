@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:zotivity/screens/CategoryPage.dart';
 import '../models/Activity.dart';
 
 class ActivityPage extends StatefulWidget {
-  @override
-  Activity activity;
-
+  final Activity activity;
   ActivityPage({this.activity});
-
+  @override
   _ActivityPageState createState() => _ActivityPageState();
 }
 

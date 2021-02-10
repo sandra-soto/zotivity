@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 import 'package:flutter/widgets.dart';
-import 'package:zotivity/screens/ActivityPreferences.dart';
 import 'package:zotivity/screens/Login.dart';
-import 'dart:async';
-import 'screens/ProfileCreation.dart';
 import 'package:zotivity/backend/sign_in.dart';
 
 

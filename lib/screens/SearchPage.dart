@@ -9,7 +9,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  @override
   Activity exercise1 = Activity(
       "Take a Walk",
       ActivityCategory.exercise,
@@ -210,7 +209,7 @@ class _SearchPageState extends State<SearchPage> {
       ...
       End of description
       ''',       "https://img.grouponcdn.com/deal/fsBGAB33wyPkpHBk5e76/gD-2048x1229/v1/t440x300.jpg");
-
+  @override
   Widget build(BuildContext context) {
     var database = [
       exercise1,

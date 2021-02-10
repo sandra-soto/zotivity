@@ -1,8 +1,4 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../models/activity1.dart';
-import 'package:zotivity/models/activityCategory.dart';
-import '../models/user.dart';
 
 // https://stackoverflow.com/questions/53479942/checkbox-form-validation
 class CheckboxFormField extends FormField<bool> {
