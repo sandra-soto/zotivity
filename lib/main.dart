@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:flutter/widgets.dart';
-import 'package:zotivity/screens/activity_preferences.dart';
+import 'package:zotivity/screens/ActivityPreferences.dart';
+import 'package:zotivity/screens/Login.dart';
 import 'dart:async';
-import 'backend/database.dart';
-import 'screens/profile_creation.dart';
+import 'screens/ProfileCreation.dart';
+import 'package:zotivity/backend/sign_in.dart';
 
 
 void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  //Todo: add persistence to user so they aren't shown the login screen if they are actually already signed in
+  initAuthFirebase()
+      .then((user) {
+    print("Someone's already signed in: $user");
+  });
+
   runApp(MyApp());
 }
 
@@ -21,8 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.black,
       ),
-      home: ProfileCreation(),
-      // home: ActivityPreferences(),
+      home: LoginPage(),
     );
   }
 }

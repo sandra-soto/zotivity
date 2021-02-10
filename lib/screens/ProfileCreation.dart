@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:zotivity/backend/sign_in.dart';
 import '../models/user.dart';
-import 'activity_preferences.dart';
+import 'ActivityPreferences.dart';
 
 class ProfileCreationState extends State<ProfileCreation> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -33,6 +34,8 @@ class ProfileCreationState extends State<ProfileCreation> {
               return null;
             },
             onSaved: (String value) {
+              // NOTE: can grab info from signed in user by doing
+              // _user.setFirstName(getCurrentUser().displayName);
               _user.setFirstName(value);
             }
           )
@@ -178,6 +181,9 @@ class ProfileCreationState extends State<ProfileCreation> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
                     onPressed: () {
+                      //Todo: remove my printstatements l8r
+                      print("balh");
+                      print(getCurrentUser());
                       // Validate returns true if the form is valid, or false otherwise.
                       if (!_formKey.currentState.validate()) {
                         return;

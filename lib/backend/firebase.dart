@@ -1,5 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'models/user.dart';
+import '../models/user.dart';
 import 'package:zotivity/models/activityCategory.dart';
 
 // showing uses of the firebase DB

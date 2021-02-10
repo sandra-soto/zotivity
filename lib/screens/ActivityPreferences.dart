@@ -1,10 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../models/activity.dart';
 import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/models/checkboxFormField.dart';
 import '../models/user.dart';
-import '../firebase.dart';
+import '../backend/firebase.dart';
+import 'SearchPage.dart';
 
 class ActivityPreferencesState extends State<ActivityPreferences> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -106,6 +105,15 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
 
                       _formKey.currentState.save();
                       submitDB();
+                      // going to category page
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SearchPage();
+
+                          },
+                        ),
+                      );
                     },
                     child: Text('Submit'),
                   ),
@@ -122,7 +130,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
     widget.prevInfo.setInterest(category, interest);
   }
 
-  void submitDB() {
+  void submitDB() async{
     print(widget.prevInfo);
     print(widget.prevInfo.interests);
     addUser(widget.prevInfo);

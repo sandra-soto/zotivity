@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'backend/sign_in.dart';
+import 'package:zotivity/screens/ProfileCreation.dart';
+import '../backend/sign_in.dart';
+import 'ActivityPage.dart';
 // UI for login screen, alrady connected to backend
 // should be imported
 // call LoginPage() in the MyApp function
@@ -33,16 +35,17 @@ class _LoginPageState extends State<LoginPage> {
 
 }
 
+// Todo: find a better way to connect screens lol
 Widget _signInButton(BuildContext context) {
   return OutlineButton(
     splashColor: Colors.grey,
     onPressed: () {
-      signInWithGoogle().then((result) {
-        if (result != null) {
+      signInWithGoogle().then((user) {
+        if (user != null) {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return FirstScreen();
+                return ProfileCreation();
               },
             ),
           );

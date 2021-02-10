@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import './ActivityPage.dart';
+import 'package:zotivity/models/activityCategory.dart';
 
 class CategoryPage extends StatefulWidget {
-  @override
-  String categoryName;
-  var categoryList;
-
+  final ActivityCategory categoryName;
+  final categoryList;
   CategoryPage({this.categoryName, this.categoryList});
-
   _CategoryPageState createState() => _CategoryPageState();
 }
 
@@ -18,7 +16,7 @@ class _CategoryPageState extends State<CategoryPage> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Category: " + widget.categoryName),
+        title: Text("Category: " + widget.categoryName.str),
         backgroundColor: Colors.blue,
       ),
       body: ListView.builder(

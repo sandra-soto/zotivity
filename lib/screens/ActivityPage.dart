@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zotivity/screens/CategoryPage.dart';
 import '../models/Activity.dart';
 
 class ActivityPage extends StatefulWidget {
@@ -57,8 +58,7 @@ class _ActivityPageState extends State<ActivityPage> {
             RaisedButton(
               child: Text("Complete Activity"),
               onPressed: () {
-                print(
-                    "Activity '" + widget.activity.getName() + "' completed.");
+                print("Activity '" + widget.activity.getName() + "' completed.");
               },
             ),
           ],

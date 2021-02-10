@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zotivity/pages/CategoryPage.dart';
+import 'package:zotivity/models/activityCategory.dart';
+import 'package:zotivity/screens/CategoryPage.dart';
 import '../models/Activity.dart';
 import './ActivityPage.dart';
 
@@ -92,7 +93,8 @@ class HomePage extends StatelessWidget {
                   context,
                   new MaterialPageRoute(
                       builder: (__) => new CategoryPage(
-                          categoryName: "Example Category UI",
+                        // Todo: change this later
+                          categoryName: ActivityCategory.exercise,
                           categoryList: [a, b, c])));
             },
           ),
