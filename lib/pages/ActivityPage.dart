@@ -4,13 +4,14 @@ import '../models/Activity.dart';
 class ActivityPage extends StatefulWidget {
   @override
   Activity activity;
+
   ActivityPage({this.activity});
+
   _ActivityPageState createState() => _ActivityPageState();
 }
 
 class _ActivityPageState extends State<ActivityPage> {
   @override
-
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
@@ -48,7 +49,7 @@ class _ActivityPageState extends State<ActivityPage> {
                 ),
               ),
               width: double.infinity,
-              height: (1/5)*screenSize.height,
+              height: (1 / 5) * screenSize.height,
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 30.0),
@@ -56,7 +57,8 @@ class _ActivityPageState extends State<ActivityPage> {
             RaisedButton(
               child: Text("Complete Activity"),
               onPressed: () {
-                print("Activity '" + widget.activity.getName() + "' completed.");
+                print(
+                    "Activity '" + widget.activity.getName() + "' completed.");
               },
             ),
           ],

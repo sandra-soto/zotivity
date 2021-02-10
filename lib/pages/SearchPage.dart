@@ -221,17 +221,27 @@ class _SearchPageState extends State<SearchPage> {
       ''');
 
   Widget build(BuildContext context) {
-    var database = [exercise1,exercise2,baking1,baking2,baking3,cooking1,cooking2,cooking3,cooking4];
+    var database = [
+      exercise1,
+      exercise2,
+      baking1,
+      baking2,
+      baking3,
+      cooking1,
+      cooking2,
+      cooking3,
+      cooking4
+    ];
+
     List getCategoryList(String categoryName) {
       var categoryList = [];
-      for(int i = 0; i < database.length; i++){
-        if(database[i].getCategory() == categoryName){
+      for (int i = 0; i < database.length; i++) {
+        if (database[i].getCategory() == categoryName) {
           categoryList.add(database[i]);
         }
       }
       return categoryList;
     }
-
 
     return Scaffold(
       appBar: AppBar(
@@ -257,7 +267,8 @@ class _SearchPageState extends State<SearchPage> {
                     context,
                     new MaterialPageRoute(
                         builder: (__) => new CategoryPage(
-                            categoryName: "Exercise", categoryList: getCategoryList("exercise"))));
+                            categoryName: "Exercise",
+                            categoryList: getCategoryList("exercise"))));
               },
               child: Text("Exercise"),
             ),
@@ -267,7 +278,8 @@ class _SearchPageState extends State<SearchPage> {
                     context,
                     new MaterialPageRoute(
                         builder: (__) => new CategoryPage(
-                            categoryName: "Baking", categoryList: getCategoryList("baking"))));
+                            categoryName: "Baking",
+                            categoryList: getCategoryList("baking"))));
               },
               child: Text("Baking"),
             ),
@@ -277,7 +289,8 @@ class _SearchPageState extends State<SearchPage> {
                     context,
                     new MaterialPageRoute(
                         builder: (__) => new CategoryPage(
-                            categoryName: "Cooking", categoryList: getCategoryList("cooking"))));
+                            categoryName: "Cooking",
+                            categoryList: getCategoryList("cooking"))));
               },
               child: Text("Cooking"),
             ),

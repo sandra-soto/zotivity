@@ -77,35 +77,37 @@ class HomePage extends StatelessWidget {
       ),
       body: Center(
           child: Column(
-            children: <Widget>[
-              RaisedButton(
-                child: Text('Search Page'),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/searchPage');
-                },
-              ),
-              RaisedButton(
-                child: Text('Category Page'),
-                onPressed: () {
-                  // Navigator.pushNamed(context, '/categoryPage');
-                  Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (__) => new CategoryPage(categoryName: "Example Category UI", categoryList: [a,b,c])));
-                },
-              ),
-              RaisedButton(
-                child: Text('Activity Page'),
-                onPressed: () {
-                  // Navigator.pushNamed(context, '/activityPage');
-                  Navigator.push(
-                      context,
-                      new MaterialPageRoute(
-                          builder: (__) => new ActivityPage(activity: a)));
-                },
-              ),
-            ],
-          )),
+        children: <Widget>[
+          RaisedButton(
+            child: Text('Search Page'),
+            onPressed: () {
+              Navigator.pushNamed(context, '/searchPage');
+            },
+          ),
+          RaisedButton(
+            child: Text('Category Page'),
+            onPressed: () {
+              // Navigator.pushNamed(context, '/categoryPage');
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (__) => new CategoryPage(
+                          categoryName: "Example Category UI",
+                          categoryList: [a, b, c])));
+            },
+          ),
+          RaisedButton(
+            child: Text('Activity Page'),
+            onPressed: () {
+              // Navigator.pushNamed(context, '/activityPage');
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (__) => new ActivityPage(activity: a)));
+            },
+          ),
+        ],
+      )),
     );
   }
 }

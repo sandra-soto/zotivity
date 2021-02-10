@@ -1,36 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+// import 'package:english_words/english_words.dart';
 import 'package:flutter/widgets.dart';
-import 'dart:async';
-import 'database.dart';
+// import 'dart:async';
+// import 'database.dart';
 
 import './pages/HomePage.dart';
 import './pages/SearchPage.dart';
-import './pages/CategoryPage.dart';
-import './pages/ActivityPage.dart';
-import './models/Activity.dart';
+// import './pages/CategoryPage.dart';
+// import './pages/ActivityPage.dart';
+// import './models/Activity.dart';
 
 
 
 void main() async{
   /* DB STUFF*/
   // Importing 'package:flutter/widgets.dart' is required.
-  WidgetsFlutterBinding.ensureInitialized();
-  DatabaseProvider db = DatabaseProvider.db;
-
-  var fido = Dog(
-    id: 1,
-    name: 'Fido',
-    age: 36,
-  );
-  // this will delete any dogs added, remove this line to keep dogs on app close/open
-  db.deleteAllDogs();
-  List<Dog> dogs = await db.dogs();
-  dogs.forEach((element) => print(element)); // should not print anything since all dogs were deleted
-  print("before ^^^^ ======================== after vvvvv");
-  db.insertDog(fido);
-  dogs = await db.dogs();
-  dogs.forEach((element) => print(element));
+  // WidgetsFlutterBinding.ensureInitialized();
+  // DatabaseProvider db = DatabaseProvider.db;
+  //
+  // var fido = Dog(
+  //   id: 1,
+  //   name: 'Fido',
+  //   age: 36,
+  // );
+  // // this will delete any dogs added, remove this line to keep dogs on app close/open
+  // db.deleteAllDogs();
+  // List<Dog> dogs = await db.dogs();
+  // dogs.forEach((element) => print(element)); // should not print anything since all dogs were deleted
+  // print("before ^^^^ ======================== after vvvvv");
+  // db.insertDog(fido);
+  // dogs = await db.dogs();
+  // dogs.forEach((element) => print(element));
   /* DB STUFF END*/
 
 

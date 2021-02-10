@@ -5,13 +5,14 @@ class CategoryPage extends StatefulWidget {
   @override
   String categoryName;
   var categoryList;
+
   CategoryPage({this.categoryName, this.categoryList});
+
   _CategoryPageState createState() => _CategoryPageState();
 }
 
 class _CategoryPageState extends State<CategoryPage> {
   @override
-
   Widget build(BuildContext context) {
     // var activityList = [a,b,c];
     var screenSize = MediaQuery.of(context).size;
@@ -30,7 +31,8 @@ class _CategoryPageState extends State<CategoryPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Image(
-                    image: NetworkImage(widget.categoryList[index].getImgLink()),
+                    image:
+                        NetworkImage(widget.categoryList[index].getImgLink()),
                     width: screenSize.width,
                     height: 200,
                   ),
@@ -49,7 +51,10 @@ class _CategoryPageState extends State<CategoryPage> {
                               style: TextStyle(fontSize: 28),
                               textAlign: TextAlign.left,
                             ),
-                            Text(widget.categoryList[index].getTime().toString() + " minutes"),
+                            Text(widget.categoryList[index]
+                                    .getTime()
+                                    .toString() +
+                                " minutes"),
                           ],
                         ),
                       ),
