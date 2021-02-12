@@ -13,7 +13,7 @@ Future<User> initAuthFirebase() async {
   return getCurrentUser();
 }
 
-Future<String> signInWithGoogle() async {
+Future<User> signInWithGoogle() async {
 
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
   final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
@@ -35,7 +35,7 @@ Future<String> signInWithGoogle() async {
 
     print('signInWithGoogle succeeded: $user');
 
-    return '$user';
+    return user;
   }
 
   return null;

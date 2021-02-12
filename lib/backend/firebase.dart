@@ -8,6 +8,7 @@ import 'package:zotivity/models/activityCategory.dart';
 
 final databaseReference = FirebaseDatabase.instance.reference();
 
+
 addSomeData(){
   databaseReference.child("chocolate chip cookies").set({
     'category': 'baking',
@@ -27,7 +28,8 @@ addSomeData(){
 addUser(User _user) {
   Map<ActivityCategory, bool> _interests = _user.getInterests();
 
-  databaseReference.child(_user.firstName).set({
+  databaseReference.child(_user.id).set({
+    'id': _user.getId(),
     'firstName': _user.getFirstName(),
     'lastName':  _user.getLastName(),
     'age': _user.getAge(),

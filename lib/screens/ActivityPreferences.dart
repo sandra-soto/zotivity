@@ -1,9 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:zotivity/backend/firebase.dart';
+import 'package:zotivity/backend/globals.dart';
 import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/models/checkboxFormField.dart';
 import '../models/user.dart';
-import '../backend/firebase.dart';
+import '../backend/database.dart';
 import 'SearchPage.dart';
+
 
 class ActivityPreferencesState extends State<ActivityPreferences> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -131,10 +136,21 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
   }
 
   void submitDB() async{
-    print(widget.prevInfo);
-    print(widget.prevInfo.interests);
+
+    //print(widget.prevInfo);
+    //print(widget.prevInfo.interests);
+
+    // currentUserId is the google ID
+    widget.prevInfo.setId(currentUserId);
     addUser(widget.prevInfo);
-    printAllActivities();
+    currentUser = widget.prevInfo;
+    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    // after writing in a user, comment the line below and restart to see data persisted
+    await localInfo.writeUser(jsonEncode(currentUser.toMap()));
+    await localInfo.readUser().then((value) => print(User.fromJson(jsonDecode(value))));
+
+
+    //printAllActivities();
   }
 }
 

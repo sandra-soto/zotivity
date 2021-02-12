@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:zotivity/backend/globals.dart';
 import 'package:zotivity/screens/ProfileCreation.dart';
 import '../backend/sign_in.dart';
 
@@ -41,7 +42,9 @@ Widget _signInButton(BuildContext context) {
     splashColor: Colors.grey,
     onPressed: () {
       signInWithGoogle().then((user) {
+        // we can use this to pull the user from sqlite
         if (user != null) {
+          currentUserId = user.uid;
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {

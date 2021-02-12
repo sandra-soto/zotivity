@@ -180,7 +180,7 @@ class ProfileCreationState extends State<ProfileCreation> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
                       //Todo: remove my printstatements l8r
                       print("balh");
                       print(getCurrentUser());
@@ -190,7 +190,7 @@ class ProfileCreationState extends State<ProfileCreation> {
                       }
 
                       _formKey.currentState.save();
-                      print(_user);
+
                       
                       //https://stackoverflow.com/questions/59706862/flutter-form-multi-screens
                       Navigator.of(context).push(

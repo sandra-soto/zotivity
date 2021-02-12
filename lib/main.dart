@@ -10,6 +10,7 @@ void main() async{
   initAuthFirebase()
       .then((user) {
     print("Someone's already signed in: $user");
+    //Todo: return the search page instead of the profile creation page if the user is already signed in
   });
 
   runApp(MyApp());
