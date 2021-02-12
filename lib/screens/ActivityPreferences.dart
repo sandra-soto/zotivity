@@ -142,11 +142,11 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
 
     // currentUserId is the google ID
     widget.prevInfo.setId(currentUserId);
-    addUser(widget.prevInfo);
+    //addUser(widget.prevInfo);
     currentUser = widget.prevInfo;
     print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     // after writing in a user, comment the line below and restart to see data persisted
-    await localInfo.writeUser(jsonEncode(currentUser.toMap()));
+    //await localInfo.writeUser(jsonEncode(currentUser.toMap()));
     await localInfo.readUser().then((value) => print(User.fromJson(jsonDecode(value))));
 
 
