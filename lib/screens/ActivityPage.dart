@@ -14,7 +14,7 @@ class _ActivityPageState extends State<ActivityPage> {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text("Activity: " + widget.activity.getName()),
+        title: Text("Activity: " + widget.activity.getTitle()),
         backgroundColor: Colors.blue,
       ),
       body: Container(
@@ -28,7 +28,7 @@ class _ActivityPageState extends State<ActivityPage> {
             Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                widget.activity.getName(),
+                widget.activity.getTitle(),
                 style: TextStyle(fontSize: 30),
                 textAlign: TextAlign.center,
               ),
@@ -55,7 +55,7 @@ class _ActivityPageState extends State<ActivityPage> {
             RaisedButton(
               child: Text("Complete Activity"),
               onPressed: () {
-                print("Activity '" + widget.activity.getName() + "' completed.");
+                print("Activity '" + widget.activity.getTitle() + "' completed.");
               },
             ),
           ],

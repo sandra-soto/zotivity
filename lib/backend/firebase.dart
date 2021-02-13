@@ -33,9 +33,9 @@ addUser(User _user) {
     'firstName': _user.getFirstName(),
     'lastName':  _user.getLastName(),
     'age': _user.getAge(),
-    'exercise': _interests[ActivityCategory.exercise],
-    'cooking': _interests[ActivityCategory.cooking],
-    'baking': _interests[ActivityCategory.baking]
+    'indoor': _interests[ActivityCategory.indoor],
+    'outdoor': _interests[ActivityCategory.outdoor],
+    'gym': _interests[ActivityCategory.gym]
   });
 }
 
