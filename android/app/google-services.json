@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "789299772187",
+    "firebase_url": "https://zotivity-default-rtdb.firebaseio.com",
     "project_id": "zotivity",
     "storage_bucket": "zotivity.appspot.com"
   },

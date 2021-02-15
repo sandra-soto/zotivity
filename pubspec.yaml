@@ -38,6 +38,8 @@ dependencies:
   rxdart: ^0.24.1
   path_provider: ^1.6.11
   http: ^0.12.1
+  googleapis: any
+  googleapis_auth: any
 
 dev_dependencies:
   flutter_test:
