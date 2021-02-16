@@ -4,6 +4,7 @@ import 'package:zotivity/backend/globals.dart';
 import 'package:zotivity/screens/ProfileCreation.dart';
 import '../backend/sign_in.dart';
 
+
 // UI for login screen, alrady connected to backend
 // should be imported
 // call LoginPage() in the MyApp function
@@ -85,7 +86,64 @@ class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(color: Colors.blue[100]),
+      appBar: AppBar(
+        title: const Text('Drawer Demo'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Text(
+                'Drawer Header',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_circle),
+              title: Text('Profile'),
+
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text('Logout'),
+              onTap: () async {
+                signOutGoogle().then((_){
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return LoginPage();
+                      },
+                    ),
+                  );
+
+//                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+//                      LoginPage()), (Route<dynamic> route) => false);
+//                  Navigator.of(context).popUntil(ModalRoute.withName('/root'));
+//                  Navigator.push(
+//                    context,
+//                    MaterialPageRoute(builder: (context) => LoginPage()),
+//                  );
+                }
+                );
+
+                // Update the state of the app.
+
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

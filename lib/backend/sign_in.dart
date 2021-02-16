@@ -2,13 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/calendar/v3.dart';
-
 import 'GoogleHttpClient.dart';
 
 // this file has all the authentication backend stuff,
 // don't need to import anything from here
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseAuth auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn(
   scopes: [
     'https://www.googleapis.com/auth/calendar'
@@ -46,14 +45,14 @@ Future<User> signInWithGoogle() async {
       });
 
 
-  final UserCredential authResult = await _auth.signInWithCredential(credential);
+  final UserCredential authResult = await auth.signInWithCredential(credential);
   final User user = authResult.user;
 
   if (user != null) {
     assert(!user.isAnonymous);
     assert(await user.getIdToken() != null);
 
-    final User currentUser = _auth.currentUser;
+    final User currentUser = auth.currentUser;
     assert(user.uid == currentUser.uid);
 
     print('signInWithGoogle succeeded: $user');
@@ -65,11 +64,12 @@ Future<User> signInWithGoogle() async {
 }
 
 User getCurrentUser(){
-  return _auth.currentUser;
+  return auth.currentUser;
 }
 
 Future<void> signOutGoogle() async {
   await googleSignIn.signOut();
+  await auth.signOut();
 
   print("User Signed Out");
 }
