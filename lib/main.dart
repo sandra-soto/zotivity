@@ -3,8 +3,16 @@ import 'package:flutter/widgets.dart';
 import 'package:zotivity/screens/Login.dart';
 import 'package:zotivity/backend/sign_in.dart';
 
+import 'package:zotivity/screens/ActivityPage.dart';
+import 'package:zotivity/models/Activity.dart';
+import 'package:zotivity/models/activityCategory.dart';
+import 'package:zotivity/models/BodyFocus.dart';
+import 'package:zotivity/models/Equipment.dart';
+import 'package:zotivity/screens/CategoryPage.dart';
+import 'package:zotivity/screens/SearchPage.dart';
+import 'package:zotivity/screens/HomePage.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //Todo: add persistence to user so they aren't shown the login screen if they are actually already signed in
   initAuthFirebase()
@@ -16,10 +24,19 @@ void main() async{
   runApp(MyApp());
 }
 
-
-
 class MyApp extends StatelessWidget {
   @override
+  // Activity a = Activity(
+  //     "Deadlift",
+  //     ActivityCategory.gym,
+  //     30,
+  //     2,
+  //     BodyFocus.legs,
+  //     "Deadlift Description",
+  //     [Equipment.gym],
+  //     "https://www.hussle.com/blog/wp-content/uploads/2020/05/Deadlift-body-change-1080x675.png",
+  //     "resourceLink");
+
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Zotivity',
@@ -27,6 +44,10 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
       ),
       home: LoginPage(),
+      // home: ActivityPage(activity: a),
+      // home: CategoryPage(categoryName: ActivityCategory.gym, activityList: [a, a, a, a]),
+      // home: SearchPage(),
+      // home: HomePage(),
     );
   }
 }

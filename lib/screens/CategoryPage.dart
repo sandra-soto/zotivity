@@ -4,8 +4,8 @@ import 'package:zotivity/models/activityCategory.dart';
 
 class CategoryPage extends StatefulWidget {
   final ActivityCategory categoryName;
-  final categoryList;
-  CategoryPage({this.categoryName, this.categoryList});
+  final activityList;
+  CategoryPage({this.categoryName, this.activityList});
   _CategoryPageState createState() => _CategoryPageState();
 }
 
@@ -21,7 +21,7 @@ class _CategoryPageState extends State<CategoryPage> {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(8.0),
-        itemCount: widget.categoryList.length,
+        itemCount: widget.activityList.length,
         itemBuilder: (BuildContext context, int index) {
           return Container(
             child: Column(
@@ -30,7 +30,7 @@ class _CategoryPageState extends State<CategoryPage> {
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Image(
                     image:
-                        NetworkImage(widget.categoryList[index].getImgLink()),
+                        NetworkImage(widget.activityList[index].getImgLink()),
                     width: screenSize.width,
                     height: 200,
                   ),
@@ -45,11 +45,11 @@ class _CategoryPageState extends State<CategoryPage> {
                         child: Column(
                           children: [
                             Text(
-                              widget.categoryList[index].getName(),
+                              widget.activityList[index].getTitle(),
                               style: TextStyle(fontSize: 28),
                               textAlign: TextAlign.left,
                             ),
-                            Text(widget.categoryList[index]
+                            Text(widget.activityList[index]
                                     .getTime()
                                     .toString() +
                                 " minutes"),
@@ -65,7 +65,7 @@ class _CategoryPageState extends State<CategoryPage> {
                                 context,
                                 new MaterialPageRoute(
                                     builder: (__) => new ActivityPage(
-                                        activity: widget.categoryList[index])));
+                                        activity: widget.activityList[index])));
                           },
                         ),
                       ),

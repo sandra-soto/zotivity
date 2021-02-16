@@ -69,6 +69,7 @@ class Activity {
     Focus: $focus
     Description: $description
     Resources: $resources
+    Equipment: $equipment
     ''';
   }
 }

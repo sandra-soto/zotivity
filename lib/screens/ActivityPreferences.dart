@@ -28,7 +28,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              setInterest(ActivityCategory.exercise, value);
+              setInterest(ActivityCategory.indoor, value); // temp
             },
           )
         ],
@@ -51,7 +51,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              setInterest(ActivityCategory.cooking, value);
+              setInterest(ActivityCategory.outdoor, value); // temp
             },
           )
         ],
@@ -74,7 +74,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              setInterest(ActivityCategory.baking, value);
+              setInterest(ActivityCategory.gym, value); // temp
             },
           )
         ],
@@ -155,7 +155,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
 }
 
 class ActivityPreferences extends StatefulWidget {
-  final User prevInfo; 
+  final User prevInfo;
 
   ActivityPreferences(this.prevInfo);
 

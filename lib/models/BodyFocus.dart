@@ -6,6 +6,7 @@ enum BodyFocus {
   shoulders,
   back,
   legs,
+  none,
 }
 
 extension BodyFocusString on BodyFocus {

@@ -42,7 +42,7 @@ class _ActivityPageState extends State<ActivityPage> {
             Container(
               child: SingleChildScrollView(
                 child: Text(
-                  widget.activity.getDescription(),
+                  widget.activity.toString(),
                   textAlign: TextAlign.center,
                 ),
               ),

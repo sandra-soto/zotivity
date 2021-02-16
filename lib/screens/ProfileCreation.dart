@@ -191,7 +191,7 @@ class ProfileCreationState extends State<ProfileCreation> {
 
                       _formKey.currentState.save();
 
-                      
+
                       //https://stackoverflow.com/questions/59706862/flutter-form-multi-screens
                       Navigator.of(context).push(
                         MaterialPageRoute(
