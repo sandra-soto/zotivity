@@ -18,7 +18,9 @@ class User {
 
   User() {
     id = firstName = lastName = email =  '';
-    age = experience = intensity = routineLen -1;
+    age = experience = -1; 
+    intensity = 3;
+    routineLen = 30;
     interests = Map();
     focus = Map();
     availWindow = Map();
@@ -142,6 +144,9 @@ class User {
       First name: $firstName
       Last name: $lastName
       age: $age
+      intensity: $intensity
+      experience: $experience
+      routineLen: $routineLen
       interests: $interestsStr}'
     ''';
   }

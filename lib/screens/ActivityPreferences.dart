@@ -146,7 +146,9 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              widget.prevInfo.addEquipment(Equipment.bike);
+              if (value) {
+                widget.prevInfo.addEquipment(Equipment.bike);
+              }
             },
           ),
           CheckboxFormField(
@@ -158,7 +160,9 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              widget.prevInfo.addEquipment(Equipment.dumbbells);
+              if (value) {
+                widget.prevInfo.addEquipment(Equipment.dumbbells);
+              }
             },
           ),
           CheckboxFormField(
@@ -170,7 +174,9 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              widget.prevInfo.addEquipment(Equipment.resistance_bands);
+              if (value) {
+                widget.prevInfo.addEquipment(Equipment.resistance_bands);
+              }
             },
           ),
           CheckboxFormField(
@@ -182,7 +188,9 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              widget.prevInfo.addEquipment(Equipment.pull_up_bar);
+              if (value) {
+                widget.prevInfo.addEquipment(Equipment.pull_up_bar);
+              }
             },
           ),
           CheckboxFormField(
@@ -194,7 +202,9 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              widget.prevInfo.addEquipment(Equipment.yoga_mat);
+              if (value) {
+                widget.prevInfo.addEquipment(Equipment.yoga_mat);
+              }
             },
           ),
         ],
@@ -296,26 +306,35 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
           RadioListTile<int>(
             title: const Text("Beginner"),
             value: 0,
-            groupValue: -1,
+            groupValue: widget.prevInfo.getExperience(),
             onChanged: (int value) {
-              widget.prevInfo.setExperience(value);
-            }
+              setState(() {
+                widget.prevInfo.setExperience(value);
+              });
+            },
+            selected: widget.prevInfo.getExperience() == 0
           ),
           RadioListTile<int>(
             title: const Text("Intermediate"),
             value: 1,
-            groupValue: -1,
+            groupValue: widget.prevInfo.getExperience(),
             onChanged: (int value) {
-              widget.prevInfo.setExperience(value);
-            }
+              setState(() {
+                widget.prevInfo.setExperience(value);
+              });
+            },
+            selected: widget.prevInfo.getExperience() == 1
           ),
           RadioListTile<int>(
             title: const Text("Expert"),
             value: 2,
-            groupValue: -1,
+            groupValue: widget.prevInfo.getExperience(),
             onChanged: (int value) {
-              widget.prevInfo.setExperience(value);
-            }
+              setState(() {
+                widget.prevInfo.setExperience(value);
+              });
+            },
+            selected: widget.prevInfo.getExperience() == 2
           ),
         ],
       )
@@ -335,13 +354,20 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               fontSize: 18,
             ),
           ),
-          NumberPicker.integer(   //https://pub.dev/packages/numberpicker
-            initialValue: 3, 
-            minValue: 1, 
-            maxValue: 7, 
-            onChanged: (num value) {
-              widget.prevInfo.setIntensity(value);
-            }
+          Align(
+            alignment: Alignment.center,
+            child: NumberPicker.integer(   //https://pub.dev/packages/numberpicker
+              initialValue: widget.prevInfo.getIntensity(), 
+              minValue: 1, 
+              maxValue: 7, 
+              onChanged: (num value) {
+                setState(() {
+                  print("changed to ");
+                  print(value);
+                  widget.prevInfo.setIntensity(value);
+                });
+              }
+            ),
           )
         ],
       )
@@ -361,13 +387,20 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               fontSize: 18,
             ),
           ),
-          NumberPicker.integer(   //https://pub.dev/packages/numberpicker
-            initialValue: 30, 
-            minValue: 5, 
-            maxValue: 120, 
-            onChanged: (num value) {
-              widget.prevInfo.setRoutineLen(value);
-            }
+          Align(
+            alignment: Alignment.center,
+            child: NumberPicker.integer(   //https://pub.dev/packages/numberpicker
+              initialValue: widget.prevInfo.getRoutineLen(), 
+              minValue: 5, 
+              maxValue: 120, 
+              onChanged: (num value) {
+                setState(() {
+                  print("changed to ");
+                  print(value);
+                  widget.prevInfo.setRoutineLen(value);
+                });
+              }
+            )
           )
         ],
       )
@@ -406,14 +439,14 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
                       _formKey.currentState.save();
                       submitDB();
                       // going to category page
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return SearchPage();
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //     builder: (context) {
+                      //       return SearchPage();
 
-                          },
-                        ),
-                      );
+                      //     },
+                      //   ),
+                      // );
                     },
                     child: Text('Submit'),
                   ),
@@ -429,16 +462,22 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
 
   void submitDB() async{
 
-    //print(widget.prevInfo);
-    //print(widget.prevInfo.interests);
+    print(widget.prevInfo);
+    print(widget.prevInfo.focus);
+    print(widget.prevInfo.availWindow);
+    print(widget.prevInfo.access);
 
     // currentUserId is the google ID
     widget.prevInfo.setId(currentUserId);
-    //addUser(widget.prevInfo);
+    // addUser(widget.prevInfo);
     currentUser = widget.prevInfo;
+    print(currentUser);
+    print(currentUser.focus);
+    print(currentUser.availWindow);
+    print(currentUser.access);
     print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     // after writing in a user, comment the line below and restart to see data persisted
-    //await localInfo.writeUser(jsonEncode(currentUser.toMap()));
+    // await localInfo.writeUser(jsonEncode(currentUser.toMap()));
     await localInfo.readUser().then((value) => print(User.fromJson(jsonDecode(value))));
 
 
