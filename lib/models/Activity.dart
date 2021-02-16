@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-class Activity {
-  String name, imgLink, category, description;
-  int time;
-
-  Activity(name, imgLink, category, time, description){
-    this.name = name;
-    this.imgLink = imgLink;
-    this.category = category;
-    this.time = time;
-    this.description = description;
-  }
-
-  String getName(){
-    return name;
-=======
 import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/models/BodyFocus.dart';
 import 'package:zotivity/models/Equipment.dart';
@@ -40,18 +24,13 @@ class Activity {
 
   String getTitle(){
     return title;
->>>>>>> ad831fdc1cf08b9d07a0874311b1b1400b8cb742
   }
 
   String getImgLink(){
     return imgLink;
   }
 
-<<<<<<< HEAD
-  String getCategory(){
-=======
   ActivityCategory getCategory() {
->>>>>>> ad831fdc1cf08b9d07a0874311b1b1400b8cb742
     return category;
   }
 
@@ -59,8 +38,6 @@ class Activity {
     return time;
   }
 
-<<<<<<< HEAD
-=======
   int getIntensity() {
     return intensity;
   }
@@ -69,21 +46,10 @@ class Activity {
     return focus;
   }
 
->>>>>>> ad831fdc1cf08b9d07a0874311b1b1400b8cb742
   String getDescription(){
     return description;
   }
 
-<<<<<<< HEAD
-  @override
-  String toString(){
-    return '''
-    Name: $name
-    Image Link: $imgLink
-    Category: $category
-    Time: $time
-    Description: $description
-=======
   List<Equipment> getEquipment() {
     return equipment;
   }
@@ -103,7 +69,6 @@ class Activity {
     Focus: $focus
     Description: $description
     Resources: $resources
->>>>>>> ad831fdc1cf08b9d07a0874311b1b1400b8cb742
     ''';
   }
 }
