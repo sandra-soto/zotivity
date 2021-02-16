@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "789299772187",
+    "project_id": "zotivity",
+    "storage_bucket": "zotivity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789299772187:android:bc1eb86efea893f713b1be",
+        "android_client_info": {
+          "package_name": "com.example.zotivity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789299772187-r0i3giopccmgbbns3nf2v6bk7h5e6371.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zotivity",
+            "certificate_hash": "3c7bb913d77de8427673c5f93f9aa23254ac9145"
+          }
+        },
+        {
+          "client_id": "789299772187-ic06pc7pdoqqjqa6qgbmbs9bg0jr4jkv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKBUg0rc_dq0lFHXdh0fF3aN6ESgNl-os"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789299772187-ic06pc7pdoqqjqa6qgbmbs9bg0jr4jkv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

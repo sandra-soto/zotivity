@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 // import 'package:english_words/english_words.dart';
 import 'package:flutter/widgets.dart';
 // import 'dart:async';
@@ -32,8 +33,24 @@ void main() async{
   // dogs = await db.dogs();
   // dogs.forEach((element) => print(element));
   /* DB STUFF END*/
+=======
+import 'package:flutter/widgets.dart';
+import 'package:zotivity/screens/Login.dart';
+import 'package:zotivity/backend/sign_in.dart';
 
 
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  //Todo: add persistence to user so they aren't shown the login screen if they are actually already signed in
+  initAuthFirebase()
+      .then((user) {
+    print("Someone's already signed in: $user");
+    //Todo: return the search page instead of the profile creation page if the user is already signed in
+  });
+>>>>>>> ad831fdc1cf08b9d07a0874311b1b1400b8cb742
+
+
+<<<<<<< HEAD
   runApp(MaterialApp(
     initialRoute: '/',
     routes: {
@@ -151,3 +168,17 @@ void main() async{
 //   @override
 //   RandomWordsState createState() => new RandomWordsState();
 // }
+=======
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Zotivity',
+      theme: ThemeData(
+        primaryColor: Colors.black,
+      ),
+      home: LoginPage(),
+    );
+  }
+}
+>>>>>>> ad831fdc1cf08b9d07a0874311b1b1400b8cb742
