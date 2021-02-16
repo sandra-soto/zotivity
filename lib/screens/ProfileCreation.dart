@@ -5,7 +5,7 @@ import 'ActivityPreferences.dart';
 
 class ProfileCreationState extends State<ProfileCreation> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  User _user = User();
+  User _user = new User();
 
   Widget _buildFirstName() {
     return Container(

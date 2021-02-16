@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/screens/CategoryPage.dart';
+import 'package:zotivity/models/BodyFocus.dart';
+import 'package:zotivity/models/Equipment.dart';
 import '../models/Activity.dart';
 import './ActivityPage.dart';
 
@@ -9,7 +11,7 @@ class HomePage extends StatelessWidget {
       "Take a Walk",
       "https://www.readytowakeup.biz/wp-content/uploads/2017/03/161018141431-silicon-valley-walk-stock-780x439.jpg",
       "exercise",
-      30, '''Description for Taking A Walk
+      30, 1, BodyFocus.legs, '''Description for Taking A Walk
       Simulating a very long description
       This should be scrollable
       ...
@@ -25,12 +27,12 @@ class HomePage extends StatelessWidget {
       ...
       ...
       End of description
-      ''');
+      ''', Equipment.bike);
   Activity b = Activity(
       "Bake Cookies",
       "https://images-gmi-pmc.edge-generalmills.com/e7b11c3e-d094-48ac-af35-67ccc8299b56.jpg",
       "baking",
-      60, '''Description for Baking Cookies
+      60, 2, BodyFocus.arms, '''Description for Baking Cookies
     Simulating a very long description
       This should be scrollable
       ...
@@ -46,12 +48,12 @@ class HomePage extends StatelessWidget {
       ...
       ...
       End of description
-      ''');
+      ''', Equipment.dumbbells);
   Activity c = Activity(
       "Do Yoga",
       "https://miro.medium.com/max/11630/0*C5Y8W-6e9OVIB3AM",
       "exercise",
-      45, '''Description for doing Yoga
+      45, 1, BodyFocus.shoulders, '''Description for doing Yoga
     Simulating a very long description
       This should be scrollable
       ...
@@ -67,7 +69,7 @@ class HomePage extends StatelessWidget {
       ...
       ...
       End of description
-      ''');
+      ''', Equipment.yoga_mat);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +95,7 @@ class HomePage extends StatelessWidget {
                   new MaterialPageRoute(
                       builder: (__) => new CategoryPage(
                         // Todo: change this later
-                          categoryName: ActivityCategory.exercise,
+                          categoryName: ActivityCategory.indoor,
                           categoryList: [a, b, c])));
             },
           ),
