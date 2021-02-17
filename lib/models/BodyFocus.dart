@@ -9,7 +9,7 @@ enum BodyFocus {
 }
 
 extension BodyFocusString on BodyFocus {
-  String get str => describeEnum(this);
+  String get str => this.toString().split('.').last;
 }
 
 List<BodyFocus> getAllCategories() {

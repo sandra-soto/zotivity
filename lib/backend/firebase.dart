@@ -1,5 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
-import '../models/user.dart';
+import '../models/ZotUser.dart';
 import 'package:zotivity/models/activityCategory.dart';
 
 // showing uses of the firebase DB
@@ -25,7 +25,7 @@ addSomeData(){
   });
 }
 
-addUser(User _user) {
+addUser(ZotUser _user) {
   Map<ActivityCategory, bool> _interests = _user.getInterests();
 
   databaseReference.child(_user.id).set({

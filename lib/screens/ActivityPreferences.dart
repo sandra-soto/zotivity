@@ -7,7 +7,7 @@ import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/models/BodyFocus.dart';
 import 'package:zotivity/models/Equipment.dart';
 import 'package:zotivity/models/checkboxFormField.dart';
-import '../models/user.dart';
+import '../models/ZotUser.dart';
 import '../backend/database.dart';
 import 'SearchPage.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -15,6 +15,54 @@ import 'package:numberpicker/numberpicker.dart';
 
 class ActivityPreferencesState extends State<ActivityPreferences> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  List<Widget> listEquipment() {
+    List<Widget> list = List<Widget>.empty(growable: true);
+
+    for (var e in Equipment.values) {
+      list.add(
+        CheckboxFormField(
+          title: Text(
+            e.formatString(),
+            style: TextStyle(
+              // fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          onSaved: (bool value) {
+            if (value) {
+              widget.prevInfo.addEquipment(e);
+            }
+          },
+        )
+      );
+    }
+
+    return list;
+  }
+
+  List<Widget> listBodyParts() {
+    List<Widget> list = List<Widget>.empty(growable: true);
+
+    for (var b in BodyFocus.values) {
+      list.add(
+        CheckboxFormField(
+          title: Text(
+            b.str,
+            style: TextStyle(
+              // fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
+          ),
+          onSaved: (bool value) {
+            widget.prevInfo.setFocus(b, value);
+          },
+        )
+      );
+    }
+
+    return list;
+  }
 
   Widget _buildExerciseWindow() {
     return Container(
@@ -31,38 +79,38 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
           ),
           CheckboxFormField(
             title: Text(
-              User.TIME_MORN,
+              ZotUser.TIME_MORN,
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
             ),
             onSaved: (bool value) {
-              widget.prevInfo.setWindow(User.TIME_MORN, value);
+              widget.prevInfo.setWindow(ZotUser.TIME_MORN, value);
             },
           ),
           CheckboxFormField(
             title: Text(
-              User.TIME_NOON,
+              ZotUser.TIME_NOON,
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
             ),
             onSaved: (bool value) {
-              widget.prevInfo.setWindow(User.TIME_NOON, value);
+              widget.prevInfo.setWindow(ZotUser.TIME_NOON, value);
             },
           ),
           CheckboxFormField(
             title: Text(
-              User.TIME_NIGHT,
+              ZotUser.TIME_NIGHT,
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
             ),
             onSaved: (bool value) {
-              widget.prevInfo.setWindow(User.TIME_NIGHT, value);
+              widget.prevInfo.setWindow(ZotUser.TIME_NIGHT, value);
             },
           )
         ],
@@ -87,7 +135,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             title: Text(
               "At the gym",
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
             ),
@@ -99,7 +147,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             title: Text(
               "Indoors, within my home",
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
             ),
@@ -111,7 +159,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             title: Text(
               "Outdoors, around my neighborhood",
               style: TextStyle(
-                fontWeight: FontWeight.bold,
+                // fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
             ),
@@ -137,76 +185,9 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               fontSize: 18,
             ),
           ),
-          CheckboxFormField(
-            title: Text(
-              Equipment.bike.toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            onSaved: (bool value) {
-              if (value) {
-                widget.prevInfo.addEquipment(Equipment.bike);
-              }
-            },
-          ),
-          CheckboxFormField(
-            title: Text(
-              Equipment.dumbbells.toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            onSaved: (bool value) {
-              if (value) {
-                widget.prevInfo.addEquipment(Equipment.dumbbells);
-              }
-            },
-          ),
-          CheckboxFormField(
-            title: Text(
-              Equipment.resistance_bands.toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            onSaved: (bool value) {
-              if (value) {
-                widget.prevInfo.addEquipment(Equipment.resistance_bands);
-              }
-            },
-          ),
-          CheckboxFormField(
-            title: Text(
-              Equipment.pull_up_bar.toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            onSaved: (bool value) {
-              if (value) {
-                widget.prevInfo.addEquipment(Equipment.pull_up_bar);
-              }
-            },
-          ),
-          CheckboxFormField(
-            title: Text(
-              Equipment.yoga_mat.toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            onSaved: (bool value) {
-              if (value) {
-                widget.prevInfo.addEquipment(Equipment.yoga_mat);
-              }
-            },
-          ),
+          Column (
+            children: listEquipment(),
+          )
         ],
       )
     );
@@ -225,66 +206,9 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               fontSize: 18,
             ),
           ),
-          CheckboxFormField(
-            title: Text(
-              BodyFocus.arms.toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            onSaved: (bool value) {
-              widget.prevInfo.setFocus(BodyFocus.arms, value);
-            },
-          ),
-          CheckboxFormField(
-            title: Text(
-              BodyFocus.chest.toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            onSaved: (bool value) {
-              widget.prevInfo.setFocus(BodyFocus.chest, value);
-            },
-          ),
-          CheckboxFormField(
-            title: Text(
-              BodyFocus.shoulders.toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            onSaved: (bool value) {
-              widget.prevInfo.setFocus(BodyFocus.shoulders, value);
-            },
-          ),
-          CheckboxFormField(
-            title: Text(
-              BodyFocus.back.toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            onSaved: (bool value) {
-              widget.prevInfo.setFocus(BodyFocus.back, value);
-            },
-          ),
-          CheckboxFormField(
-            title: Text(
-              BodyFocus.legs.toString(),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            onSaved: (bool value) {
-              widget.prevInfo.setFocus(BodyFocus.legs, value);
-            },
-          ),
+          Column (
+            children: listBodyParts()
+          )
         ],
       )
     );
@@ -304,7 +228,13 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             ),
           ),
           RadioListTile<int>(
-            title: const Text("Beginner"),
+            title: const Text(
+              "Beginner",
+              style: TextStyle(
+                // fontWeight: FontWeight.bold,
+                fontSize: 18,
+              )
+            ),
             value: 0,
             groupValue: widget.prevInfo.getExperience(),
             onChanged: (int value) {
@@ -315,7 +245,13 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             selected: widget.prevInfo.getExperience() == 0
           ),
           RadioListTile<int>(
-            title: const Text("Intermediate"),
+            title: const Text(
+              "Intermediate",
+              style: TextStyle(
+                // fontWeight: FontWeight.bold,
+                fontSize: 18,
+              )
+            ),
             value: 1,
             groupValue: widget.prevInfo.getExperience(),
             onChanged: (int value) {
@@ -326,7 +262,13 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             selected: widget.prevInfo.getExperience() == 1
           ),
           RadioListTile<int>(
-            title: const Text("Expert"),
+            title: const Text(
+              "Expert",
+              style: TextStyle(
+                // fontWeight: FontWeight.bold,
+                fontSize: 18,
+              )
+            ),
             value: 2,
             groupValue: widget.prevInfo.getExperience(),
             onChanged: (int value) {
@@ -362,8 +304,8 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               maxValue: 7, 
               onChanged: (num value) {
                 setState(() {
-                  print("changed to ");
-                  print(value);
+                  // print("changed to ");
+                  // print(value);
                   widget.prevInfo.setIntensity(value);
                 });
               }
@@ -395,8 +337,8 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               maxValue: 120, 
               onChanged: (num value) {
                 setState(() {
-                  print("changed to ");
-                  print(value);
+                  // print("changed to ");
+                  // print(value);
                   widget.prevInfo.setRoutineLen(value);
                 });
               }
@@ -478,7 +420,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
     print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     // after writing in a user, comment the line below and restart to see data persisted
     // await localInfo.writeUser(jsonEncode(currentUser.toMap()));
-    await localInfo.readUser().then((value) => print(User.fromJson(jsonDecode(value))));
+    // await localInfo.readUser().then((value) => print(ZotUser.fromJson(jsonDecode(value))));
 
 
     //printAllActivities();
@@ -486,7 +428,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
 }
 
 class ActivityPreferences extends StatefulWidget {
-  final User prevInfo; 
+  final ZotUser prevInfo; 
 
   ActivityPreferences(this.prevInfo);
 

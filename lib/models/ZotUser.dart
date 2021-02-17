@@ -4,7 +4,7 @@ import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/models/BodyFocus.dart';
 import 'package:zotivity/models/Equipment.dart';
 
-class User {
+class ZotUser {
   static const String TIME_MORN = "morning";
   static const String TIME_NOON = "noon";
   static const String TIME_NIGHT = "night";
@@ -16,7 +16,7 @@ class User {
   Map<String, bool> availWindow;
   List<Equipment> access; // idk if list or map is best here
 
-  User() {
+  ZotUser() {
     id = firstName = lastName = email =  '';
     age = experience = -1; 
     intensity = 3;
@@ -167,7 +167,7 @@ class User {
 
   }
 
-  User.fromJson(Map<String, dynamic> json)
+  ZotUser.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         firstName = json['firstName'],
         lastName = json['lastName'],

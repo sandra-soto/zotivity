@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 
 enum Equipment {
-  none, 
   gym,
   bike,
   dumbbells,
@@ -11,7 +10,10 @@ enum Equipment {
 }
 
 extension EquipmentString on Equipment {
-  String get str => describeEnum(this);
+  String formatString() {
+    String temp = this.toString().split('.').last;
+    return temp.replaceAll(new RegExp(r'_'), ' ');
+  }
 }
 
 List<Equipment> getAllCategories() {

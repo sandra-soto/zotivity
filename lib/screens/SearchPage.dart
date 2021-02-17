@@ -210,7 +210,7 @@ class _SearchPageState extends State<SearchPage> {
       ...
       ...
       End of description
-      ''', Equipment.none,
+      ''', Equipment.yoga_mat,
       "https://img.grouponcdn.com/deal/fsBGAB33wyPkpHBk5e76/gD-2048x1229/v1/t440x300.jpg");
   @override
   Widget build(BuildContext context) {
