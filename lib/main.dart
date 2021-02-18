@@ -1,126 +1,91 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
-
-
+import 'package:geolocator/geolocator.dart';
+import 'package:weather/weather.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: App(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatefulWidget {
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+
+  double lat;
+  double lon;
+
+  Future<Position> getPosition() async {
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return position;
+  }
+
+  getCurrentLat() async {
+
+    final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return position.latitude;
+
+  }
+
+  getCurrentLon() async {
+
+    final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return position.longitude;
+
+  }
+
+
+  Future<String> getData(double latitude, double longitude) async {
+    WeatherFactory wf = WeatherFactory('3d45c6ea75793ed583d1664d77b8bb50');
+    Weather w = await wf.currentWeatherByLocation(latitude, longitude);
+    print(w);
+    //return parsed['list'][0]['weather'][0]['description'];
+  }
+
+  void initState() {
+    super.initState();
+    getPosition().then((position) {
+      setState(() {
+        lon = position.longitude;
+        lat = position.latitude;
+      });
+    });
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Zotivity',
-      theme: ThemeData(
-
-        primarySwatch: Colors.green,
-
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Activity Feedback'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-// support function here
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        centerTitle: true,
-        backgroundColor: Colors.lightGreen,
-
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.arrow_forward_ios,
-              color: Colors.white,
+        title: 'Flutter Demo',
+        home: Scaffold(
+            appBar: AppBar(
+                title: Text("Privacy Confirmation")
             ),
-            onPressed: () {
-              // navigate to home page WRITE HERE
-              Navigator.push(context,MaterialPageRoute(builder: (context) => CalenderPage()));
-            },
-          )
-        ],
-      ),
-      body: Center(
+            body: Align(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
 
-        child: Column(
+                    Icon(
+                        Icons.location_on, size:100, color:Colors.grey,
+                    ),
+                    //Text('$_weather'),
+                    FlatButton(
+                        onPressed: () {
+                          getData(lat,lon);
+                        },
+                        color: Colors.blue,
+                        child: Text("Get Current Location", style:TextStyle(color:Colors.white,fontSize: 20)),
+                    )
 
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            RawMaterialButton(onPressed: () {}, //keep recommendation
-              elevation: 2.0,
-              fillColor: Colors.lightGreen,
-              child: Icon(
-                Icons.thumb_up,
-                color: Colors.white,
-                size: 30.0,
-              ),
-              padding: EdgeInsets.all(50.0),
-              shape: CircleBorder(),),
-
-            RawMaterialButton(onPressed: () {}, //not recommend this activity again
-              elevation: 2.0,
-              fillColor: Colors.redAccent,
-              child: Icon(
-                Icons.thumb_down,
-                color: Colors.white,
-                size: 30.0,
-              ),
-              padding: EdgeInsets.all(50.0),
-              shape: CircleBorder(),),
-          ],
-        ),
-      ),
-      // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
-class CalenderPage extends StatefulWidget {
-  @override
-  _CalenderPageState createState() => _CalenderPageState();
-}
-
-class _CalenderPageState extends State<CalenderPage> {
-  CalendarController _controller;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _controller = CalendarController();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Calendar'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TableCalendar(
-              calendarController: _controller,
+                  ]),
             )
-          ],
-        ),
-      ),
+        )
     );
   }
 }
