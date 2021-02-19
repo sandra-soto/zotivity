@@ -84,53 +84,18 @@ class ZotUser {
     return access.remove(equipment);
   }
 
-  String getId() {
-    return id;
-  }
-
-  String getFirstName() {
-    return firstName;
-  }
-
-  String getLastName() {
-    return lastName;
-  }
-
-  String getEmail() {
-    return email;
-  }
-
-  int getAge() {
-    return age;
-  }
-
-  int getExperience() {
-    return experience;
-  }
-
-  int getIntensity() {
-    return intensity;
-  }
-
-  int getRoutineLen() {
-    return routineLen;
-  }
-
-  Map<ActivityCategory, bool> getInterests() {
-    return interests;
-  }
-
-  Map<BodyFocus, bool> getFocus() {
-    return focus;
-  }
-
-  Map<String, bool> getAvailWindow() {
-    return availWindow;
-  }
-
-  List<Equipment> getAccess() {
-    return access;
-  }
+  String getId() => this.id;
+  String getFirstName() => this.firstName;
+  String getLastName() => this.lastName;
+  String getEmail() => this.email;
+  int getAge() => this.age;
+  int getExperience() => this.experience;
+  int getIntensity() => this.intensity;
+  int getRoutineLen() => this.routineLen;
+  Map<ActivityCategory, bool> getInterests() => this.interests;
+  Map<BodyFocus, bool> getFocus() => this.focus;
+  Map<String, bool> getAvailWindow() => this.availWindow;
+  List<Equipment> getAccess() => this.access;
 
   @override
   String toString() {
@@ -155,16 +120,32 @@ class ZotUser {
   // columns in the database.
   Map<String, dynamic> toMap() {
     return {
-    // Todo: add other values like preferences to db representation
       'id': id,
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
       'age': age,
-      'interests': {'indoor': interests[ActivityCategory.indoor],'outdoor': interests[ActivityCategory.outdoor], 'gym': interests[ActivityCategory.gym]}
-
+      'experience': experience,
+      'intensity': intensity,
+      'routineLen': routineLen,
+      'interests': {
+        'indoor': interests[ActivityCategory.indoor],
+        'outdoor': interests[ActivityCategory.outdoor], 
+        'gym': interests[ActivityCategory.gym]},
+      'focus': {
+        'arms' : focus[BodyFocus.arms],
+        'chest': focus[BodyFocus.chest],
+        'shoulders': focus[BodyFocus.shoulders],
+        'back': focus[BodyFocus.back],
+        'legs': focus[BodyFocus.legs],
+      },
+      'availWindow': {
+        TIME_MORN: availWindow[TIME_MORN],
+        TIME_NOON: availWindow[TIME_NOON],
+        TIME_NIGHT: availWindow[TIME_NIGHT],
+      },
+      'access': access.join(',')
     };
-
   }
 
   ZotUser.fromJson(Map<String, dynamic> json)

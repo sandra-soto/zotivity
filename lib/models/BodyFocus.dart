@@ -12,6 +12,12 @@ extension BodyFocusString on BodyFocus {
   String get str => this.toString().split('.').last;
 }
 
-List<BodyFocus> getAllCategories() {
-  return BodyFocus.values;
+BodyFocus focusToEnum(String s) {
+  for (var b in BodyFocus.values) {
+    if (b.str == s) {
+      return b;
+    }
+  }
+
+  return null;
 }

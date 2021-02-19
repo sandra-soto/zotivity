@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:zotivity/backend/firebase.dart';
 import 'package:zotivity/backend/globals.dart';
@@ -8,7 +7,6 @@ import 'package:zotivity/models/BodyFocus.dart';
 import 'package:zotivity/models/Equipment.dart';
 import 'package:zotivity/models/checkboxFormField.dart';
 import '../models/ZotUser.dart';
-import '../backend/database.dart';
 import 'SearchPage.dart';
 import 'package:numberpicker/numberpicker.dart';
 

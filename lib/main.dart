@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:zotivity/screens/Login.dart';
 import 'package:zotivity/backend/sign_in.dart';
+import 'package:zotivity/backend/firebase.dart';
 
 
 void main() async{
@@ -13,6 +14,8 @@ void main() async{
     //Todo: return the search page instead of the profile creation page if the user is already signed in
   });
 
+  // insertExcel();
+  printAllActivities();
   runApp(MyApp());
 }
 
