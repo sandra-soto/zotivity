@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 
 enum BodyFocus {
-  arms,
-  chest,
-  shoulders,
-  back,
-  legs,
-  none,
+  bodyfocus_arms,
+  bodyfocus_chest,
+  bodyfocus_shoulders,
+  bodyfocus_back,
+  bodyfocus_legs,
+  bodyfocus_none,
 }
 
 extension BodyFocusString on BodyFocus {

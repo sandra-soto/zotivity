@@ -156,7 +156,7 @@ class User {
       'lastName': lastName,
       'email': email,
       'age': age,
-      'interests': {'indoor': interests[ActivityCategory.indoor],'outdoor': interests[ActivityCategory.outdoor], 'gym': interests[ActivityCategory.gym]}
+      'interests': {'indoor': interests[ActivityCategory.category_indoor],'outdoor': interests[ActivityCategory.category_outdoor], 'gym': interests[ActivityCategory.category_gym]}
 
     };
 
@@ -168,8 +168,8 @@ class User {
         lastName = json['lastName'],
         email = json['email'],
         age = json['age'],
-        interests = {ActivityCategory.indoor: json['interests']['indoor'],
-                    ActivityCategory.outdoor : json['interests']['outdoor'],
-                    ActivityCategory.gym: json['interests']['gym']};
+        interests = {ActivityCategory.category_indoor: json['interests']['indoor'],
+                    ActivityCategory.category_outdoor : json['interests']['outdoor'],
+                    ActivityCategory.category_gym: json['interests']['gym']};
 
 }

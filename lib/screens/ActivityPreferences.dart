@@ -28,7 +28,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              setInterest(ActivityCategory.indoor, value); // temp
+              setInterest(ActivityCategory.category_indoor, value); // temp
             },
           )
         ],
@@ -51,7 +51,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              setInterest(ActivityCategory.outdoor, value); // temp
+              setInterest(ActivityCategory.category_outdoor, value); // temp
             },
           )
         ],
@@ -74,7 +74,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               ),
             ),
             onSaved: (bool value) {
-              setInterest(ActivityCategory.gym, value); // temp
+              setInterest(ActivityCategory.category_gym, value); // temp
             },
           )
         ],

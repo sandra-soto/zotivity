@@ -15,27 +15,27 @@ import 'package:zotivity/screens/HomePage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //Todo: add persistence to user so they aren't shown the login screen if they are actually already signed in
-  initAuthFirebase()
-      .then((user) {
-    print("Someone's already signed in: $user");
-    //Todo: return the search page instead of the profile creation page if the user is already signed in
-  });
+  // initAuthFirebase()
+  //     .then((user) {
+  //   print("Someone's already signed in: $user");
+  //   //Todo: return the search page instead of the profile creation page if the user is already signed in
+  // });
 
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
-  // Activity a = Activity(
-  //     "Deadlift",
-  //     ActivityCategory.gym,
-  //     30,
-  //     2,
-  //     BodyFocus.legs,
-  //     "Deadlift Description",
-  //     [Equipment.gym],
-  //     "https://www.hussle.com/blog/wp-content/uploads/2020/05/Deadlift-body-change-1080x675.png",
-  //     "resourceLink");
+  Activity a = Activity(
+      "Deadlift",
+      ActivityCategory.category_gym,
+      30,
+      2,
+      BodyFocus.bodyfocus_legs,
+      "Deadlift Description",
+      [Equipment.equipment_gym],
+      "https://www.hussle.com/blog/wp-content/uploads/2020/05/Deadlift-body-change-1080x675.png",
+      "resourceLink");
 
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -43,11 +43,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.black,
       ),
-      home: LoginPage(),
+      // home: LoginPage(),
       // home: ActivityPage(activity: a),
       // home: CategoryPage(categoryName: ActivityCategory.gym, activityList: [a, a, a, a]),
       // home: SearchPage(),
-      // home: HomePage(),
+      home: HomePage(),
     );
   }
 }
