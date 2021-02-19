@@ -16,8 +16,13 @@ class _ActivityPageState extends State<ActivityPage> {
     return FutureBuilder(
       future: widget.futureActivity,
       builder: (context, activitySnap) {
-        if(activitySnap.data == null){
-          return Container();
+        if (activitySnap.data == null) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Activity Not Found."),
+              backgroundColor: Colors.blue,
+            ),
+          );
         }
         return Scaffold(
           appBar: AppBar(

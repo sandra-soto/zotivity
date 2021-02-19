@@ -9,7 +9,6 @@ import '../models/Activity.dart';
 class CategoryPage extends StatefulWidget {
   final ActivityCategory categoryName;
   final Future<List<Activity>> futureActivityList;
-
   CategoryPage({this.categoryName, this.futureActivityList});
 
   _CategoryPageState createState() => _CategoryPageState();
@@ -22,7 +21,12 @@ class _CategoryPageState extends State<CategoryPage> {
       future: widget.futureActivityList,
       builder: (context, activityListSnap) {
         if (activityListSnap.data == null) {
-          return Container();
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Category: " + widget.categoryName.str),
+              backgroundColor: Colors.blue,
+            ),
+          );
         }
         return Scaffold(
             appBar: AppBar(

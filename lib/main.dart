@@ -11,6 +11,7 @@ import 'package:zotivity/models/Equipment.dart';
 import 'package:zotivity/screens/CategoryPage.dart';
 import 'package:zotivity/screens/SearchPage.dart';
 import 'package:zotivity/screens/HomePage.dart';
+import 'package:zotivity/backend/firebase.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,16 +27,6 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   @override
-  Activity a = Activity(
-      "Deadlift",
-      ActivityCategory.category_gym,
-      30,
-      2,
-      BodyFocus.bodyfocus_legs,
-      "Deadlift Description",
-      [Equipment.equipment_gym],
-      "https://www.hussle.com/blog/wp-content/uploads/2020/05/Deadlift-body-change-1080x675.png",
-      "resourceLink");
 
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,8 +35,8 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.black,
       ),
       // home: LoginPage(),
-      // home: ActivityPage(activity: a),
-      // home: CategoryPage(categoryName: ActivityCategory.gym, activityList: [a, a, a, a]),
+      // home: ActivityPage(futureActivity: getActivityByName("Deadlift")),
+      // home: CategoryPage(categoryName: ActivityCategory.gym, futureActivityList: getActivitiesByCategory("category_gym")),
       // home: SearchPage(),
       home: HomePage(),
     );
