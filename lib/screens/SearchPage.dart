@@ -70,7 +70,7 @@ class _SearchPageState extends State<SearchPage> {
       ...
       ...
       End of description
-      ''', Equipment.yoga_mat, "https://images-gmi-pmc.edge-generalmills.com/e7b11c3e-d094-48ac-af35-67ccc8299b56.jpg");
+      ''', [Equipment.yoga_mat], "https://images-gmi-pmc.edge-generalmills.com/e7b11c3e-d094-48ac-af35-67ccc8299b56.jpg");
   // Activity baking2 = Activity(
   //     "Bake Cheesecake",
   //     ActivityCategory.baking,
@@ -130,7 +130,7 @@ class _SearchPageState extends State<SearchPage> {
       ...
       ...
       End of description
-      ''', Equipment.resistance_bands,      "https://ifoodreal.com/wp-content/uploads/2019/01/FG-crispy-pan-fried-tofu.jpg",);
+      ''', [Equipment.resistance_bands],      "https://ifoodreal.com/wp-content/uploads/2019/01/FG-crispy-pan-fried-tofu.jpg",);
   // Activity cooking2 = Activity(
   //     "Kimchi Fried Rice",
   //     ActivityCategory.cooking,
@@ -210,7 +210,7 @@ class _SearchPageState extends State<SearchPage> {
       ...
       ...
       End of description
-      ''', Equipment.yoga_mat,
+      ''', [Equipment.yoga_mat],
       "https://img.grouponcdn.com/deal/fsBGAB33wyPkpHBk5e76/gD-2048x1229/v1/t440x300.jpg");
   @override
   Widget build(BuildContext context) {

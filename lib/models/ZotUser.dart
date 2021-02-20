@@ -112,7 +112,10 @@ class ZotUser {
       intensity: $intensity
       experience: $experience
       routineLen: $routineLen
-      interests: $interestsStr}'
+      interests: $interestsStr
+      focus: $focus
+      availWindow: $availWindow
+      access: $access'
     ''';
   }
 

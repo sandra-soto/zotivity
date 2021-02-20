@@ -379,14 +379,14 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
                       _formKey.currentState.save();
                       submitDB();
                       // going to category page
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) {
-                      //       return SearchPage();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return SearchPage();
 
-                      //     },
-                      //   ),
-                      // );
+                          },
+                        ),
+                      );
                     },
                     child: Text('Submit'),
                   ),
@@ -402,10 +402,10 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
 
   void submitDB() async{
 
-    print(widget.prevInfo);
-    print(widget.prevInfo.focus);
-    print(widget.prevInfo.availWindow);
-    print(widget.prevInfo.access);
+    // print(widget.prevInfo);
+    // print(widget.prevInfo.focus);
+    // print(widget.prevInfo.availWindow);
+    // print(widget.prevInfo.access);
 
     // currentUserId is the google ID
     widget.prevInfo.setId(currentUserId);
@@ -415,7 +415,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
     print(currentUser.focus);
     print(currentUser.availWindow);
     print(currentUser.access);
-    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    // print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     // after writing in a user, comment the line below and restart to see data persisted
     // await localInfo.writeUser(jsonEncode(currentUser.toMap()));
     // await localInfo.readUser().then((value) => print(ZotUser.fromJson(jsonDecode(value))));
