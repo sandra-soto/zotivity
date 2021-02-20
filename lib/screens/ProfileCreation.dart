@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:zotivity/backend/sign_in.dart';
-import '../models/user.dart';
+import '../models/ZotUser.dart';
 import 'ActivityPreferences.dart';
 
 class ProfileCreationState extends State<ProfileCreation> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  User _user = User();
+  ZotUser _user = new ZotUser();
+  User googleInfo = getCurrentUser();
 
   Widget _buildFirstName() {
     return Container(
@@ -26,6 +28,7 @@ class ProfileCreationState extends State<ProfileCreation> {
               border: const OutlineInputBorder(),
               // contentPadding: EdgeInsets.symmetric(vertical: 4),
             ),
+            initialValue: googleInfo.displayName.split(' ').first,
             keyboardType: TextInputType.name,
             validator: (String value) {
               if (value.isEmpty) {
@@ -63,6 +66,7 @@ class ProfileCreationState extends State<ProfileCreation> {
               border: const OutlineInputBorder(),
               // contentPadding: EdgeInsets.symmetric(vertical: 4),
             ),
+            initialValue: googleInfo.displayName.split(' ').last,  // TODO: prepopulate using Google data! 
             keyboardType: TextInputType.name,
             validator: (String value) {
               if (value.isEmpty) {
@@ -98,6 +102,7 @@ class ProfileCreationState extends State<ProfileCreation> {
               border: const OutlineInputBorder(),
               // contentPadding: EdgeInsets.symmetric(vertical: 4),
             ),
+            initialValue: googleInfo.email,
             keyboardType: TextInputType.emailAddress,
             validator: (String value) {
               if (value.isEmpty) {
@@ -201,7 +206,7 @@ class ProfileCreationState extends State<ProfileCreation> {
                         ),
                       );
                     },
-                    child: Text('Submit'),
+                    child: Text('Next'),
                   ),
                 ),
               ],

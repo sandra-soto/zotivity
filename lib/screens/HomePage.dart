@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/screens/CategoryPage.dart';
+import 'package:zotivity/models/BodyFocus.dart';
+import 'package:zotivity/models/Equipment.dart';
 import '../models/Activity.dart';
 import './ActivityPage.dart';
 
