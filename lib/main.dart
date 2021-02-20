@@ -62,7 +62,7 @@ class _AppState extends State<App> {
                     Icon(
                         Icons.location_on, size:100, color:Colors.grey,
                     ),
-                    Text('$weatherReport'),
+                    //Text('$weatherReport'),
                     FlatButton(
                         onPressed: () {
                           getData(lat,lon);
