@@ -45,7 +45,7 @@ class IntroScreen extends StatelessWidget {
     print(result == null);
     return new SplashScreen(
       //Todo: change later
-        navigateAfterSeconds: result == null ? LoginPage() : ProfileCreation(),
+        navigateAfterSeconds: result == null ? LoginPage() : HomePage(),
       //navigateAfterSeconds: FirstScreen(),
         seconds: 5,
         title: result == null? new Text('') : new Text(

@@ -53,7 +53,7 @@ Widget _signInButton(BuildContext context) {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return FirstScreen();
+                return HomePage();
               },
             ),
           );
