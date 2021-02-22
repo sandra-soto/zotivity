@@ -1,9 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:splashscreen/splashscreen.dart';
+import 'package:zotivity/backend/globals.dart';
 import 'package:zotivity/screens/Login.dart';
+import 'package:splashscreen/splashscreen.dart';
+import 'package:zotivity/screens/HomePage.dart';
 import 'package:zotivity/backend/sign_in.dart';
+import 'package:get/get.dart';
+
+
 
 
 
@@ -11,6 +15,8 @@ import 'package:zotivity/backend/sign_in.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  initNotifs();
+  requestIOSPermissions();
   await initAuthFirebase();
   runApp(MyApp());
 }
@@ -18,7 +24,7 @@ void main() async{
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Zotivity',
       theme: ThemeData(
@@ -37,11 +43,13 @@ class IntroScreen extends StatelessWidget {
     print("this is the user $result");
     print(result == null);
     return new SplashScreen(
-        navigateAfterSeconds: result == null ? LoginPage() : FirstScreen(),
+      //Todo: change later
+        navigateAfterSeconds: result == null ? LoginPage() : HomePage(),
+      //navigateAfterSeconds: FirstScreen(),
         seconds: 5,
-        title: new Text(
-          'Welcome $result',
-          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+        title: result == null? new Text('') : new Text(
+          'Welcome, ${result.displayName}',
+          style: TextStyle(fontSize: 20.0),
         ),
         //image: Image.asset('assets/images/dart.png', fit: BoxFit.scaleDown),
         backgroundColor: Colors.white,

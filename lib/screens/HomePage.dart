@@ -3,9 +3,10 @@ import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/screens/CategoryPage.dart';
 import '../models/Activity.dart';
 import './ActivityPage.dart';
-
 import '../models/BodyFocus.dart';
 import '../models/Equipment.dart';
+import '../styles/components.dart';
+
 import 'SearchPage.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,6 +27,7 @@ class HomePage extends StatelessWidget {
         title: Text('Row 2 UI'),
         backgroundColor: Colors.blue,
       ),
+      drawer: CustomDrawer(),
       body: Center(
           child: Column(
         children: <Widget>[

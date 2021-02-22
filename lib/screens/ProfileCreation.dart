@@ -3,6 +3,7 @@ import 'package:zotivity/backend/sign_in.dart';
 import '../models/user.dart';
 import 'ActivityPreferences.dart';
 
+
 class ProfileCreationState extends State<ProfileCreation> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   User _user = User();

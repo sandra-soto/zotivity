@@ -41,6 +41,10 @@ dependencies:
   googleapis: any
   googleapis_auth: any
   splashscreen : 1.2.0
+  google_fonts: ^1.1.2
+  date_range_picker: ^1.0.5
+  get: 3.25.3
+  font_awesome_flutter: 8.11.0
 
 dev_dependencies:
   flutter_test:

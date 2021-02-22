@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:zotivity/screens/HomePage.dart';
+import 'package:zotivity/backend/sign_in.dart';
 import 'package:zotivity/backend/globals.dart';
 import 'package:zotivity/screens/ProfileCreation.dart';
+import 'package:zotivity/styles/components.dart';
 import '../backend/sign_in.dart';
+import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
+
 
 
 // UI for login screen, alrady connected to backend
@@ -43,7 +48,6 @@ Widget _signInButton(BuildContext context) {
     splashColor: Colors.grey,
     onPressed: () {
       signInWithGoogle().then((user) {
-        // we can use this to pull the user from sqlite
         if (user != null) {
           currentUserId = user.uid;
           Navigator.of(context).push(
@@ -82,68 +86,36 @@ Widget _signInButton(BuildContext context) {
   );
 }
 
+
+
+// TODO: remove this later, only for testing
 class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Drawer Demo'),
+        title: const Text('Zotivity'),
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Drawer Header',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text('Profile'),
-
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text('Logout'),
-              onTap: () async {
-                signOutGoogle().then((_){
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return LoginPage();
-                      },
-                    ),
-                  );
-
-//                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-//                      LoginPage()), (Route<dynamic> route) => false);
-//                  Navigator.of(context).popUntil(ModalRoute.withName('/root'));
-//                  Navigator.push(
-//                    context,
-//                    MaterialPageRoute(builder: (context) => LoginPage()),
-//                  );
-                }
-                );
-
-                // Update the state of the app.
-
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: CustomDrawer(),
+      body: Container(color: Colors.white)
+//      body: new MaterialButton(
+//          color: Colors.blue,
+//          onPressed: () async {
+//            final List<DateTime> picked = await DateRagePicker.showDatePicker(
+//                context: context,
+//                initialFirstDate: new DateTime.now(),
+//                initialLastDate: (new DateTime.now().add(new Duration(days: 10))),
+//                firstDate: new DateTime(2015),
+//                lastDate: new DateTime(2022)
+//            );
+//            if (picked != null && picked.length == 2) {
+//              print(picked);
+//
+//            }
+//          },
+//          child: new Text("Pick date range")
+//      )
     );
+
   }
 }

@@ -18,7 +18,7 @@ class User {
 
   User() {
     id = firstName = lastName = email =  '';
-    age = experience = intensity = routineLen -1;
+    age = experience = intensity = routineLen = -1;
     interests = Map();
     focus = Map();
     availWindow = Map();
