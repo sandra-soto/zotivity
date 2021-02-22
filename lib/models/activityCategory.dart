@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 
 enum ActivityCategory {
-  category_indoor,
-  category_outdoor,
-  category_gym
+  indoor,
+  outdoor,
+  gym
 }
 
 extension ActivityCategoryString on ActivityCategory {

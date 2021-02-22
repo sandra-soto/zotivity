@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:zotivity/main.dart';
 import 'package:zotivity/models/BodyFocus.dart';
 import 'package:zotivity/models/Equipment.dart';
 import 'package:zotivity/models/activityCategory.dart';
@@ -79,21 +80,11 @@ void initNotifs ()async{
 }
 
 
-Activity outdoorActivity = Activity(
-"Running",
-ActivityCategory.outdoor,
-40,
-0,
-BodyFocus.legs,
-"Description for Running",
-[],
-"https://images.theconversation.com/files/327587/original/file-20200414-63518-11ajr5x.jpg?ixlib=rb-1.1.0&rect=0%2C610%2C5906%2C2953&q=45&auto=format&w=1356&h=668&fit=crop");
-
 void configureSelectNotificationSubject() {
   selectNotificationSubject.stream.listen((String payload) async {
     print("click clacked");
     if (payload != null) {
-      Get.to(() => new ActivityPage(activity: outdoorActivity));
+      Get.to(() => new BlueScreen());
     }
 
 //    await Navigator.push(
@@ -125,7 +116,7 @@ void requestIOSPermissions() {
     var platformChannelSpecifics = NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(
-        0, 'Zotivity | New routine for Sandra', 'Time for a quick run!', platformChannelSpecifics,
+        0, 'Zotivity | New routine for X', 'Time for a quick run!', platformChannelSpecifics,
         payload: '');
   }
 

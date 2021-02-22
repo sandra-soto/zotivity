@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/screens/CategoryPage.dart';
+import 'package:zotivity/styles/components.dart';
 import '../models/Activity.dart';
 import './ActivityPage.dart';
 
@@ -18,6 +19,7 @@ class HomePage extends StatelessWidget {
         title: Text('Row 2 UI'),
         backgroundColor: Colors.blue,
       ),
+      drawer:CustomDrawer(),
       body: Center(
           child: Column(
         children: <Widget>[
@@ -38,7 +40,7 @@ class HomePage extends StatelessWidget {
                   new MaterialPageRoute(
                       builder: (__) => new CategoryPage(
                             // Todo: change this later
-                            categoryName: ActivityCategory.category_gym,
+                            categoryName: ActivityCategory.gym,
                             futureActivityList:
                                 getActivitiesByCategory("category_gym"),
                           )));

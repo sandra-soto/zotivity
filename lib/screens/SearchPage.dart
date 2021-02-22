@@ -15,31 +15,34 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   Activity indoorActivity = Activity(
       "Yoga",
-      ActivityCategory.category_indoor,
+      ActivityCategory.indoor,
       50,
       1,
-      BodyFocus.bodyfocus_none,
+      0,
+      BodyFocus.none,
       "Description for Yoga",
-      [Equipment.equipment_yoga_mat],
+      [Equipment.yoga_mat],
       "https://miro.medium.com/max/11630/0*C5Y8W-6e9OVIB3AM",
       "Yoga Resource Link");
   Activity outdoorActivity = Activity(
       "Running",
-      ActivityCategory.category_outdoor,
+      ActivityCategory.outdoor,
       40,
       0,
-      BodyFocus.bodyfocus_none,
+      1,
+      BodyFocus.none,
       "Description for Running",
-      [Equipment.equipment_none],
+      [Equipment.none],
       "https://images.theconversation.com/files/327587/original/file-20200414-63518-11ajr5x.jpg?ixlib=rb-1.1.0&rect=0%2C610%2C5906%2C2953&q=45&auto=format&w=1356&h=668&fit=crop");
   Activity gymActivity = Activity(
       "Deadlift",
-      ActivityCategory.category_gym,
+      ActivityCategory.gym,
       30,
       2,
-      BodyFocus.bodyfocus_legs,
+      1,
+      BodyFocus.legs,
       "Description for Deadlift",
-      [Equipment.equipment_gym],
+      [Equipment.machine],
       "https://www.hussle.com/blog/wp-content/uploads/2020/05/Deadlift-body-change-1080x675.png",
       "Deadlift Resource Link");
 
@@ -69,7 +72,7 @@ class _SearchPageState extends State<SearchPage> {
                     context,
                     new MaterialPageRoute(
                         builder: (__) => new CategoryPage(
-                            categoryName: ActivityCategory.category_indoor,
+                            categoryName: ActivityCategory.indoor,
                             futureActivityList:
                                 getActivitiesByCategory("category_indoor"))));
               },
@@ -81,7 +84,7 @@ class _SearchPageState extends State<SearchPage> {
                     context,
                     new MaterialPageRoute(
                         builder: (__) => new CategoryPage(
-                            categoryName: ActivityCategory.category_outdoor,
+                            categoryName: ActivityCategory.outdoor,
                             futureActivityList:
                                 getActivitiesByCategory("category_outdoor"))));
               },
@@ -93,7 +96,7 @@ class _SearchPageState extends State<SearchPage> {
                     context,
                     new MaterialPageRoute(
                         builder: (__) => new CategoryPage(
-                            categoryName: ActivityCategory.category_gym,
+                            categoryName: ActivityCategory.gym,
                             futureActivityList:
                                 getActivitiesByCategory("category_gym"))));
               },

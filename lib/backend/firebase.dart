@@ -1,5 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
-import '../models/user.dart';
+import 'package:zotivity/models/ZotUser.dart';
 import 'package:zotivity/models/activityCategory.dart';
 import '../models/Activity.dart';
 import '../models/activityCategory.dart';
@@ -29,7 +29,7 @@ addSomeData() {
   });
 }
 
-addUser(User _user) {
+addUser(ZotUser _user) {
   Map<ActivityCategory, bool> _interests = _user.getInterests();
 
   databaseReference.child(_user.id).set({
@@ -37,9 +37,9 @@ addUser(User _user) {
     'firstName': _user.getFirstName(),
     'lastName': _user.getLastName(),
     'age': _user.getAge(),
-    'indoor': _interests[ActivityCategory.category_indoor],
-    'outdoor': _interests[ActivityCategory.category_outdoor],
-    'gym': _interests[ActivityCategory.category_gym]
+    'indoor': _interests[ActivityCategory.indoor],
+    'outdoor': _interests[ActivityCategory.outdoor],
+    'gym': _interests[ActivityCategory.gym]
   });
 }
 
@@ -58,26 +58,26 @@ addActivity() {
 }
 
 Map<String, ActivityCategory> categoryMap = {
-  "category_outdoor": ActivityCategory.category_outdoor,
-  "category_indoor": ActivityCategory.category_indoor,
-  "category_gym": ActivityCategory.category_gym,
+  "category_outdoor": ActivityCategory.outdoor,
+  "category_indoor": ActivityCategory.indoor,
+  "category_gym": ActivityCategory.gym,
 };
-Map<String, BodyFocus> bodyfocusMap = {
-  "bodyfocus_arms": BodyFocus.bodyfocus_arms,
-  "bodyfocus_chest": BodyFocus.bodyfocus_chest,
-  "bodyfocus_shoulders": BodyFocus.bodyfocus_shoulders,
-  "bodyfocus_back": BodyFocus.bodyfocus_back,
-  "bodyfocus_legs": BodyFocus.bodyfocus_legs,
-  "bodyfocus_none": BodyFocus.bodyfocus_none,
+Map<String, BodyFocus> BodyFocusMap = {
+  "BodyFocus_arms": BodyFocus.arms,
+  "BodyFocus_chest": BodyFocus.chest,
+  "BodyFocus_shoulders": BodyFocus.shoulders,
+  "BodyFocus_back": BodyFocus.back,
+  "BodyFocus_legs": BodyFocus.legs,
+  "BodyFocus_none": BodyFocus.none,
 };
 Map<String, Equipment> equipmentMap = {
-  "equipment_none": Equipment.equipment_none,
-  "equipment_gym": Equipment.equipment_gym,
-  "equipment_bike": Equipment.equipment_bike,
-  "equipment_dumbbells": Equipment.equipment_dumbbells,
-  "equipment_resistance_bands": Equipment.equipment_resistance_bands,
-  "equipment_pull_up_bar": Equipment.equipment_pull_up_bar,
-  "equipment_yoga_mat": Equipment.equipment_yoga_mat,
+  "equipment_none": Equipment.none,
+  "equipment_gym": Equipment.machine,
+  "equipment_bike": Equipment.bike,
+  "equipment_dumbbells": Equipment.dumbbells,
+  "equipment_resistance_bands": Equipment.resistance_bands,
+  "equipment_pull_up_bar": Equipment.pull_up_bar,
+  "equipment_yoga_mat": Equipment.yoga_mat,
 };
 
 getActivityByName(String name) {
@@ -96,9 +96,10 @@ getActivityByName(String name) {
       activityList.add(new Activity(
           element["title"],
           categoryMap[element["category"]],
+          0, //Todo: change this later, added bc activities require reps
           int.parse(element["time"]),
           int.parse(element["intensity"]),
-          bodyfocusMap[element["focus"]],
+          BodyFocusMap[element["focus"]],
           element["description"],
           [equipmentMap[element["equipment"]]],
           element["imgLink"],
@@ -126,9 +127,10 @@ getActivitiesByCategory(String category) {
       activityList.add(new Activity(
           element["title"],
           categoryMap[element["category"]],
+          0, //Todo: change this later, added bc activities require reps
           int.parse(element["time"]),
           int.parse(element["intensity"]),
-          bodyfocusMap[element["focus"]],
+          BodyFocusMap[element["focus"]],
           element["description"],
           [equipmentMap[element["equipment"]]],
           element["imgLink"],
