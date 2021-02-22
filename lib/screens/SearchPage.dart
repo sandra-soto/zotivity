@@ -17,9 +17,10 @@ class _SearchPageState extends State<SearchPage> {
   Activity indoorActivity = Activity(
       "Yoga",
       ActivityCategory.indoor,
+      null,
       50,
       1,
-      BodyFocus.none,
+      BodyFocus.full,
       "Description for Yoga",
       [Equipment.yoga_mat],
       "https://miro.medium.com/max/11630/0*C5Y8W-6e9OVIB3AM",
@@ -27,20 +28,22 @@ class _SearchPageState extends State<SearchPage> {
   Activity outdoorActivity = Activity(
       "Running",
       ActivityCategory.outdoor,
+      null,
       40,
       0,
-      BodyFocus.none,
+      BodyFocus.full,
       "Description for Running",
-      [Equipment.none],
+      [],
       "https://images.theconversation.com/files/327587/original/file-20200414-63518-11ajr5x.jpg?ixlib=rb-1.1.0&rect=0%2C610%2C5906%2C2953&q=45&auto=format&w=1356&h=668&fit=crop");
   Activity gymActivity = Activity(
       "Deadlift",
       ActivityCategory.gym,
+      15,
       30,
       2,
       BodyFocus.legs,
       "Description for Deadlift",
-      [Equipment.gym],
+      [Equipment.barbell],
       "https://www.hussle.com/blog/wp-content/uploads/2020/05/Deadlift-body-change-1080x675.png",
       "Deadlift Resource Link");
 

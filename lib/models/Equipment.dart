@@ -1,12 +1,14 @@
 import 'package:flutter/foundation.dart';
 
 enum Equipment {
-  gym,
   bike,
   dumbbells,
+  barbell,
   resistance_bands,
   pull_up_bar,
-  yoga_mat
+  yoga_mat,
+  bench,
+  machine
 }
 
 extension EquipmentString on Equipment {

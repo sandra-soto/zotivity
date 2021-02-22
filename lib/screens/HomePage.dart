@@ -14,11 +14,12 @@ class HomePage extends StatelessWidget {
   Activity a = Activity(
       "Deadlift",
       ActivityCategory.gym,
+      15,
       30,
       2,
       BodyFocus.legs,
       "Deadlift Description",
-      [Equipment.gym],
+      [Equipment.machine],
       "https://www.hussle.com/blog/wp-content/uploads/2020/05/Deadlift-body-change-1080x675.png",
       "resourceLink");
   @override

@@ -4,9 +4,11 @@ enum BodyFocus {
   arms,
   chest,
   shoulders,
+  torso,
   back,
+  glutes,
   legs,
-  none,
+  full
 }
 
 extension BodyFocusString on BodyFocus {
