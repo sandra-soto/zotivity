@@ -5,17 +5,17 @@ import 'package:rxdart/rxdart.dart';
 import 'package:zotivity/models/BodyFocus.dart';
 import 'package:zotivity/models/Equipment.dart';
 import 'package:zotivity/models/activityCategory.dart';
-import 'package:zotivity/models/user.dart';
+import 'package:zotivity/models/ZotUser.dart';
 import 'package:zotivity/screens/ActivityPage.dart';
 import '../backend/localStore.dart';
-import 'database.dart';
+//import 'database.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import '../models/Activity.dart';
 
 String currentUserId = '';
-User currentUser;
-DatabaseProvider db = DatabaseProvider.db;
+ZotUser currentUser;
+//DatabaseProvider db = DatabaseProvider.db;
 localStore localInfo= localStore();
 
 var httpClient;
@@ -84,9 +84,9 @@ Activity outdoorActivity = Activity(
 ActivityCategory.outdoor,
 40,
 0,
-BodyFocus.none,
+BodyFocus.legs,
 "Description for Running",
-[Equipment.none],
+[],
 "https://images.theconversation.com/files/327587/original/file-20200414-63518-11ajr5x.jpg?ixlib=rb-1.1.0&rect=0%2C610%2C5906%2C2953&q=45&auto=format&w=1356&h=668&fit=crop");
 
 void configureSelectNotificationSubject() {

@@ -33,7 +33,7 @@ class _SearchPageState extends State<SearchPage> {
       0,
       BodyFocus.full,
       "Description for Running",
-      [],
+      [Equipment.none],
       "https://images.theconversation.com/files/327587/original/file-20200414-63518-11ajr5x.jpg?ixlib=rb-1.1.0&rect=0%2C610%2C5906%2C2953&q=45&auto=format&w=1356&h=668&fit=crop");
   Activity gymActivity = Activity(
       "Deadlift",

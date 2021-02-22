@@ -8,7 +8,8 @@ enum Equipment {
   pull_up_bar,
   yoga_mat,
   bench,
-  machine
+  machine,
+  none
 }
 
 extension EquipmentString on Equipment {

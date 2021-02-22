@@ -6,6 +6,7 @@ import 'package:splashscreen/splashscreen.dart';
 import 'package:zotivity/screens/HomePage.dart';
 import 'package:zotivity/backend/sign_in.dart';
 import 'package:get/get.dart';
+import 'package:zotivity/screens/ProfileCreation.dart';
 
 
 
@@ -44,7 +45,7 @@ class IntroScreen extends StatelessWidget {
     print(result == null);
     return new SplashScreen(
       //Todo: change later
-        navigateAfterSeconds: result == null ? LoginPage() : HomePage(),
+        navigateAfterSeconds: result == null ? LoginPage() : ProfileCreation(),
       //navigateAfterSeconds: FirstScreen(),
         seconds: 5,
         title: result == null? new Text('') : new Text(
