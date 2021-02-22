@@ -4,7 +4,7 @@ import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/models/BodyFocus.dart';
 import 'package:zotivity/models/Equipment.dart';
 
-class User {
+class ZotUser {
   static const String TIME_MORN = "morning";
   static const String TIME_NOON = "noon";
   static const String TIME_NIGHT = "night";
@@ -16,9 +16,11 @@ class User {
   Map<String, bool> availWindow;
   List<Equipment> access; // idk if list or map is best here
 
-  User() {
+  ZotUser() {
     id = firstName = lastName = email =  '';
-    age = experience = intensity = routineLen = -1;
+    age = experience = -1; 
+    intensity = 3;
+    routineLen = 30;
     interests = Map();
     focus = Map();
     availWindow = Map();
@@ -82,53 +84,18 @@ class User {
     return access.remove(equipment);
   }
 
-  String getId() {
-    return id;
-  }
-
-  String getFirstName() {
-    return firstName;
-  }
-
-  String getLastName() {
-    return lastName;
-  }
-
-  String getEmail() {
-    return email;
-  }
-
-  int getAge() {
-    return age;
-  }
-
-  int getExperience() {
-    return experience;
-  }
-
-  int getIntensity() {
-    return intensity;
-  }
-
-  int getRoutineLen() {
-    return routineLen;
-  }
-
-  Map<ActivityCategory, bool> getInterests() {
-    return interests;
-  }
-
-  Map<BodyFocus, bool> getFocus() {
-    return focus;
-  }
-
-  Map<String, bool> getAvailWindow() {
-    return availWindow;
-  }
-
-  List<Equipment> getAccess() {
-    return access;
-  }
+  String getId() => this.id;
+  String getFirstName() => this.firstName;
+  String getLastName() => this.lastName;
+  String getEmail() => this.email;
+  int getAge() => this.age;
+  int getExperience() => this.experience;
+  int getIntensity() => this.intensity;
+  int getRoutineLen() => this.routineLen;
+  Map<ActivityCategory, bool> getInterests() => this.interests;
+  Map<BodyFocus, bool> getFocus() => this.focus;
+  Map<String, bool> getAvailWindow() => this.availWindow;
+  List<Equipment> getAccess() => this.access;
 
   @override
   String toString() {
@@ -142,7 +109,13 @@ class User {
       First name: $firstName
       Last name: $lastName
       age: $age
-      interests: $interestsStr}'
+      intensity: $intensity
+      experience: $experience
+      routineLen: $routineLen
+      interests: $interestsStr
+      focus: $focus
+      availWindow: $availWindow
+      access: $access'
     ''';
   }
 
@@ -150,19 +123,35 @@ class User {
   // columns in the database.
   Map<String, dynamic> toMap() {
     return {
-    // Todo: add other values like preferences to db representation
       'id': id,
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
       'age': age,
-      'interests': {'indoor': interests[ActivityCategory.indoor],'outdoor': interests[ActivityCategory.outdoor], 'gym': interests[ActivityCategory.gym]}
-
+      'experience': experience,
+      'intensity': intensity,
+      'routineLen': routineLen,
+      'interests': {
+        'indoor': interests[ActivityCategory.indoor],
+        'outdoor': interests[ActivityCategory.outdoor], 
+        'gym': interests[ActivityCategory.gym]},
+      'focus': {
+        'arms' : focus[BodyFocus.arms],
+        'chest': focus[BodyFocus.chest],
+        'shoulders': focus[BodyFocus.shoulders],
+        'back': focus[BodyFocus.back],
+        'legs': focus[BodyFocus.legs],
+      },
+      'availWindow': {
+        TIME_MORN: availWindow[TIME_MORN],
+        TIME_NOON: availWindow[TIME_NOON],
+        TIME_NIGHT: availWindow[TIME_NIGHT],
+      },
+      'access': access.join(',')
     };
-
   }
 
-  User.fromJson(Map<String, dynamic> json)
+  ZotUser.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         firstName = json['firstName'],
         lastName = json['lastName'],

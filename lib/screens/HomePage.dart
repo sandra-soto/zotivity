@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/screens/CategoryPage.dart';
+import 'package:zotivity/models/BodyFocus.dart';
+import 'package:zotivity/models/Equipment.dart';
 import '../models/Activity.dart';
 import './ActivityPage.dart';
 import '../models/BodyFocus.dart';
@@ -13,11 +15,12 @@ class HomePage extends StatelessWidget {
   Activity a = Activity(
       "Deadlift",
       ActivityCategory.gym,
+      15,
       30,
       2,
       BodyFocus.legs,
       "Deadlift Description",
-      [Equipment.gym],
+      [Equipment.machine],
       "https://www.hussle.com/blog/wp-content/uploads/2020/05/Deadlift-body-change-1080x675.png",
       "resourceLink");
   @override

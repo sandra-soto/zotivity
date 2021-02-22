@@ -10,6 +10,12 @@ extension ActivityCategoryString on ActivityCategory {
   String get str => describeEnum(this);
 }
 
-List<ActivityCategory> getAllCategories() {
-  return ActivityCategory.values;
+ActivityCategory catToEnum(String s) {
+  for (var c in ActivityCategory.values) {
+    if (c.str == s) {
+      return c;
+    }
+  }
+
+  return null;
 }

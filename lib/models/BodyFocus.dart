@@ -4,15 +4,23 @@ enum BodyFocus {
   arms,
   chest,
   shoulders,
+  torso,
   back,
+  glutes,
   legs,
-  none,
+  full
 }
 
 extension BodyFocusString on BodyFocus {
-  String get str => describeEnum(this);
+  String get str => this.toString().split('.').last;
 }
 
-List<BodyFocus> getAllCategories() {
-  return BodyFocus.values;
+BodyFocus focusToEnum(String s) {
+  for (var b in BodyFocus.values) {
+    if (b.str == s) {
+      return b;
+    }
+  }
+
+  return null;
 }
