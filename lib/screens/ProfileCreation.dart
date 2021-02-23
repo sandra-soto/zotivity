@@ -187,9 +187,6 @@ class ProfileCreationState extends State<ProfileCreation> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
                     onPressed: () async{
-                      //Todo: remove my printstatements l8r
-                      print("balh");
-                      print(getCurrentUser());
                       // Validate returns true if the form is valid, or false otherwise.
                       if (!_formKey.currentState.validate()) {
                         return;

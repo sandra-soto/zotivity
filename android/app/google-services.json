@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "789299772187-brkf16csp3au48agd82p0apqucukl5pm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.zotivity",
+            "certificate_hash": "ab8363df53e162e73e59f0c24e78a4fa02775802"
+          }
+        },
+        {
           "client_id": "789299772187-r0i3giopccmgbbns3nf2v6bk7h5e6371.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

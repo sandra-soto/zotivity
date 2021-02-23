@@ -29,19 +29,19 @@ addSomeData() {
   });
 }
 
-addUser(ZotUser _user) {
-  Map<ActivityCategory, bool> _interests = _user.getInterests();
-
-  databaseReference.child(_user.id).set({
-    'id': _user.getId(),
-    'firstName': _user.getFirstName(),
-    'lastName': _user.getLastName(),
-    'age': _user.getAge(),
-    'indoor': _interests[ActivityCategory.indoor],
-    'outdoor': _interests[ActivityCategory.outdoor],
-    'gym': _interests[ActivityCategory.gym]
-  });
-}
+//addUser(ZotUser _user) {
+//  Map<ActivityCategory, bool> _interests = _user.getInterests();
+//
+//  databaseReference.child(_user.id).set({
+//    'id': _user.getId(),
+//    'firstName': _user.getFirstName(),
+//    'lastName': _user.getLastName(),
+//    'age': _user.getAge(),
+//    'indoor': _interests[ActivityCategory.indoor],
+//    'outdoor': _interests[ActivityCategory.outdoor],
+//    'gym': _interests[ActivityCategory.gym]
+//  });
+//}
 
 addActivity() {
   // databaseReference.child("Yoga").set({
@@ -68,7 +68,6 @@ Map<String, BodyFocus> BodyFocusMap = {
   "BodyFocus_shoulders": BodyFocus.shoulders,
   "BodyFocus_back": BodyFocus.back,
   "BodyFocus_legs": BodyFocus.legs,
-  "BodyFocus_none": BodyFocus.none,
 };
 Map<String, Equipment> equipmentMap = {
   "equipment_none": Equipment.none,

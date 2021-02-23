@@ -19,6 +19,7 @@ void main() async{
   initNotifs();
   requestIOSPermissions();
   await initAuthFirebase();
+  await initLocalStorage();
   runApp(MyApp());
 }
 

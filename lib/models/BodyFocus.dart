@@ -8,8 +8,7 @@ enum BodyFocus {
   back,
   glutes,
   legs,
-  full,
-  none
+  full
 }
 
 extension BodyFocusString on BodyFocus {

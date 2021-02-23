@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:zotivity/models/ZotUser.dart';
 import 'package:zotivity/screens/HomePage.dart';
 import 'package:zotivity/backend/sign_in.dart';
 import 'package:zotivity/backend/globals.dart';
@@ -49,7 +52,15 @@ Widget _signInButton(BuildContext context) {
     onPressed: () {
       signInWithGoogle().then((user) {
         if (user != null) {
-          currentUserId = user.uid;
+
+          currentUserEmail = user.email;
+          var storedUser = localStorage.get(currentUserEmail);
+          if (storedUser != null){
+            currentUser = ZotUser.fromJson(jsonDecode(storedUser));
+            print("Retrieved user from local storage: $currentUser");
+          }
+
+
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {

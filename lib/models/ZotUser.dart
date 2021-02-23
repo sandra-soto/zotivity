@@ -9,15 +9,17 @@ class ZotUser {
   static const String TIME_NOON = "noon";
   static const String TIME_NIGHT = "night";
 
-  String id, firstName, lastName, email;
+  String firstName, lastName, email;
   int age, experience, intensity, routineLen;  // experience can be from 0 - 2? 0 = beginner to 2 = advanced
   Map<ActivityCategory, bool> interests;
   Map<BodyFocus, bool> focus;
   Map<String, bool> availWindow;
   List<Equipment> access; // idk if list or map is best here
+  List<String> dontRecommend;
+  List<String> Recommend;
 
   ZotUser() {
-    id = firstName = lastName = email =  '';
+    firstName = lastName = email =  '';
     age = experience = -1; 
     intensity = 3;
     routineLen = 30;
@@ -25,10 +27,7 @@ class ZotUser {
     focus = Map();
     availWindow = Map();
     access = [];
-  }
-
-  void setId(String _id){
-    id = _id;
+    dontRecommend = Recommend = List<String>();
   }
 
   void setFirstName(String name) {
@@ -84,7 +83,6 @@ class ZotUser {
     return access.remove(equipment);
   }
 
-  String getId() => this.id;
   String getFirstName() => this.firstName;
   String getLastName() => this.lastName;
   String getEmail() => this.email;
@@ -99,31 +97,12 @@ class ZotUser {
 
   @override
   String toString() {
-    String interestsStr = '{';
-    for (var k in interests.keys) {
-      interestsStr += "$k:${interests[k]},";
-    }
-
-    return '''
-      User id: $id
-      First name: $firstName
-      Last name: $lastName
-      age: $age
-      intensity: $intensity
-      experience: $experience
-      routineLen: $routineLen
-      interests: $interestsStr
-      focus: $focus
-      availWindow: $availWindow
-      access: $access'
-    ''';
+    return jsonEncode(this.toJson());
   }
 
-  // Convert a user into a Map. The keys must correspond to the names of the
-  // columns in the database.
-  Map<String, dynamic> toMap() {
+  // Convert a user into a Map.
+  Map<String, dynamic> toJson() {
     return {
-      'id': id,
       'firstName': firstName,
       'lastName': lastName,
       'email': email,
@@ -139,8 +118,11 @@ class ZotUser {
         'arms' : focus[BodyFocus.arms],
         'chest': focus[BodyFocus.chest],
         'shoulders': focus[BodyFocus.shoulders],
+        'torso': focus[BodyFocus.torso],
         'back': focus[BodyFocus.back],
+        'glutes': focus[BodyFocus.glutes],
         'legs': focus[BodyFocus.legs],
+        'full': focus[BodyFocus.full],
       },
       'availWindow': {
         TIME_MORN: availWindow[TIME_MORN],
@@ -151,14 +133,35 @@ class ZotUser {
     };
   }
 
+
+// couldn't find a better way to do this via code so itll have to be updated each time the user class or enums change
   ZotUser.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
+      :
         firstName = json['firstName'],
         lastName = json['lastName'],
         email = json['email'],
         age = json['age'],
         interests = {ActivityCategory.indoor: json['interests']['indoor'],
                     ActivityCategory.outdoor : json['interests']['outdoor'],
-                    ActivityCategory.gym: json['interests']['gym']};
+                    ActivityCategory.gym: json['interests']['gym']},
+        experience = json['experience'],
+        intensity = json['intensity'],
+        routineLen = json['routineLen'],
+        focus = {BodyFocus.arms: json['focus']['arms'],
+                BodyFocus.chest : json['focus']['chest'],
+                BodyFocus.shoulders : json['focus']['shoulders'],
+                BodyFocus.torso : json['focus']['torso'],
+                BodyFocus.back : json['focus']['back'],
+                BodyFocus.glutes : json['focus']['glutes'],
+                BodyFocus.legs : json['focus']['legs'],
+                BodyFocus.full : json['focus']['full'],
+
+        },
+        availWindow = {TIME_MORN: json['availWindow'][TIME_MORN],
+                      TIME_NOON: json['availWindow'][TIME_NOON],
+                      TIME_NIGHT: json['availWindow'][TIME_NIGHT]
+        },
+        access =  stringToList(json['access']);
 
 }
+

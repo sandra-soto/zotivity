@@ -1,27 +1,26 @@
-import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zotivity/main.dart';
-import 'package:zotivity/models/BodyFocus.dart';
-import 'package:zotivity/models/Equipment.dart';
-import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/models/ZotUser.dart';
-import 'package:zotivity/screens/ActivityPage.dart';
-import '../backend/localStore.dart';
-//import 'database.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import '../models/Activity.dart';
 
-String currentUserId = '';
+String currentUserEmail = '';
 ZotUser currentUser;
-//DatabaseProvider db = DatabaseProvider.db;
-localStore localInfo= localStore();
+var localStorage;
 
+initLocalStorage() async {
+  localStorage = await SharedPreferences.getInstance();
+}
+
+// this is to make google api calls, see more in the sign_in.dart file
 var httpClient;
 
 
+
+// Todo: move this code to its own file - the example file is commented out
 /////// local notifications
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -128,42 +127,5 @@ Future selectNotification(String payload) async {
   selectNotificationSubject.add(payload);
 
 }
-
-
-Future<void> scheduleNotification() async {
-    var scheduledNotificationDateTime =
-    DateTime.now().add(Duration(seconds: 5));
-    var vibrationPattern = Int64List(4);
-    vibrationPattern[0] = 0;
-    vibrationPattern[1] = 1000;
-    vibrationPattern[2] = 5000;
-    vibrationPattern[3] = 2000;
-
-    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'your other channel id',
-        'your other channel name',
-        'your other channel description',
-        icon: 'ic_stat_name',
-        sound: RawResourceAndroidNotificationSound('slow_spring_board'),
-        largeIcon: DrawableResourceAndroidBitmap('ic_stat_name'),
-        vibrationPattern: vibrationPattern,
-        enableLights: true,
-        color: const Color.fromARGB(255, 255, 0, 0),
-        ledColor: const Color.fromARGB(255, 255, 0, 0),
-        ledOnMs: 1000,
-        ledOffMs: 500);
-    var iOSPlatformChannelSpecifics =
-    IOSNotificationDetails(sound: 'slow_spring_board.aiff');
-    var platformChannelSpecifics = NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.schedule(
-        0,
-        'scheduled title',
-        'scheduled body',
-        scheduledNotificationDateTime,
-        platformChannelSpecifics);
-  }
-
-
 
 ////////////////// local notifications

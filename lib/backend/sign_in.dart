@@ -35,42 +35,8 @@ Future<User> signInWithGoogle() async {
   );
 
   final _authHeaders = await googleSignIn.currentUser.authHeaders;
+  // custom IOClient from other file
   httpClient = GoogleHttpClient(_authHeaders);
-  // custom IOClient from below
-
-  var data = await CalendarApi(httpClient).calendarList.list();
-  print("CALENDARS");
-  print(data.items);
-  data.items.forEach((element) {
-    var calendarSummary = element.summaryOverride;
-    if (element.summaryOverride == null){
-      calendarSummary = element.summary;
-    }
-    print(calendarSummary);
-    print(element.id);
-
-  });
-
-  print("??????????????????????????????");
-  print((new DateTime.now()).add(new Duration(days: 7)).toString());
-  var wdw = {
-    "timeMin": "${(new DateTime.now().toUtc())}",
-    "timeMax": "${((new DateTime.now()).add(new Duration(days:3))).toUtc()}",
-  "timeZone": "UTC",
-    "items": [
-      {
-        "id": "sandra041909@gmail.com"
-      }
-    ]
-  };
-  try{
-    var freeBusyData = await CalendarApi(httpClient).freebusy.query(FreeBusyRequest.fromJson(wdw));
-    print(freeBusyData.toJson());
-  }
-  catch(err){
-    print(err);
-  }
-
 
   final UserCredential authResult = await auth.signInWithCredential(credential);
   final User user = authResult.user;
@@ -82,45 +48,11 @@ Future<User> signInWithGoogle() async {
     final User currentUser = auth.currentUser;
     assert(user.uid == currentUser.uid);
 
-    print('signInWithGoogle succeeded: $user');
-
+    print('signInWithGoogle succeeded');
     return user;
   }
 
   return null;
-}
-
-class GoogleApiRequest {
-  var _authHeaders;
-  GoogleHttpClient _httpClient;
-
-  GoogleApiRequest() ;
-  // constructor
-  GoogleApiRequest.init(authHeaders) {
-    _authHeaders = authHeaders;
-    _httpClient = GoogleHttpClient(_authHeaders);
-  }
-  get httpClient{
-    return _httpClient;
-  }
-
-  set authHeaders(authHeaders){
-    _authHeaders = authHeaders;
-    _httpClient = GoogleHttpClient(_authHeaders);
-  }
-
-  Future<void> cal() async {
-    var data = await CalendarApi(this._httpClient).calendarList.list();
-    print("come on babeyyy");
-    print(data.items);
-    data.items.forEach((element) {
-      var calendarSummary = element.summaryOverride;
-      if (element.summaryOverride == null){
-        calendarSummary = element.summary;
-      }
-      print(calendarSummary);
-    });
-  }
 }
 
 User getCurrentUser(){

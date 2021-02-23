@@ -19,7 +19,7 @@ class _SearchPageState extends State<SearchPage> {
       50,
       1,
       0,
-      BodyFocus.none,
+      BodyFocus.legs,
       "Description for Yoga",
       [Equipment.yoga_mat],
       "https://miro.medium.com/max/11630/0*C5Y8W-6e9OVIB3AM",
@@ -30,9 +30,9 @@ class _SearchPageState extends State<SearchPage> {
       40,
       0,
       1,
-      BodyFocus.none,
+      BodyFocus.legs,
       "Description for Running",
-      [Equipment.none],
+      List<Equipment>(),
       "https://images.theconversation.com/files/327587/original/file-20200414-63518-11ajr5x.jpg?ixlib=rb-1.1.0&rect=0%2C610%2C5906%2C2953&q=45&auto=format&w=1356&h=668&fit=crop");
   Activity gymActivity = Activity(
       "Deadlift",

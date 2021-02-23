@@ -402,23 +402,13 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
 
   void submitDB() async{
 
-    // print(widget.prevInfo);
-    // print(widget.prevInfo.focus);
-    // print(widget.prevInfo.availWindow);
-    // print(widget.prevInfo.access);
-
-    // currentUserId is the google ID
-    widget.prevInfo.setId(currentUserId);
-    // addUser(widget.prevInfo);
     currentUser = widget.prevInfo;
-    print(currentUser);
-    print(currentUser.focus);
-    print(currentUser.availWindow);
-    print(currentUser.access);
-    // print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    // after writing in a user, comment the line below and restart to see data persisted
-    // await localInfo.writeUser(jsonEncode(currentUser.toMap()));
-    // await localInfo.readUser().then((value) => print(ZotUser.fromJson(jsonDecode(value))));
+    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    print(currentUser.toJson());
+
+    // turning the user into a stringified JSON object, with their email as the key
+    // currentUserEmail is from globals.dart and assigned in Login.dart on the _signInButton
+    localStorage.setString(currentUserEmail, jsonEncode(currentUser.toJson()));
 
 
     //printAllActivities();

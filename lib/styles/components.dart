@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:zotivity/backend/calendarUtil.dart';
 import 'package:zotivity/backend/globals.dart';
 import 'package:zotivity/screens/ProfileCreation.dart';
 import 'package:zotivity/backend/sign_in.dart';
@@ -27,7 +28,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.account_circle),
-                title: Text('Profile'),
+                title: Text('Profile Creation Screen'),
               onTap: ()  {
                 Navigator.pop(context);
                 Navigator.of(context).push(
@@ -39,7 +40,6 @@ class CustomDrawer extends StatelessWidget {
                 );
               }),
               ListTile(
-
                 leading: FaIcon(FontAwesomeIcons.dumbbell),
                 title: Text('Show Routine Notification'),
                 onTap: () async {
@@ -48,6 +48,22 @@ class CustomDrawer extends StatelessWidget {
                   await showNotification();
                   Navigator.pop(context);
               }
+              ),
+              ListTile(
+                  leading: FaIcon(FontAwesomeIcons.star),
+                  title: Text('Test Calendar'),
+                  onTap: () {
+                    getBestFreeTime();
+                    print(currentUser);
+                    Navigator.pop(context);
+                  }
+              ),
+              ListTile(
+                  leading: FaIcon(FontAwesomeIcons.question),
+                  title: Text('Test your function here - components.dart'),
+                  onTap: () {
+
+                  }
               ),
               ListTile(
                 leading: Icon(Icons.logout),
