@@ -1,4 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'dart:io';
+import 'package:excel/excel.dart';
+import 'package:flutter/services.dart' show ByteData, rootBundle;
 import 'package:zotivity/models/ZotUser.dart';
 import 'package:zotivity/models/activityCategory.dart';
 import '../models/Activity.dart';
@@ -43,18 +46,25 @@ addSomeData() {
 //  });
 //}
 
-addActivity() {
-  // databaseReference.child("Yoga").set({
-  //   'title': 'Yoga',
-  //   'imgLink': 'https://miro.medium.com/max/11630/0*C5Y8W-6e9OVIB3AM',
-  //   'category': 'indoor',
-  //   'time': '50',
-  //   'intensity': '1',
-  //   'focus': 'none',
-  //   'description': 'description for yoga',
-  //   'equipment': 'yoga_mat',
-  //   'resources': 'resources for yoga'
-  // });
+addActivity(Activity _activity) {
+  databaseReference.child(_activity.getTitle()).set(_activity.toMap());
+}
+
+void insertExcel() async {
+  // ByteData data = await rootBundle.load("assets/test_data.xlsx");
+  ByteData data = await rootBundle.load("assets/activites.xlsx");
+  var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+  var excel = Excel.decodeBytes(bytes);
+  var table = excel.tables.keys.first;
+
+  for (var row in excel.tables[table].rows) {
+    print("insert a row");
+    // for (var item in row) {
+    //   print(item.runtimeType);
+    // }
+    
+    addActivity(Activity.fromList(row));
+  }
 }
 
 Map<String, ActivityCategory> categoryMap = {
@@ -70,7 +80,7 @@ Map<String, BodyFocus> BodyFocusMap = {
   "BodyFocus_legs": BodyFocus.legs,
 };
 Map<String, Equipment> equipmentMap = {
-  "equipment_none": Equipment.none,
+  // "equipment_none": Equipment.none,
   "equipment_gym": Equipment.machine,
   "equipment_bike": Equipment.bike,
   "equipment_dumbbells": Equipment.dumbbells,
