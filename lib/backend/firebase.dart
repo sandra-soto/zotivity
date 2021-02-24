@@ -52,17 +52,12 @@ addActivity(Activity _activity) {
 
 void insertExcel() async {
   // ByteData data = await rootBundle.load("assets/test_data.xlsx");
-  ByteData data = await rootBundle.load("assets/activites.xlsx");
+  ByteData data = await rootBundle.load("assets/activities.xlsx");
   var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   var excel = Excel.decodeBytes(bytes);
   var table = excel.tables.keys.first;
 
   for (var row in excel.tables[table].rows) {
-    print("insert a row");
-    // for (var item in row) {
-    //   print(item.runtimeType);
-    // }
-    
     addActivity(Activity.fromList(row));
   }
 }

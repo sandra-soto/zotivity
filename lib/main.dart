@@ -17,7 +17,7 @@ import 'package:zotivity/screens/ProfileCreation.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  insertExcel();
+  // insertExcel();
   initNotifs();
   requestIOSPermissions();
   await initAuthFirebase();
