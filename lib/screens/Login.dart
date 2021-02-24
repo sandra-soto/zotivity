@@ -1,8 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:zotivity/models/ZotUser.dart';
+import 'package:zotivity/screens/HomePage.dart';
+import 'package:zotivity/backend/sign_in.dart';
 import 'package:zotivity/backend/globals.dart';
 import 'package:zotivity/screens/ProfileCreation.dart';
+import 'package:zotivity/styles/components.dart';
 import '../backend/sign_in.dart';
+import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
+
+
 
 // UI for login screen, alrady connected to backend
 // should be imported
@@ -42,13 +51,20 @@ Widget _signInButton(BuildContext context) {
     splashColor: Colors.grey,
     onPressed: () {
       signInWithGoogle().then((user) {
-        // we can use this to pull the user from sqlite
         if (user != null) {
-          currentUserId = user.uid;
+
+          currentUserEmail = user.email;
+          var storedUser = localStorage.get(currentUserEmail);
+          if (storedUser != null){
+            currentUser = ZotUser.fromJson(jsonDecode(storedUser));
+            print("Retrieved user from local storage: $currentUser");
+          }
+
+
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
-                return ProfileCreation();
+                return HomePage();
               },
             ),
           );
@@ -81,11 +97,36 @@ Widget _signInButton(BuildContext context) {
   );
 }
 
+
+
+// TODO: remove this later, only for testing
 class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(color: Colors.blue[100]),
+      appBar: AppBar(
+        title: const Text('Zotivity'),
+      ),
+      drawer: CustomDrawer(),
+      body: Container(color: Colors.white)
+//      body: new MaterialButton(
+//          color: Colors.blue,
+//          onPressed: () async {
+//            final List<DateTime> picked = await DateRagePicker.showDatePicker(
+//                context: context,
+//                initialFirstDate: new DateTime.now(),
+//                initialLastDate: (new DateTime.now().add(new Duration(days: 10))),
+//                firstDate: new DateTime(2015),
+//                lastDate: new DateTime(2022)
+//            );
+//            if (picked != null && picked.length == 2) {
+//              print(picked);
+//
+//            }
+//          },
+//          child: new Text("Pick date range")
+//      )
     );
+
   }
 }
