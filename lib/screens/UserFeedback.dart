@@ -1,11 +1,12 @@
+import 'package:flutter/material.dart';
+
 class UserFeedback extends StatefulWidget {
-  final String title;
 
   @override
   _UserFeedbackState createState() => _UserFeedbackState();
 }
 
-class _UserFeedbackState extends State<MyHomePage> {
+class _UserFeedbackState extends State<UserFeedback> {
 // support function here
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,6 @@ class _UserFeedbackState extends State<MyHomePage> {
             ),
             onPressed: () {
               // navigate to home page WRITE HERE
-              Navigator.push(context,MaterialPageRoute(builder: (context) => CalenderPage()));
             },
           )
         ],
