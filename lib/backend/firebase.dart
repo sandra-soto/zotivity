@@ -126,9 +126,9 @@ getActivitiesByCategory(String category) {
       activityList.add(new Activity(
           element["title"],
           categoryMap[element["category"]],
-          0, //Todo: change this later, added bc activities require reps
-          int.parse(element["time"]),
-          int.parse(element["intensity"]),
+          element["reps"], //Todo: change this later, added bc activities require reps
+          element["time"],
+          element["intensity"],
           BodyFocusMap[element["focus"]],
           element["description"],
           [equipmentMap[element["equipment"]]],
