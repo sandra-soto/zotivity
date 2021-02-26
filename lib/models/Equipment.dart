@@ -9,7 +9,7 @@ enum Equipment {
   yoga_mat,
   bench,
   machine,
-  none
+  // none
 }
 
 extension EquipmentString on Equipment {

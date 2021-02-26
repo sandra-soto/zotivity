@@ -5,6 +5,7 @@ import 'package:zotivity/screens/Login.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:zotivity/screens/HomePage.dart';
 import 'package:zotivity/backend/sign_in.dart';
+import 'package:zotivity/backend/firebase.dart';
 import 'package:get/get.dart';
 import 'package:zotivity/screens/ProfileCreation.dart';
 
@@ -16,6 +17,7 @@ import 'package:zotivity/screens/ProfileCreation.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  // insertExcel();
   initNotifs();
   requestIOSPermissions();
   await initAuthFirebase();

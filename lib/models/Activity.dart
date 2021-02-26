@@ -26,14 +26,14 @@ class Activity {
   Activity.fromList(List<dynamic> attributes) {
     this.title = attributes[0];
     this.category = catToEnum(attributes[1]);
-    this.reps = attributes[2];
-    this.time = attributes[3];
-    this.intensity = attributes[4];
-    this.focus = focusToEnum(attributes[5]);
-    this.description = attributes[6];
-    this.equipment = stringToList(attributes[7]);
-    this.imgLink = attributes[8];
-    this.resources = attributes[9];
+    this.focus = focusToEnum(attributes[2]);
+    this.reps = (attributes[3].runtimeType == int) ? attributes[3]: int.parse(attributes[3]);
+    this.time = (attributes[4].runtimeType == int) ? attributes[4]: int.parse(attributes[4]);
+    this.intensity = (attributes[5].runtimeType == int) ? attributes[5]: int.parse(attributes[5]);
+    this.equipment = stringToList(attributes[6]);
+    this.imgLink = attributes[7];
+    this.resources = attributes[8];
+    this.description = attributes[9];
   }
 
   String getTitle() => this.title;
