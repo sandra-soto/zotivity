@@ -15,6 +15,15 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPageState extends State<CategoryPage> {
+  buildTime(time, reps){
+    if(time != "0") {
+      return Text(time +
+          " minutes");
+    } else {
+      return Text(reps +
+          " reps");
+    }
+  }
   Widget buildCategoryPage() {
     var screenSize = MediaQuery.of(context).size;
     return FutureBuilder(
@@ -63,10 +72,11 @@ class _CategoryPageState extends State<CategoryPage> {
                                     style: TextStyle(fontSize: 28),
                                     textAlign: TextAlign.left,
                                   ),
-                                  Text(activityListSnap.data[index]
-                                          .getTime()
-                                          .toString() +
-                                      " minutes"),
+                                  buildTime(activityListSnap.data[index].getTime().toString(), activityListSnap.data[index].getReps().toString()),
+                                  // Text(activityListSnap.data[index]
+                                  //         .getTime()
+                                  //         .toString() +
+                                  //     " minutes"),
                                 ],
                               ),
                             ),

@@ -61,28 +61,34 @@ void insertExcel() async {
     addActivity(Activity.fromList(row));
   }
 }
-
-Map<String, ActivityCategory> categoryMap = {
-  "category_outdoor": ActivityCategory.outdoor,
-  "category_indoor": ActivityCategory.indoor,
-  "category_gym": ActivityCategory.gym,
-};
-Map<String, BodyFocus> BodyFocusMap = {
-  "BodyFocus_arms": BodyFocus.arms,
-  "BodyFocus_chest": BodyFocus.chest,
-  "BodyFocus_shoulders": BodyFocus.shoulders,
-  "BodyFocus_back": BodyFocus.back,
-  "BodyFocus_legs": BodyFocus.legs,
-};
-Map<String, Equipment> equipmentMap = {
-  // "equipment_none": Equipment.none,
-  "equipment_gym": Equipment.machine,
-  "equipment_bike": Equipment.bike,
-  "equipment_dumbbells": Equipment.dumbbells,
-  "equipment_resistance_bands": Equipment.resistance_bands,
-  "equipment_pull_up_bar": Equipment.pull_up_bar,
-  "equipment_yoga_mat": Equipment.yoga_mat,
-};
+// Map<String, ActivityCategory> categoryMap = {
+//   "outdoor": ActivityCategory.outdoor,
+//   "indoor": ActivityCategory.indoor,
+//   "gym": ActivityCategory.gym,
+// };
+// Map<String, BodyFocus> BodyFocusMap = {
+//   "arms": BodyFocus.arms,
+//   "chest": BodyFocus.chest,
+//   "shoulders": BodyFocus.shoulders,
+//   "torso": BodyFocus.torso,
+//   "back": BodyFocus.back,
+//   "glutes": BodyFocus.glutes,
+//   "legs": BodyFocus.legs,
+//   "full": BodyFocus.full,
+//   "": BodyFocus.none,
+// };
+// Map<String, Equipment> equipmentMap = {
+//   // "equipment_none": Equipment.none,
+//   "bike": Equipment.bike,
+//   "dumbbells": Equipment.dumbbells,
+//   "barbell": Equipment.barbell,
+//   "resistance_bands": Equipment.resistance_bands,
+//   "pull_up_bar": Equipment.pull_up_bar,
+//   "yoga_mat": Equipment.yoga_mat,
+//   "bench": Equipment.bench,
+//   "machine": Equipment.machine,
+//   "": Equipment.none
+// };
 
 getActivityByName(String name) {
   List lists = new List();
@@ -97,15 +103,26 @@ getActivityByName(String name) {
       lists.add(values);
     });
     lists.forEach((element) {
+      // activityList.add(new Activity(
+      //     element["title"],
+      //     categoryMap[element["category"]],
+      //     element["reps"], //Todo: change this later, added bc activities require reps
+      //     element["time"],
+      //     element["intensity"],
+      //     BodyFocusMap[element["focus"]],
+      //     element["description"],
+      //     [equipmentMap[element["equipment"]]],
+      //     element["imgLink"],
+      //     element["resources"]));
       activityList.add(new Activity(
           element["title"],
-          categoryMap[element["category"]],
-          0, //Todo: change this later, added bc activities require reps
-          int.parse(element["time"]),
-          int.parse(element["intensity"]),
-          BodyFocusMap[element["focus"]],
+          catToEnum(element["category"]),
+          element["reps"], //Todo: change this later, added bc activities require reps
+          element["time"],
+          element["intensity"],
+          focusToEnum(element["focus"]),
           element["description"],
-          [equipmentMap[element["equipment"]]],
+          stringToList(element["equipment"]),
           element["imgLink"],
           element["resources"]));
     });
@@ -130,13 +147,13 @@ getActivitiesByCategory(String category) {
       // print(element["title"]);
       activityList.add(new Activity(
           element["title"],
-          categoryMap[element["category"]],
+          catToEnum(element["category"]),
           element["reps"], //Todo: change this later, added bc activities require reps
           element["time"],
           element["intensity"],
-          BodyFocusMap[element["focus"]],
+          focusToEnum(element["focus"]),
           element["description"],
-          [equipmentMap[element["equipment"]]],
+          stringToList(element["equipment"]),
           element["imgLink"],
           element["resources"]));
     });
@@ -144,7 +161,7 @@ getActivitiesByCategory(String category) {
   });
 }
 
-testFunction() {
+debugFunction() {
   // DataSnapshot s;
   // databaseReference.once().then((DataSnapshot snapshot) {
   //   s = snapshot;

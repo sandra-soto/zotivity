@@ -74,7 +74,7 @@ class _SearchPageState extends State<SearchPage> {
                         builder: (__) => new CategoryPage(
                             categoryName: ActivityCategory.indoor,
                             futureActivityList:
-                                getActivitiesByCategory("category_indoor"))));
+                                getActivitiesByCategory("indoor"))));
               },
               child: Text("Indoor"),
             ),
@@ -86,7 +86,7 @@ class _SearchPageState extends State<SearchPage> {
                         builder: (__) => new CategoryPage(
                             categoryName: ActivityCategory.outdoor,
                             futureActivityList:
-                                getActivitiesByCategory("category_outdoor"))));
+                                getActivitiesByCategory("outdoor"))));
               },
               child: Text("Outdoor"),
             ),
@@ -98,7 +98,7 @@ class _SearchPageState extends State<SearchPage> {
                         builder: (__) => new CategoryPage(
                             categoryName: ActivityCategory.gym,
                             futureActivityList:
-                                getActivitiesByCategory("category_gym"))));
+                                getActivitiesByCategory("gym"))));
               },
               child: Text("Gym"),
             ),
