@@ -11,6 +11,23 @@ class ActivityPage extends StatefulWidget {
 }
 
 class _ActivityPageState extends State<ActivityPage> {
+  buildTime(time, reps){
+    if(time != "0") {
+      return Padding(
+        padding: EdgeInsets.only(bottom: 30.0),
+        child: Text("Time required: " +
+            time +
+            " minutes"),
+      );
+    } else {
+      return Padding(
+        padding: EdgeInsets.only(bottom: 30.0),
+        child: Text("Reps: " +
+            reps +
+            " reps"),
+      );
+    }
+  }
   Widget buildActivity() {
     var screenSize = MediaQuery.of(context).size;
     return FutureBuilder(
@@ -45,16 +62,18 @@ class _ActivityPageState extends State<ActivityPage> {
                     textAlign: TextAlign.center,
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 30.0),
-                  child: Text("Time required: " +
-                      activitySnap.data.getTime().toString() +
-                      " minutes"),
-                ),
+                buildTime(activitySnap.data.getTime().toString(), activitySnap.data.getReps().toString()),
+                // Padding(
+                //   padding: EdgeInsets.only(bottom: 30.0),
+                //   child: Text("Time required: " +
+                //       activitySnap.data.getTime().toString() +
+                //       " minutes"),
+                // ),
                 Container(
                   child: SingleChildScrollView(
                     child: Text(
-                      activitySnap.data.toString(),
+                      activitySnap.data.getDescription() + "\n\n\n\nResource Link: " + activitySnap.data.getResources(),
+                      // activitySnap.data.toString(),
                       textAlign: TextAlign.center,
                     ),
                   ),

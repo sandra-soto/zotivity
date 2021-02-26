@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                             // Todo: change this later
                             categoryName: ActivityCategory.gym,
                             futureActivityList:
-                                getActivitiesByCategory("category_gym"),
+                                getActivitiesByCategory("gym"),
                           )));
             },
           ),
@@ -57,15 +57,15 @@ class HomePage extends StatelessWidget {
                   context,
                   new MaterialPageRoute(
                       builder: (__) => new ActivityPage(
-                          futureActivity: getActivityByName("Deadlift"))));
+                          futureActivity: getActivityByName("deadlift"))));
             },
           ),
-          // RaisedButton(
-          //   child: Text('testFunction()'),
-          //   onPressed: () {
-          //     testFunction();
-          //   },
-          // ),
+          RaisedButton(
+            child: Text('debugFunction()'),
+            onPressed: () {
+              debugFunction();
+            },
+          ),
         ],
       )),
     );
