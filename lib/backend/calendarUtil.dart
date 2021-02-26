@@ -8,6 +8,10 @@ import 'globals.dart';
 Random rand = new Random();
 var newFormat = DateFormat.yMd().add_jm() ;
 
+
+String format(DateTime date){
+  return newFormat.format(date);
+}
 // source: https://stackoverflow.com/questions/62564746/dart-get-date-of-next-friday
 extension DateTimeExtension on DateTime {
   DateTime next(int day) {
@@ -83,7 +87,7 @@ bool dateFallsInRange(DateTimeRange range, DateTime date){
   return (date.isAfter(range.start) || date.isAtSameMomentAs(range.start)) && (date.isAfter(range.end) || date.isAtSameMomentAs(range.end));
 }
 
-getBestFreeTime() async{
+Future<List<DateTime>> getBestFreeTime() async {
   List<DateTime> result = List<DateTime>();
 
 
@@ -149,6 +153,7 @@ getBestFreeTime() async{
 
 
 print(result);
+  return result;
 }
 
 

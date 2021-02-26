@@ -5,6 +5,7 @@ import 'package:zotivity/backend/calendarUtil.dart';
 import 'package:zotivity/backend/firebase.dart';
 import 'package:zotivity/backend/globals.dart';
 import 'package:zotivity/backend/recommend.dart';
+import 'package:zotivity/screens/CalendarPage.dart';
 import 'package:zotivity/screens/ProfileCreation.dart';
 import 'package:zotivity/backend/sign_in.dart';
 
@@ -54,17 +55,23 @@ class CustomDrawer extends StatelessWidget {
               ListTile(
                   leading: FaIcon(FontAwesomeIcons.star),
                   title: Text('Test Calendar'),
-                  onTap: () {
-                    getBestFreeTime();
-                    print(currentUser);
-                    Navigator.pop(context);
+                  onTap: () async {
+                    getCalendarRecs();
+
+                  }
+              ),
+              ListTile(
+                  leading: FaIcon(FontAwesomeIcons.list),
+                  title: Text('Get Routine Recommendation'),
+                  onTap: () async {
+                    getRoutineRecs();
                   }
               ),
               ListTile(
                   leading: FaIcon(FontAwesomeIcons.question),
                   title: Text('Test your function here - components.dart'),
                   onTap: () async {
-                    bwehhh();
+
                   }
               ),
               ListTile(
