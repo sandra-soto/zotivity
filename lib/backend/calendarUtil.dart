@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:googleapis/calendar/v3.dart';
 import 'package:intl/intl.dart';
 import 'package:zotivity/models/ZotUser.dart';
+import 'dart:math';
 import 'globals.dart';
 
+Random rand = new Random();
+var newFormat = DateFormat.yMd().add_jm() ;
+
+
+String format(DateTime date){
+  return newFormat.format(date);
+}
 // source: https://stackoverflow.com/questions/62564746/dart-get-date-of-next-friday
 extension DateTimeExtension on DateTime {
   DateTime next(int day) {
@@ -35,7 +43,7 @@ Future<Map<int, List<DateTimeRange>>> getBusyTime() async {
   nextMonday = new DateTime(nextMonday.year, nextMonday.month, nextMonday.day, 0, 0);
 
 
-  var newFormat = DateFormat.yMd().add_jm() ;
+
 
   //freeBusy API requires DateTimes to be in UTC format apparently
   var freeBusyReq = {
@@ -75,8 +83,16 @@ Future<Map<int, List<DateTimeRange>>> getBusyTime() async {
   }
 }
 
-getBestFreeTime() async{
+bool dateFallsInRange(DateTimeRange range, DateTime date){
+  return (date.isAfter(range.start) || date.isAtSameMomentAs(range.start)) && (date.isAfter(range.end) || date.isAtSameMomentAs(range.end));
+}
+
+Future<List<DateTime>> getBestFreeTime() async {
+  List<DateTime> result = List<DateTime>();
+
+
   Map<int, List<DateTimeRange>> allBusyTime = await getBusyTime();
+
   int timeSlotsToFind = currentUser.getIntensity();
   print("Should find $timeSlotsToFind timeslots per week");
 
@@ -85,22 +101,166 @@ getBestFreeTime() async{
   //Todo: fix this so its more precise later
   int remainingDays = 7 - now.weekday;
   if (remainingDays < timeSlotsToFind){
-    timeSlotsToFind = remainingDays;
+    timeSlotsToFind = remainingDays+1;
   }
 
-  var blah = {1:"mon", 2:"tues", 3:"wed", 4: "thurs", 5:"fri", 6:"sat", 7:"sun"};
+  var weekStr = {1:"mon", 2:"tues", 3:"wed", 4: "thurs", 5:"fri", 6:"sat", 7:"sun"};
 
   print("Based on today, will find $timeSlotsToFind timeslots for this week");
-  for(int i = 0; i < timeSlotsToFind; i++){
-    print("Have to find a timeslot for ${blah[now.weekday + i]}");
+
+  List<int> orderedByAvail = allBusyTime.keys.toList()..sort((a, b) {
+    return allBusyTime[a].length.compareTo(allBusyTime[b].length);
+  });
+
+  // padding the list with empty lists for the next functions to work
+  for (int i = now.weekday; i < 8; i++){
+    if (!allBusyTime.containsKey(i)){
+      orderedByAvail.add(i);
+    }
   }
 
-  List<DateTime> timeSlots = new List<DateTime>();
-  print(currentUser.getAvailWindow()[ZotUser.TIME_MORN]);
 
+
+  print("this one here========= ${orderedByAvail}");
+
+
+  List<DateTimeRange> prefRanges = getPrefRanges(now);
+
+  int chosenRangeInt = rand.nextInt(prefRanges.length); // 0 to x exclusive
+  DateTimeRange chosenRange = prefRanges[chosenRangeInt];
+  print("CHOSE RANGE $chosenRange");
+
+  for(int i = 0; i < timeSlotsToFind; i++){
+    int dayToFind = orderedByAvail[i];
+    print("===============Have to find a timeslot of length ${currentUser.getRoutineLen()} for $dayToFind=============");
+
+
+    DateTime thatDayofWeek = now;
+
+    if (dayToFind != now.weekday){
+      thatDayofWeek = now.add(new Duration(days: dayToFind - now.weekday)); // get the month and day
+      thatDayofWeek = new DateTime(chosenRange.start.year, chosenRange.start.month, thatDayofWeek.day, chosenRange.start.hour, chosenRange.start.minute);
+    }
+
+    print("will now find best free time for day $dayToFind : ${newFormat.format(thatDayofWeek)} which must be within $chosenRange");
+
+
+    var res = getBestDayFreeTime(chosenRangeInt, weekStr[dayToFind], allBusyTime[dayToFind], thatDayofWeek);
+    if (res != null) {
+      result.add(res);
+    }
+  }
+
+
+print(result);
+  return result;
 }
 
 
+List<DateTimeRange> getPrefRanges(DateTime date){
+  var availTimes = currentUser.getAvailWindow().values.toList();
+
+  //Todo: add some kind of widget so they can further refine times, if they want
+  Map<int, DateTimeRange> timeRanges = {0: new DateTimeRange(start: DateTime(date.year, date.month, date.day, 6, 0),
+                                                                    end: DateTime(date.year, date.month, date.day, 11, 59)),
+                                    1: new DateTimeRange(start: DateTime(date.year, date.month, date.day, 12, 0),
+                                                                  end: DateTime(date.year, date.month, date.day, 19, 59)),
+                                    2: new DateTimeRange(start: DateTime(date.year, date.month, date.day, 20, 00),
+                                        end: DateTime(date.year, date.month, date.day, 23, 00))
+  };
+
+  List<DateTimeRange> availRanges = List<DateTimeRange>();
+  for (int i = 0; i < availTimes.length; i++){
+    if (availTimes[i]){
+      availRanges.add(timeRanges[i]);
+
+    }
+  }
+  return availRanges;
+}
+getBestDayFreeTime(var chosenRangeInt, String day, List<DateTimeRange> busyRanges, DateTime date){
+
+  int NIGHT_END = 1;
+  List<DateTimeRange> prefRanges = getPrefRanges(date);
+  DateTimeRange chosenRange = prefRanges[chosenRangeInt];
+
+  int upperLim = chosenRange.end.hour;
+  int lowerLim = chosenRange.start.hour;
+  int timeSlotLen = currentUser.getRoutineLen();
 
 
+    bool foundTimeSlot = false;
+    DateTime timeSlotStart = date;
+    DateTime timeSlotEnd = timeSlotStart.add(new Duration(minutes:timeSlotLen));
 
+    int counter= 0;
+    while(!foundTimeSlot && timeSlotStart.day == date.day){
+        timeSlotStart = date.add(new Duration(minutes:  roundNearestFive((counter * 5) + timeSlotStart.minute) - timeSlotStart.minute));
+        timeSlotEnd = timeSlotStart.add(new Duration(minutes:timeSlotLen));
+
+       if(withinRange(timeSlotStart, timeSlotEnd, chosenRange) && !hasTimeConflict(chosenRange, timeSlotStart, timeSlotEnd, busyRanges)){
+         print("-FOUND TIME--Valid -- ${newFormat.format(timeSlotStart)} - ${newFormat.format(timeSlotEnd)} within $chosenRange");
+         return timeSlotStart;
+       }
+
+      counter++;
+
+
+    }
+
+
+  print("Could not find a timeSlot for this day");
+  print("==============================================");
+  return;
+}
+
+bool hasTimeConflict(var chosenRange, DateTime timeSlotStart, DateTime timeSlotEnd, List<DateTimeRange> busyRanges) {
+  if(busyRanges == null){
+    return false;
+  }
+  for (int i = 0; i < busyRanges.length; i++){
+    //Todo: fix so that the ranges are separated by timeAvail range and don't have to iterate over ones that don't apply to the chosen range
+    // only check the timeslot against the busyRanges that are within the user's chosenRange
+      //print("checking conflict between $timeSlotStart $timeSlotEnd in ${busyRanges[i]}");
+      if (hasOverlap(timeSlotStart, timeSlotEnd, busyRanges[i])){
+        return true;
+      }
+
+  }
+  return false;
+}
+
+bool withinRange(DateTime timeSlotStart, DateTime timeSlotEnd, DateTimeRange event){
+  if (event.start.add(Duration(days:1)) == event.end){
+    return false;
+  }
+  if (!((timeSlotStart.isAfter(event.start) || timeSlotStart.isAtSameMomentAs(event.start))
+      && !(timeSlotEnd.isAfter(event.end) || timeSlotEnd.isAtSameMomentAs(event.end)))) {
+    return false;
+  }
+  return true;
+}
+
+bool hasOverlap(DateTime timeSlotStart, DateTime timeSlotEnd, DateTimeRange event){
+  // in the case that the timeSlot starts during the event
+  if (timeSlotStart.isAfter(event.start) && timeSlotStart.isBefore(event.end)){
+    return true;
+  }
+  // in the case that the timeSlot ends during the event
+  if(timeSlotEnd.isAfter(event.start) && timeSlotEnd.isBefore(event.end)){
+    return true;
+  }
+  // in the case that they start at the same time
+  if(timeSlotStart.hour == event.start.hour && timeSlotStart.minute == timeSlotStart.minute){
+    return true;
+  }
+  return false;
+}
+
+int roundNearestFive(int val){
+  if(val%5 !=0){
+    val += 5 - (val%5);
+  }
+  return val;
+
+}

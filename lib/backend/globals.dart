@@ -9,6 +9,9 @@ import 'package:get/get.dart';
 
 String currentUserEmail = '';
 ZotUser currentUser;
+
+var storedUser = localStorage.get(currentUserEmail);
+
 var localStorage;
 
 initLocalStorage() async {
