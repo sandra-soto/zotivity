@@ -22,10 +22,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
         CheckboxFormField(
           title: Text(
             e.formatString(),
-            style: TextStyle(
-              // fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+              style: Theme.of(context).textTheme.bodyText1,
           ),
           onSaved: (bool value) {
             if (value) {
@@ -47,10 +44,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
         CheckboxFormField(
           title: Text(
             b.str,
-            style: TextStyle(
-              // fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+              style: Theme.of(context).textTheme.bodyText1,
           ),
           onSaved: (bool value) {
             widget.prevInfo.setFocus(b, value);
@@ -70,18 +64,12 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
         children: [
           Text(
             "When do you prefer to exercise?",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+            style: Theme.of(context).textTheme.bodyText2,
           ),
           CheckboxFormField(
             title: Text(
               ZotUser.TIME_MORN,
-              style: TextStyle(
-                // fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onSaved: (bool value) {
               widget.prevInfo.setWindow(ZotUser.TIME_MORN, value);
@@ -90,10 +78,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
           CheckboxFormField(
             title: Text(
               ZotUser.TIME_NOON,
-              style: TextStyle(
-                // fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onSaved: (bool value) {
               widget.prevInfo.setWindow(ZotUser.TIME_NOON, value);
@@ -102,10 +87,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
           CheckboxFormField(
             title: Text(
               ZotUser.TIME_NIGHT,
-              style: TextStyle(
-                // fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onSaved: (bool value) {
               widget.prevInfo.setWindow(ZotUser.TIME_NIGHT, value);
@@ -124,18 +106,12 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
         children: [
           Text(
             "Where do you prefer to exercise?",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+              style: Theme.of(context).textTheme.bodyText2,
           ),
           CheckboxFormField(
             title: Text(
               "At the gym",
-              style: TextStyle(
-                // fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onSaved: (bool value) {
               widget.prevInfo.setInterest(ActivityCategory.gym, value);
@@ -144,10 +120,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
           CheckboxFormField(
             title: Text(
               "Indoors, within my home",
-              style: TextStyle(
-                // fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onSaved: (bool value) {
               widget.prevInfo.setInterest(ActivityCategory.indoor, value);
@@ -156,10 +129,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
           CheckboxFormField(
             title: Text(
               "Outdoors, around my neighborhood",
-              style: TextStyle(
-                // fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onSaved: (bool value) {
               widget.prevInfo.setInterest(ActivityCategory.outdoor, value);
@@ -178,10 +148,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
         children: [
           Text(
             "Select the equipment that you have access to",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+              style: Theme.of(context).textTheme.bodyText2,
           ),
           Column (
             children: listEquipment(),
@@ -199,10 +166,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
         children: [
           Text(
             "Which area(s) of your body do you want to focus on?",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+              style: Theme.of(context).textTheme.bodyText2,
           ),
           Column (
             children: listBodyParts()
@@ -220,19 +184,14 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
         children: [
           Text(
             "How experienced are you with exercising?",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+              style: Theme.of(context).textTheme.bodyText2,
           ),
           RadioListTile<int>(
-            title: const Text(
+            title: Text(
               "Beginner",
-              style: TextStyle(
-                // fontWeight: FontWeight.bold,
-                fontSize: 18,
-              )
+              style: Theme.of(context).textTheme.bodyText1,
             ),
+            activeColor: Theme.of(context).accentColor,
             value: 0,
             groupValue: widget.prevInfo.getExperience(),
             onChanged: (int value) {
@@ -243,13 +202,11 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             selected: widget.prevInfo.getExperience() == 0
           ),
           RadioListTile<int>(
-            title: const Text(
+            title: Text(
               "Intermediate",
-              style: TextStyle(
-                // fontWeight: FontWeight.bold,
-                fontSize: 18,
-              )
+              style: Theme.of(context).textTheme.bodyText1,
             ),
+            activeColor: Theme.of(context).accentColor,
             value: 1,
             groupValue: widget.prevInfo.getExperience(),
             onChanged: (int value) {
@@ -260,13 +217,11 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             selected: widget.prevInfo.getExperience() == 1
           ),
           RadioListTile<int>(
-            title: const Text(
+            title: Text(
               "Expert",
-              style: TextStyle(
-                // fontWeight: FontWeight.bold,
-                fontSize: 18,
-              )
+              style: Theme.of(context).textTheme.bodyText1,
             ),
+            activeColor: Theme.of(context).accentColor,
             value: 2,
             groupValue: widget.prevInfo.getExperience(),
             onChanged: (int value) {
@@ -289,14 +244,12 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
         children: [
           Text(
             "How often do you want to exercise each week?",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+              style: Theme.of(context).textTheme.bodyText2,
           ),
           Align(
             alignment: Alignment.center,
             child: NumberPicker.integer(   //https://pub.dev/packages/numberpicker
+              textStyle: Theme.of(context).textTheme.bodyText1,
               initialValue: widget.prevInfo.getIntensity(), 
               minValue: 1, 
               maxValue: 7, 
@@ -322,14 +275,12 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
         children: [
           Text(
             "How many minutes do you want to spend exercising per day?",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+              style: Theme.of(context).textTheme.bodyText2,
           ),
           Align(
             alignment: Alignment.center,
             child: NumberPicker.integer(   //https://pub.dev/packages/numberpicker
+              textStyle: Theme.of(context).textTheme.bodyText1,
               initialValue: widget.prevInfo.getRoutineLen(), 
               minValue: 5, 
               maxValue: 120, 

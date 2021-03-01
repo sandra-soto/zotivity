@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zotivity/backend/firebase.dart';
 import 'package:zotivity/models/activityCategory.dart';
-import '../models/Activity.dart';
 import './CategoryPage.dart';
 
-import '../models/BodyFocus.dart';
-import '../models/Equipment.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -13,45 +10,11 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  Activity indoorActivity = Activity(
-      "Yoga",
-      ActivityCategory.indoor,
-      50,
-      1,
-      0,
-      BodyFocus.legs,
-      "Description for Yoga",
-      [Equipment.yoga_mat],
-      "https://miro.medium.com/max/11630/0*C5Y8W-6e9OVIB3AM",
-      "Yoga Resource Link");
-  Activity outdoorActivity = Activity(
-      "Running",
-      ActivityCategory.outdoor,
-      40,
-      0,
-      1,
-      BodyFocus.legs,
-      "Description for Running",
-      List<Equipment>(),
-      "https://images.theconversation.com/files/327587/original/file-20200414-63518-11ajr5x.jpg?ixlib=rb-1.1.0&rect=0%2C610%2C5906%2C2953&q=45&auto=format&w=1356&h=668&fit=crop");
-  Activity gymActivity = Activity(
-      "Deadlift",
-      ActivityCategory.gym,
-      30,
-      2,
-      1,
-      BodyFocus.legs,
-      "Description for Deadlift",
-      [Equipment.machine],
-      "https://www.hussle.com/blog/wp-content/uploads/2020/05/Deadlift-body-change-1080x675.png",
-      "Deadlift Resource Link");
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Search Page"),
-        backgroundColor: Colors.blue,
       ),
       body: Container(
         width: double.infinity,
@@ -63,10 +26,10 @@ class _SearchPageState extends State<SearchPage> {
               padding: const EdgeInsets.all(20.0),
               child: Text(
                 "Categories:",
-                style: TextStyle(fontSize: 28),
+                style: Theme.of(context).textTheme.headline1,
               ),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                     context,
@@ -78,7 +41,7 @@ class _SearchPageState extends State<SearchPage> {
               },
               child: Text("Indoor"),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                     context,
@@ -90,7 +53,7 @@ class _SearchPageState extends State<SearchPage> {
               },
               child: Text("Outdoor"),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                     context,

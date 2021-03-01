@@ -17,13 +17,13 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Row 2 UI'),
-        backgroundColor: Colors.blue,
+        // backgroundColor: Colors.blue,
       ),
       drawer:CustomDrawer(),
       body: Center(
           child: Column(
         children: <Widget>[
-          RaisedButton(
+          ElevatedButton(
             child: Text('Search Page'),
             onPressed: () {
               // Navigator.pushNamed(context, '/searchPage');
@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
                   new MaterialPageRoute(builder: (__) => new SearchPage()));
             },
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text('Category Page'),
             onPressed: () {
               // Navigator.pushNamed(context, '/categoryPage');
@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                           )));
             },
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text('Activity Page'),
             onPressed: () {
               // Navigator.push(
@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
                           futureActivity: getActivityByName("deadlift"))));
             },
           ),
-          RaisedButton(
+          ElevatedButton(
             child: Text('debugFunction()'),
             onPressed: () {
               debugFunction();

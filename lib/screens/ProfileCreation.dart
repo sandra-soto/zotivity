@@ -18,12 +18,10 @@ class ProfileCreationState extends State<ProfileCreation> {
         children: [
           Text(
             "First Name",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+            style: Theme.of(context).textTheme.bodyText2,
           ),
           TextFormField(
+            cursorColor: Theme.of(context).accentColor,
             decoration: InputDecoration(
               // helperText: "Example: Jane Doe",
               border: const OutlineInputBorder(),
@@ -56,12 +54,10 @@ class ProfileCreationState extends State<ProfileCreation> {
         children: [
           Text(
             "Last Name",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+            style: Theme.of(context).textTheme.bodyText2,
           ),
           TextFormField(
+            cursorColor: Theme.of(context).accentColor,
             decoration: InputDecoration(
               // helperText: "Example: Jane Doe",
               border: const OutlineInputBorder(),
@@ -92,12 +88,10 @@ class ProfileCreationState extends State<ProfileCreation> {
         children: [
           Text(
             "Email",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+            style: Theme.of(context).textTheme.bodyText2,
           ),
           TextFormField(
+            cursorColor: Theme.of(context).accentColor,
             decoration: InputDecoration(
               // helperText: "Example: Jane Doe",
               border: const OutlineInputBorder(),
@@ -133,12 +127,10 @@ class ProfileCreationState extends State<ProfileCreation> {
         children: [
           Text(
             "Age",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
+            style: Theme.of(context).textTheme.bodyText2,
           ),
           TextFormField(
+            cursorColor: Theme.of(context).accentColor,
             decoration: InputDecoration(
               // helperText: "Example: Jane Doe",
               border: const OutlineInputBorder(),

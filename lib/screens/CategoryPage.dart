@@ -33,14 +33,12 @@ class _CategoryPageState extends State<CategoryPage> {
           return Scaffold(
             appBar: AppBar(
               title: Text("Category: " + widget.categoryName.str),
-              backgroundColor: Colors.blue,
             ),
           );
         }
         return Scaffold(
             appBar: AppBar(
               title: Text("Category: " + widget.categoryName.str),
-              backgroundColor: Colors.blue,
             ),
             body: ListView.builder(
               padding: const EdgeInsets.all(8.0),
@@ -69,20 +67,17 @@ class _CategoryPageState extends State<CategoryPage> {
                                 children: [
                                   Text(
                                     activityListSnap.data[index].getTitle(),
-                                    style: TextStyle(fontSize: 28),
+                                    style: Theme.of(context).textTheme.headline1,
                                     textAlign: TextAlign.left,
                                   ),
-                                  buildTime(activityListSnap.data[index].getTime().toString(), activityListSnap.data[index].getReps().toString()),
-                                  // Text(activityListSnap.data[index]
-                                  //         .getTime()
-                                  //         .toString() +
-                                  //     " minutes"),
+                                  buildTime(activityListSnap.data[index].getTime().toString(), 
+                                            activityListSnap.data[index].getReps().toString()),
                                 ],
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(right: 15.0),
-                              child: RaisedButton(
+                              child: ElevatedButton(
                                 child: Text("Let's Do It!"),
                                 onPressed: () {
                                   Navigator.push(
