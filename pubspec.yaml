@@ -49,6 +49,7 @@ dependencies:
   excel: ^1.1.5
   shared_preferences: 0.5.12+2
   intl: ^0.16.1
+  sortedmap: ^0.4.2+1
 
 
 dev_dependencies:

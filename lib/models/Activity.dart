@@ -6,12 +6,13 @@ class Activity {
   ActivityCategory category;
   BodyFocus focus;
   String title, imgLink, description, resources;
-  int reps, time, intensity;  // intensity can be from 0 - 2? 0 = easy to 2 = hard
+  int id, reps, time, intensity;  // intensity can be from 0 - 2? 0 = easy to 2 = hard
   List<Equipment> equipment; // idk if list or map is best here
 
 // Todo: fix default parameters to point to a blank image or smth
-  Activity(title, category, reps, time, intensity, focus, description, equipment, [imgLink="", resources=""]){
+  Activity(title, category, reps, time, intensity, focus, description, equipment, [imgLink="", resources="", id=0]){
     this.title = title;
+    this.id = id;
     this.category = category;
     this.reps = reps;
     this.time = time;
@@ -51,6 +52,7 @@ class Activity {
   String toString(){
     return '''
     Title: $title
+    Id: $id
     Image Link: $imgLink
     Category: $category
     Reps: $reps
@@ -85,6 +87,7 @@ class Activity {
 
   Activity.fromJson(Map<String, dynamic> json) :
     title = json['title'],
+    id = json['id'],
     category = catToEnum(json['category']),
     reps = json['reps'],
     time = json['time'],

@@ -99,21 +99,7 @@ getActivityByName(String name) {
       .once()
       .then((DataSnapshot snapshot) {
     Map<dynamic, dynamic> values = snapshot.value;
-    values.forEach((key, values) {
-      lists.add(values);
-    });
-    lists.forEach((element) {
-      // activityList.add(new Activity(
-      //     element["title"],
-      //     categoryMap[element["category"]],
-      //     element["reps"], //Todo: change this later, added bc activities require reps
-      //     element["time"],
-      //     element["intensity"],
-      //     BodyFocusMap[element["focus"]],
-      //     element["description"],
-      //     [equipmentMap[element["equipment"]]],
-      //     element["imgLink"],
-      //     element["resources"]));
+    values.forEach((key, element) {
       activityList.add(new Activity(
           element["title"],
           catToEnum(element["category"]),
@@ -124,7 +110,8 @@ getActivityByName(String name) {
           element["description"],
           stringToList(element["equipment"]),
           element["imgLink"],
-          element["resources"]));
+          element["resources"],
+          int.parse(key)));
     });
     return activityList[0];
   });
@@ -138,26 +125,54 @@ getActivitiesByCategory(String category) {
       .equalTo(category)
       .once()
       .then((DataSnapshot snapshot) {
-    // print(snapshot.value);
+     print(snapshot.value);
     Map<dynamic, dynamic> values = snapshot.value;
-    values.forEach((key, values) {
-      lists.add(values);
-    });
-    lists.forEach((element) {
-      // print(element["title"]);
+    values.forEach((key, element) {
       activityList.add(new Activity(
           element["title"],
           catToEnum(element["category"]),
-          element["reps"], //Todo: change this later, added bc activities require reps
+          element["reps"],
           element["time"],
           element["intensity"],
           focusToEnum(element["focus"]),
           element["description"],
           stringToList(element["equipment"]),
           element["imgLink"],
-          element["resources"]));
+          element["resources"],
+          int.parse(key)
+      ));
     });
     return activityList;
+  });
+}
+
+
+
+getMapActivitiesByCategory(String category) {
+  Map<int, Activity> activityMap = Map<int, Activity>();
+  return databaseReference
+      .orderByChild("category")
+      .equalTo(category)
+      .once()
+      .then((DataSnapshot snapshot) {
+    print(snapshot.value);
+    Map<dynamic, dynamic> values = snapshot.value;
+    values.forEach((key, element) {
+      activityMap[int.parse(key)] = (new Activity(
+          element["title"],
+          catToEnum(element["category"]),
+          element["reps"],
+          element["time"],
+          element["intensity"],
+          focusToEnum(element["focus"]),
+          element["description"],
+          stringToList(element["equipment"]),
+          element["imgLink"],
+          element["resources"],
+          int.parse(key)
+      ));
+    });
+    return activityMap;
   });
 }
 

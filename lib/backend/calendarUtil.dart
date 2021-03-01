@@ -17,7 +17,7 @@ extension DateTimeExtension on DateTime {
   DateTime next(int day) {
     return this.add(
       Duration(
-        days: (day - this.weekday) % DateTime.daysPerWeek,
+        days: day == 1 ? 7 : (day - this.weekday) % DateTime.daysPerWeek,
       ),
     );
   }
@@ -37,10 +37,12 @@ Future<Map<int, List<DateTimeRange>>> getBusyTime() async {
     }
   });
 
+
   // checking availability from now to the remainder of the week
   DateTime now = new DateTime.now();
   DateTime nextMonday = now.next(DateTime.monday);
   nextMonday = new DateTime(nextMonday.year, nextMonday.month, nextMonday.day, 0, 0);
+  print("now $now and next monday $nextMonday");
 
 
 
