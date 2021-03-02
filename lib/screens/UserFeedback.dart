@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import '../models/Activity.dart';
+import 'package:zotivity/screens/ActivityPage.dart';
 
-class UserFeedback extends StatefulWidget {
 
-  @override
-  _UserFeedbackState createState() => _UserFeedbackState();
-}
 
-class _UserFeedbackState extends State<UserFeedback> {
+class UserFeedbackState extends StatelessWidget {
+  final testActivity = Activity("run","outdoor",1,15,1,"leg","good for health","no",['','']);//FOR LOCAL TEST
+  final Activity futureActivity;
+  UserFeedbackState({Key key, @required this.futureActivity}): super(key: key); //USE TO PASS PARAMETER FROM ACTIVITY PAGE
+
+
 // support function here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("activity feedback"),
+        title: Text("DO YOU LIKE " + futureActivity.getTitle() + "?"),
         centerTitle: true,
         backgroundColor: Colors.lightGreen,
 

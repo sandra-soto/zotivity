@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../models/Activity.dart';
+import 'package:zotivity/screens/UserFeedback.dart';
 
 class ActivityPage extends StatefulWidget {
   final Future<Activity> futureActivity;
-  ActivityPage({this.futureActivity});
+  ActivityPage({Key key, this.futureActivity}): super(key: key);
 
   @override
   _ActivityPageState createState() => _ActivityPageState();
@@ -89,6 +90,10 @@ class _ActivityPageState extends State<ActivityPage> {
                     print("Activity '" +
                         activitySnap.data.getTitle() +
                         "' completed.");
+                   // Navigator.push(
+                      //context,
+                      //MaterialPageRoute(builder: (context) => UserFeedback()),
+                    //);
                   },
                 ),
               ],
