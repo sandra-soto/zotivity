@@ -4,18 +4,23 @@ import 'package:zotivity/screens/ActivityPage.dart';
 
 
 
-class UserFeedbackState extends StatelessWidget {
+class UserFeedback extends StatefulWidget {
   final testActivity = Activity("run","outdoor",1,15,1,"leg","good for health","no",['','']);//FOR LOCAL TEST
   final Activity futureActivity;
-  UserFeedbackState({Key key, @required this.futureActivity}): super(key: key); //USE TO PASS PARAMETER FROM ACTIVITY PAGE
+  UserFeedback({Key key, @required this.futureActivity}): super(key: key); //USE TO PASS PARAMETER FROM ACTIVITY PAGE
+  @override
+  _UserFeedbackState createState() => _UserFeedbackState();
+}
 
-
+class _UserFeedbackState extends State<UserFeedback> {
+  //final Activity futureActivity;
+  //UserFeedback({Key key, @required this.futureActivity}): super(key: key); //USE TO PASS PARAMETER FROM ACTIVITY PAGE
 // support function here
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("DO YOU LIKE " + futureActivity.getTitle() + "?"),
+        title: Text("DO YOU LIKE " + widget.futureActivity.getTitle() + "?"),
         centerTitle: true,
         backgroundColor: Colors.lightGreen,
 

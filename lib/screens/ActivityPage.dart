@@ -6,7 +6,6 @@ import 'package:zotivity/screens/UserFeedback.dart';
 class ActivityPage extends StatefulWidget {
   final Future<Activity> futureActivity;
   ActivityPage({Key key, this.futureActivity}): super(key: key);
-
   @override
   _ActivityPageState createState() => _ActivityPageState();
 }
