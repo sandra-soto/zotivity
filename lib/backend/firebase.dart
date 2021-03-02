@@ -130,6 +130,44 @@ getActivityByName(String name) {
   });
 }
 
+queryActivityList(String query, String value){
+  List lists = new List();
+  List<Activity> activityList = new List();
+  return databaseReference
+      .orderByChild(query)
+      .equalTo(value)
+      .once()
+      .then((DataSnapshot snapshot) {
+    // print(snapshot.value);
+
+    // Map<dynamic, dynamic> snapshotMap = new Map();
+    // for(int i = 0; i < snapshot.value.length; i++){
+    //   if(snapshot.value[i] == null){
+    //     snapshotMap[snapshot.value[i]] = 0;
+    //   }
+    // }
+    Map<dynamic, dynamic> values = snapshot.value;
+    values.forEach((key, values) {
+      lists.add(values);
+    });
+    lists.forEach((element) {
+      // print(element["title"]);
+      activityList.add(new Activity(
+          element["title"],
+          catToEnum(element["category"]),
+          element["reps"], //Todo: change this later, added bc activities require reps
+          element["time"],
+          element["intensity"],
+          focusToEnum(element["focus"]),
+          element["description"],
+          stringToList(element["equipment"]),
+          element["imgLink"],
+          element["resources"]));
+    });
+    return activityList;
+  });
+}
+
 getActivitiesByCategory(String category) {
   List lists = new List();
   List<Activity> activityList = new List();
@@ -162,6 +200,12 @@ getActivitiesByCategory(String category) {
 }
 
 debugFunction() {
+  // databaseReference.orderByChild("equipment").equalTo("").once().then((DataSnapshot snapshot) {
+  //   print('Data : ${snapshot.value}');
+  // });
+
+  // queryActivityList("focus", "legs");
+
   // DataSnapshot s;
   // databaseReference.once().then((DataSnapshot snapshot) {
   //   s = snapshot;
