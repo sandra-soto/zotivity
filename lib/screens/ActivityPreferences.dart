@@ -18,6 +18,10 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
     List<Widget> list = List<Widget>.empty(growable: true);
 
     for (var e in Equipment.values) {
+      if (e == Equipment.none) {
+        continue;
+      }
+
       list.add(
         CheckboxFormField(
           title: Text(
@@ -40,6 +44,10 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
     List<Widget> list = List<Widget>.empty(growable: true);
 
     for (var b in BodyFocus.values) {
+      if (b == BodyFocus.none) {
+        continue;
+      }
+ 
       list.add(
         CheckboxFormField(
           title: Text(
@@ -66,33 +74,57 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             "When do you prefer to exercise?",
             style: Theme.of(context).textTheme.bodyText2,
           ),
-          CheckboxFormField(
-            title: Text(
-              ZotUser.TIME_MORN,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            onSaved: (bool value) {
-              widget.prevInfo.setWindow(ZotUser.TIME_MORN, value);
-            },
+          Row(
+            children: [
+              Icon(Icons.wb_twighlight),
+              Expanded(
+                child: 
+                  CheckboxFormField(
+                    title: Text(
+                      ZotUser.TIME_MORN,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    onSaved: (bool value) {
+                      widget.prevInfo.setWindow(ZotUser.TIME_MORN, value);
+                    },
+                  ),
+              )
+            ],
           ),
-          CheckboxFormField(
-            title: Text(
-              ZotUser.TIME_NOON,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            onSaved: (bool value) {
-              widget.prevInfo.setWindow(ZotUser.TIME_NOON, value);
-            },
+          Row(
+            children: [
+              Icon(Icons.wb_sunny),
+              Expanded(
+                child: 
+                  CheckboxFormField(
+                    title: Text(
+                      ZotUser.TIME_NOON,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    onSaved: (bool value) {
+                      widget.prevInfo.setWindow(ZotUser.TIME_NOON, value);
+                    },
+                  ),
+              )
+            ],
           ),
-          CheckboxFormField(
-            title: Text(
-              ZotUser.TIME_NIGHT,
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            onSaved: (bool value) {
-              widget.prevInfo.setWindow(ZotUser.TIME_NIGHT, value);
-            },
-          )
+          Row(
+            children: [
+              Icon(Icons.brightness_2_rounded),
+              Expanded(
+                child: 
+                  CheckboxFormField(
+                    title: Text(
+                      ZotUser.TIME_NIGHT,
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    onSaved: (bool value) {
+                      widget.prevInfo.setWindow(ZotUser.TIME_NIGHT, value);
+                    },
+                  ),
+              )
+            ],
+          ),
         ],
       )
     );
@@ -108,33 +140,54 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             "Where do you prefer to exercise?",
               style: Theme.of(context).textTheme.bodyText2,
           ),
-          CheckboxFormField(
-            title: Text(
-              "At the gym",
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            onSaved: (bool value) {
-              widget.prevInfo.setInterest(ActivityCategory.gym, value);
-            },
+          Row(
+            children: [
+              Icon(Icons.sports_outlined),
+              Expanded(
+                child: CheckboxFormField(
+                  title: Text(
+                    "At the gym",
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  onSaved: (bool value) {
+                    widget.prevInfo.setInterest(ActivityCategory.gym, value);
+                  },
+                )
+              )
+            ]
           ),
-          CheckboxFormField(
-            title: Text(
-              "Indoors, within my home",
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            onSaved: (bool value) {
-              widget.prevInfo.setInterest(ActivityCategory.indoor, value);
-            },
+          Row(
+            children: [
+              Icon(Icons.home),
+              Expanded(
+                child: CheckboxFormField(
+                  title: Text(
+                    "Indoors, within my home",
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  onSaved: (bool value) {
+                    widget.prevInfo.setInterest(ActivityCategory.indoor, value);
+                  },
+                ),
+              )
+            ]
           ),
-          CheckboxFormField(
-            title: Text(
-              "Outdoors, around my neighborhood",
-              style: Theme.of(context).textTheme.bodyText1,
-            ),
-            onSaved: (bool value) {
-              widget.prevInfo.setInterest(ActivityCategory.outdoor, value);
-            },
-          )
+          Row(
+            children: [
+              Icon(Icons.cloud),
+              Expanded(
+                child: CheckboxFormField(
+                  title: Text(
+                    "Outdoors, around my neighborhood",
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  onSaved: (bool value) {
+                    widget.prevInfo.setInterest(ActivityCategory.outdoor, value);
+                  },
+                )
+              )
+            ]
+          ),
         ],
       )
     );
@@ -147,7 +200,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Select the equipment that you have access to",
+            "What equipment do you have access to?",
               style: Theme.of(context).textTheme.bodyText2,
           ),
           Column (

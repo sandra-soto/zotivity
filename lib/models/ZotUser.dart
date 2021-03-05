@@ -10,24 +10,25 @@ class ZotUser {
   static const String TIME_NIGHT = "night";
 
   String firstName, lastName, email;
-  int age, experience, intensity, routineLen;  // experience can be from 0 - 2? 0 = beginner to 2 = advanced
+  int age, experience, intensity, routineLen, goal;  // experience can be from 0 - 2? 0 = beginner to 2 = advanced
   Map<ActivityCategory, bool> interests;
   Map<BodyFocus, bool> focus;
   Map<String, bool> availWindow;
   List<Equipment> access; // idk if list or map is best here
-  List<String> dontRecommend;
-  List<String> Recommend;
+  List<int> dontRecommend;
+  List<int> recommend;
+  List<int> weightProgress;
 
   ZotUser() {
     firstName = lastName = email =  '';
-    age = experience = -1; 
+    age = experience = goal = -1; 
     intensity = 3;
     routineLen = 30;
     interests = Map();
     focus = Map();
     availWindow = Map();
     access = [];
-    dontRecommend = Recommend = List<String>();
+    dontRecommend = recommend = weightProgress = [];
   }
 
   void setFirstName(String name) {
@@ -48,6 +49,10 @@ class ZotUser {
 
   void setExperience(int _experience) {
     experience = _experience;
+  }
+
+  void setGoal(int _goal) {
+    goal = _goal;
   }
 
   void setIntensity(int _intensity) {
@@ -83,6 +88,41 @@ class ZotUser {
     return access.remove(equipment);
   }
 
+  bool addGoodRec(int rec) {
+    if (recommend.contains(rec)) {
+      return false;
+    }
+
+    recommend.add(rec);
+    return true;
+  }
+
+  bool removeGoodRec(int rec) {
+    return recommend.remove(rec);
+  }
+
+  bool addBadRec(int rec) {
+    if (dontRecommend.contains(rec)) {
+      return false;
+    }
+
+    dontRecommend.add(rec);
+    return true;
+  }
+
+  bool removeBadRec(int rec) {
+    return dontRecommend.remove(rec);
+  }
+
+  bool addWeight(int weight) {
+    if (weight < 0) {
+      return false;
+    }
+
+    weightProgress.add(weight);
+    return true;
+  }
+
   String getFirstName() => this.firstName;
   String getLastName() => this.lastName;
   String getEmail() => this.email;
@@ -90,10 +130,14 @@ class ZotUser {
   int getExperience() => this.experience;
   int getIntensity() => this.intensity;
   int getRoutineLen() => this.routineLen;
+  int getGoal() => this.goal;
   Map<ActivityCategory, bool> getInterests() => this.interests;
   Map<BodyFocus, bool> getFocus() => this.focus;
   Map<String, bool> getAvailWindow() => this.availWindow;
   List<Equipment> getAccess() => this.access;
+  List<int> getGoodRecs() => this.recommend;
+  List<int> getBadRecs() => this.dontRecommend;
+  List<int> getWeightProgress() => this.weightProgress;
 
   @override
   String toString() {
@@ -110,10 +154,12 @@ class ZotUser {
       'experience': experience,
       'intensity': intensity,
       'routineLen': routineLen,
+      'goal': goal,
       'interests': {
         'indoor': interests[ActivityCategory.indoor],
         'outdoor': interests[ActivityCategory.outdoor], 
-        'gym': interests[ActivityCategory.gym]},
+        'gym': interests[ActivityCategory.gym]
+      },
       'focus': {
         'arms' : focus[BodyFocus.arms],
         'chest': focus[BodyFocus.chest],
@@ -129,7 +175,10 @@ class ZotUser {
         TIME_NOON: availWindow[TIME_NOON],
         TIME_NIGHT: availWindow[TIME_NIGHT],
       },
-      'access': access.join(',')
+      'access': access.join(','),
+      'recommend': recommend.join(','),
+      'dontRecommend': dontRecommend.join(','),
+      'weightProgress': weightProgress.join(',')
     };
   }
 
