@@ -10,48 +10,48 @@ import '../models/Activity.dart';
 
 
 
-void getRoutineRecs() async {
+Future<List<Activity>> getRoutineRecs() async {
   var activityMap = Map<int, Activity>();
   var activityByScore = new SortedMap(Ordering.byValue());
   List<Activity> weightedActivityList = List<Activity>();
 
   // person who likes simple indoor activities
-  currentUser.setExperience(0);
-  currentUser.setFocus(BodyFocus.legs, true);
-  currentUser.setFocus(BodyFocus.arms, true);
-  currentUser.setFocus(BodyFocus.glutes, true);
-  currentUser.setFocus(BodyFocus.full, true);
-  currentUser.setInterest(ActivityCategory.indoor, true);
-  currentUser.setInterest(ActivityCategory.outdoor, false);
-  currentUser.setInterest(ActivityCategory.gym, false);
+  currentZotUser.setExperience(0);
+  currentZotUser.setFocus(BodyFocus.legs, true);
+  currentZotUser.setFocus(BodyFocus.arms, true);
+  currentZotUser.setFocus(BodyFocus.glutes, true);
+  currentZotUser.setFocus(BodyFocus.full, true);
+  currentZotUser.setInterest(ActivityCategory.indoor, true);
+  currentZotUser.setInterest(ActivityCategory.outdoor, false);
+  currentZotUser.setInterest(ActivityCategory.gym, false);
 
 
   //person who likes hardcore gym stuff
-  currentUser.setExperience(2);
-  currentUser.setFocus(BodyFocus.chest, true);
-  currentUser.setFocus(BodyFocus.shoulders, true);
-  currentUser.setFocus(BodyFocus.arms, true);
-  currentUser.setFocus(BodyFocus.full, false);
-  currentUser.setInterest(ActivityCategory.indoor, false);
-  currentUser.setInterest(ActivityCategory.outdoor, false);
-  currentUser.setInterest(ActivityCategory.gym, true);
+  currentZotUser.setExperience(2);
+  currentZotUser.setFocus(BodyFocus.chest, true);
+  currentZotUser.setFocus(BodyFocus.shoulders, true);
+  currentZotUser.setFocus(BodyFocus.arms, true);
+  currentZotUser.setFocus(BodyFocus.full, false);
+  currentZotUser.setInterest(ActivityCategory.indoor, false);
+  currentZotUser.setInterest(ActivityCategory.outdoor, false);
+  currentZotUser.setInterest(ActivityCategory.gym, true);
 
 
   //person who wants to do full activities outside and has no particular focus
-  currentUser.setExperience(1);
-  currentUser.setFocus(BodyFocus.chest, false);
-  currentUser.setFocus(BodyFocus.legs, false);
-  currentUser.setFocus(BodyFocus.shoulders, false);
-  currentUser.setFocus(BodyFocus.arms, false);
-  currentUser.setFocus(BodyFocus.glutes, false);
-  currentUser.setFocus(BodyFocus.full, true);
-  currentUser.setInterest(ActivityCategory.indoor, false);
-  currentUser.setInterest(ActivityCategory.outdoor, true);
-  currentUser.setInterest(ActivityCategory.gym, false);
+  currentZotUser.setExperience(1);
+  currentZotUser.setFocus(BodyFocus.chest, false);
+  currentZotUser.setFocus(BodyFocus.legs, false);
+  currentZotUser.setFocus(BodyFocus.shoulders, false);
+  currentZotUser.setFocus(BodyFocus.arms, false);
+  currentZotUser.setFocus(BodyFocus.glutes, false);
+  currentZotUser.setFocus(BodyFocus.full, true);
+  currentZotUser.setInterest(ActivityCategory.indoor, false);
+  currentZotUser.setInterest(ActivityCategory.outdoor, true);
+  currentZotUser.setInterest(ActivityCategory.gym, false);
 
 
-  List<ActivityCategory> userPref = currentUser.getInterests().keys.toList()..removeWhere((key) {
-    return currentUser.getInterests()[key] == false;
+  List<ActivityCategory> userPref = currentZotUser.getInterests().keys.toList()..removeWhere((key) {
+    return currentZotUser.getInterests()[key] == false;
   });
 
   for(int i = 0; i < userPref.length; i++){
@@ -67,15 +67,13 @@ void getRoutineRecs() async {
   //activityMap.forEach((element) {print(element);});
 
   print(activityByScore);
-  print(currentUser);
+  print(currentZotUser);
 
   activityByScore.keys.toList().forEach((key) {
     weightedActivityList.add(activityMap[key]);
   });
 
-  Get.to(() => RoutinePage(items: new List.from(weightedActivityList.reversed)));
-
-
+  return List.from(weightedActivityList.reversed);
 }
 
 int getScore(Activity element) {
@@ -87,17 +85,17 @@ int getScore(Activity element) {
       "time": 3,
     };
 
-    if (currentUser.focus[element.focus]){
+    if (currentZotUser.focus[element.focus]){
       score += (weights["focus"]);
     }
-    if(currentUser.getInterests()[ActivityCategory.gym] == true && (element.equipment[0] == Equipment.machine)){
+    if(currentZotUser.getInterests()[ActivityCategory.gym] == true && (element.equipment[0] == Equipment.machine)){
       score += (weights["equipment"]);
     }
 
-    if ((element.equipment[0] == null && currentUser.access[0] == Equipment.none) || currentUser.access.contains(element.equipment[0])){
+    if ((element.equipment[0] == null && currentZotUser.access[0] == Equipment.none) || currentZotUser.access.contains(element.equipment[0])){
       score += (weights["equipment"]);
     }
-    if (currentUser.experience >= element.intensity) {
+    if (currentZotUser.experience >= element.intensity) {
       score += (weights["intensity"]);
     }
 

@@ -1,14 +1,27 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zotivity/backend/calendarUtil.dart';
+import 'package:zotivity/backend/recommend.dart';
 import 'package:zotivity/main.dart';
 import 'package:zotivity/models/ZotUser.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:zotivity/backend/mongo.dart';
+import 'package:zotivity/screens/CalendarPage.dart';
+import 'package:zotivity/screens/HomePage.dart';
+import 'package:zotivity/models/Activity.dart';
+
+import 'package:zotivity/screens/Login.dart';
+import 'package:zotivity/screens/RoutinePage.dart';
 
 String currentUserEmail = '';
-ZotUser currentUser;
+ZotUser currentZotUser;
+
+
 
 var storedUser = localStorage.get(currentUserEmail);
 
@@ -85,8 +98,16 @@ void initNotifs ()async{
 void configureSelectNotificationSubject() {
   selectNotificationSubject.stream.listen((String payload) async {
     print("click clacked");
-    if (payload != null) {
-      Get.to(() => new BlueScreen());
+    print("this is the payload $payload");
+    if (payload == "ROUTINE"){
+      getRoutineRecs().then((routine){
+        Get.to(() => new RoutinePage(items: routine));
+      });
+
+
+    }
+    else if (payload == "WEIGHT"){
+      Get.to(() => new LoginPage());
     }
 
 //    await Navigator.push(
@@ -110,7 +131,7 @@ void requestIOSPermissions() {
 
 
 }
-  Future<void> showNotification() async {
+  Future<void> showRoutineNotif() async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'Zotivity', 'routines', 'new reminders',
         importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
@@ -119,16 +140,32 @@ void requestIOSPermissions() {
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(
         0, 'Zotivity | New routine for X', 'Time for a quick run!', platformChannelSpecifics,
-        payload: '');
+        payload: 'ROUTINE');
   }
 
 
-Future selectNotification(String payload) async {
-  if (payload != null) {
-   print('erewfwef: $payload');
-  }
-  selectNotificationSubject.add(payload);
+  Future<void> scheduledRoutine(int id, DateTime date)  async {
+    var scheduledNotificationDateTime = date;
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'Zotivity', 'routines', 'new reminders',
+        icon: 'ic_stat_name',
+        sound: RawResourceAndroidNotificationSound('slow_spring_board'),
+        largeIcon: DrawableResourceAndroidBitmap('ic_stat_name'),
+    );
 
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails(sound: 'slow_spring_board.aiff');
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+
+        await flutterLocalNotificationsPlugin.schedule(
+        id,
+        'Zotivity',
+        'New Routine for ${currentZotUser.firstName} || ${format(date)}',
+        scheduledNotificationDateTime,
+        platformChannelSpecifics,
+        payload: "ROUTINE");
 }
+
+
 
 ////////////////// local notifications

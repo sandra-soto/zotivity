@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:zotivity/models/ZotUser.dart';
 import 'dart:math';
 import 'globals.dart';
+import '../backend/sign_in.dart';
+
 
 Random rand = new Random();
 var newFormat = DateFormat.yMd().add_jm() ;
@@ -14,10 +16,11 @@ String format(DateTime date){
 }
 // source: https://stackoverflow.com/questions/62564746/dart-get-date-of-next-friday
 extension DateTimeExtension on DateTime {
-  DateTime next(int day) {
+  DateTime nextMonday(int day) {
+
     return this.add(
       Duration(
-        days: day == 1 ? 7 : (day - this.weekday) % DateTime.daysPerWeek,
+        days: this.weekday == 1 ? 7 : 8-this.weekday,
       ),
     );
   }
@@ -40,7 +43,7 @@ Future<Map<int, List<DateTimeRange>>> getBusyTime() async {
 
   // checking availability from now to the remainder of the week
   DateTime now = new DateTime.now();
-  DateTime nextMonday = now.next(DateTime.monday);
+  DateTime nextMonday = now.nextMonday(DateTime.monday);
   nextMonday = new DateTime(nextMonday.year, nextMonday.month, nextMonday.day, 0, 0);
   print("now $now and next monday $nextMonday");
 
@@ -55,6 +58,7 @@ Future<Map<int, List<DateTimeRange>>> getBusyTime() async {
     "items": calendarIDs,
   };
   try{
+
 
     var freeBusyData = await CalendarApi(httpClient).freebusy.query(FreeBusyRequest.fromJson(freeBusyReq));
     Map<int, List<DateTimeRange>> allBusyPeriods = Map<int, List<DateTimeRange>>();
@@ -92,10 +96,12 @@ bool dateFallsInRange(DateTimeRange range, DateTime date){
 Future<List<DateTime>> getBestFreeTime() async {
   List<DateTime> result = List<DateTime>();
 
+  // Todo: find better method of refreshing token
+  signInWithGoogleSilently();
 
   Map<int, List<DateTimeRange>> allBusyTime = await getBusyTime();
 
-  int timeSlotsToFind = currentUser.getIntensity();
+  int timeSlotsToFind = currentZotUser.getIntensity();
   print("Should find $timeSlotsToFind timeslots per week");
 
   // recalculate number of timeSlots to find depending on how many days left in the week
@@ -123,7 +129,7 @@ Future<List<DateTime>> getBestFreeTime() async {
 
 
 
-  print("this one here========= ${orderedByAvail}");
+  print("${allBusyTime} this one here========= ${orderedByAvail}");
 
 
   List<DateTimeRange> prefRanges = getPrefRanges(now);
@@ -134,23 +140,21 @@ Future<List<DateTime>> getBestFreeTime() async {
 
   for(int i = 0; i < timeSlotsToFind; i++){
     int dayToFind = orderedByAvail[i];
-    print("===============Have to find a timeslot of length ${currentUser.getRoutineLen()} for $dayToFind=============");
+    if (dayToFind >= now.weekday){
+      print("===============Have to find a timeslot of length ${currentZotUser.getRoutineLen()} for $dayToFind=============");
 
-
-    DateTime thatDayofWeek = now;
-
-    if (dayToFind != now.weekday){
-      thatDayofWeek = now.add(new Duration(days: dayToFind - now.weekday)); // get the month and day
-      thatDayofWeek = new DateTime(chosenRange.start.year, chosenRange.start.month, thatDayofWeek.day, chosenRange.start.hour, chosenRange.start.minute);
+      DateTime thatDayofWeek = now;
+      if (dayToFind != now.weekday){
+        thatDayofWeek = now.add(new Duration(days: dayToFind - now.weekday)); // get the month and day
+        thatDayofWeek = new DateTime(chosenRange.start.year, chosenRange.start.month, thatDayofWeek.day, chosenRange.start.hour, chosenRange.start.minute);
+      }
+      print("will now find best free time for day $dayToFind : ${newFormat.format(thatDayofWeek)} which must be within $chosenRange");
+      var res = getBestDayFreeTime(chosenRangeInt, weekStr[dayToFind], allBusyTime[dayToFind], thatDayofWeek);
+      if (res != null) {
+        result.add(res);
+      }
     }
 
-    print("will now find best free time for day $dayToFind : ${newFormat.format(thatDayofWeek)} which must be within $chosenRange");
-
-
-    var res = getBestDayFreeTime(chosenRangeInt, weekStr[dayToFind], allBusyTime[dayToFind], thatDayofWeek);
-    if (res != null) {
-      result.add(res);
-    }
   }
 
 
@@ -160,7 +164,7 @@ print(result);
 
 
 List<DateTimeRange> getPrefRanges(DateTime date){
-  var availTimes = currentUser.getAvailWindow().values.toList();
+  var availTimes = currentZotUser.getAvailWindow().values.toList();
 
   //Todo: add some kind of widget so they can further refine times, if they want
   Map<int, DateTimeRange> timeRanges = {0: new DateTimeRange(start: DateTime(date.year, date.month, date.day, 6, 0),
@@ -188,7 +192,7 @@ getBestDayFreeTime(var chosenRangeInt, String day, List<DateTimeRange> busyRange
 
   int upperLim = chosenRange.end.hour;
   int lowerLim = chosenRange.start.hour;
-  int timeSlotLen = currentUser.getRoutineLen();
+  int timeSlotLen = currentZotUser.getRoutineLen();
 
 
     bool foundTimeSlot = false;

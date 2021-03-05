@@ -9,6 +9,8 @@ import 'package:zotivity/backend/firebase.dart';
 import 'package:get/get.dart';
 import 'package:zotivity/screens/ProfileCreation.dart';
 
+import 'backend/mongo.dart';
+
 
 
 
@@ -18,6 +20,9 @@ import 'package:zotivity/screens/ProfileCreation.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   // insertExcel();
+
+  print("im so fucking confused");
+  await initMongoDB();
   initNotifs();
   requestIOSPermissions();
   await initAuthFirebase();
@@ -44,8 +49,14 @@ class IntroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     var result = getCurrentUser();
-    print("this is the user $result");
-    print(result == null);
+    if (result != null){
+      signInWithGoogleSilently().then((user) {
+        getMongoUser();
+      });
+
+
+    }
+
     return new SplashScreen(
       //Todo: change later
         navigateAfterSeconds: result == null ? LoginPage() : HomePage(),
@@ -66,12 +77,5 @@ class IntroScreen extends StatelessWidget {
 }
 
 
-class BlueScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(color: Colors.blue[100])
-    );
-  }
-}
+
 

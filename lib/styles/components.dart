@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:zotivity/backend/calendarUtil.dart';
 import 'package:zotivity/backend/firebase.dart';
 import 'package:zotivity/backend/globals.dart';
+import 'package:zotivity/backend/mongo.dart';
 import 'package:zotivity/backend/recommend.dart';
 import 'package:zotivity/screens/CalendarPage.dart';
 import 'package:zotivity/screens/ProfileCreation.dart';
@@ -48,7 +49,7 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () async {
                   configureSelectNotificationSubject();
                   //await showNotification();
-                  await showNotification();
+                  await showRoutineNotif();
                   Navigator.pop(context);
               }
               ),
@@ -68,9 +69,21 @@ class CustomDrawer extends StatelessWidget {
                   }
               ),
               ListTile(
+                  leading: FaIcon(FontAwesomeIcons.list),
+                  title: Text('CANCEL NOTIFS'),
+                  onTap: () async {
+                    getRoutineRecs();
+                      Future<void> _cancelNotification() async {
+    await flutterLocalNotificationsPlugin.cancel(0);
+  }
+  _cancelNotification();
+                  }
+              ),
+              ListTile(
                   leading: FaIcon(FontAwesomeIcons.question),
                   title: Text('Test your function here - components.dart'),
                   onTap: () async {
+
 
                   }
               ),

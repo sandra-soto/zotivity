@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:zotivity/backend/firebase.dart';
 import 'package:zotivity/backend/globals.dart';
+import 'package:zotivity/backend/mongo.dart';
 import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/models/BodyFocus.dart';
 import 'package:zotivity/models/Equipment.dart';
@@ -402,13 +403,11 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
 
   void submitDB() async{
 
-    currentUser = widget.prevInfo;
-    print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-    print(currentUser.toJson());
-
+    currentZotUser = widget.prevInfo;
     // turning the user into a stringified JSON object, with their email as the key
     // currentUserEmail is from globals.dart and assigned in Login.dart on the _signInButton
-    localStorage.setString(currentUserEmail, jsonEncode(currentUser.toJson()));
+    updateMongoUser();
+    localStorage.setString(currentUserEmail, jsonEncode(currentZotUser.toJson()));
 
 
     //printAllActivities();

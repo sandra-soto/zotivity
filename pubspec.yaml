@@ -50,6 +50,7 @@ dependencies:
   shared_preferences: 0.5.12+2
   intl: ^0.16.1
   sortedmap: ^0.4.2+1
+  mongo_dart: ^0.4.4
 
 
 dev_dependencies:

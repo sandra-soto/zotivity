@@ -34,6 +34,9 @@ Future<User> signInWithGoogle() async {
     idToken: googleSignInAuthentication.idToken,
   );
 
+  print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+  print(credential);
+
   final _authHeaders = await googleSignIn.currentUser.authHeaders;
   // custom IOClient from other file
   httpClient = GoogleHttpClient(_authHeaders);
@@ -48,6 +51,44 @@ Future<User> signInWithGoogle() async {
     final User currentUser = auth.currentUser;
     assert(user.uid == currentUser.uid);
 
+    currentUserEmail = user.email;
+    print('signInWithGoogle succeeded');
+    return user;
+  }
+
+  return null;
+}
+
+
+Future<User> signInWithGoogleSilently() async {
+
+  final GoogleSignInAccount googleSignInAccount = await googleSignIn.signInSilently();
+
+  final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+  final AuthCredential credential = GoogleAuthProvider.credential(
+    accessToken: googleSignInAuthentication.accessToken,
+    idToken: googleSignInAuthentication.idToken,
+  );
+
+  final _authHeaders = await googleSignIn.currentUser.authHeaders;
+
+  // custom IOClient from other file
+  httpClient = GoogleHttpClient(_authHeaders);
+
+  final UserCredential authResult = await auth.signInWithCredential(credential);
+  final User user = authResult.user;
+
+  print("sadasda ${auth.currentUser}");
+  print(credential);
+
+  if (user != null) {
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
+
+    final User currentUser = auth.currentUser;
+    assert(user.uid == currentUser.uid);
+
+    currentUserEmail = user.email;
     print('signInWithGoogle succeeded');
     return user;
   }
@@ -56,6 +97,7 @@ Future<User> signInWithGoogle() async {
 }
 
 User getCurrentUser(){
+
   return auth.currentUser;
 }
 
