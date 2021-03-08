@@ -1,7 +1,4 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'dart:io';
-import 'package:excel/excel.dart';
-import 'package:flutter/services.dart' show ByteData, rootBundle;
 import 'package:zotivity/models/ZotUser.dart';
 import 'package:zotivity/models/activityCategory.dart';
 import '../models/Activity.dart';
@@ -46,21 +43,10 @@ addSomeData() {
 //  });
 //}
 
-addActivity(Activity _activity) {
-  databaseReference.child(_activity.getTitle()).set(_activity.toMap());
-}
+// addActivity(Activity _activity) {
+//   databaseReference.child(_activity.getTitle()).set(_activity.toMap());
+// }
 
-void insertExcel() async {
-  // ByteData data = await rootBundle.load("assets/test_data.xlsx");
-  ByteData data = await rootBundle.load("assets/activities.xlsx");
-  var bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-  var excel = Excel.decodeBytes(bytes);
-  var table = excel.tables.keys.first;
-
-  for (var row in excel.tables[table].rows) {
-    addActivity(Activity.fromList(row));
-  }
-}
 // Map<String, ActivityCategory> categoryMap = {
 //   "outdoor": ActivityCategory.outdoor,
 //   "indoor": ActivityCategory.indoor,
