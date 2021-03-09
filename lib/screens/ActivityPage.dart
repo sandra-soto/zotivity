@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:zotivity/backend/mongo.dart';
 import '../models/Activity.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zotivity/backend/globals.dart';
@@ -85,7 +86,8 @@ class _ActivityPageState extends State<ActivityPage> {
                           tooltip: 'Add activity to favorites',
                           onPressed: () { // TODO: fill in outline & change icon 
                             print("test star");
-                            currentUser.addGoodRec(activitySnap.data.getid());  // TODO: make sure this works & got right data
+                            currentZotUser.addGoodRec(activitySnap.data.id);  // TODO: make sure this works & got right data
+                            updateMongoUser();
                           },
                         ),
                       ),

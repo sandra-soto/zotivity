@@ -27,8 +27,10 @@ class ZotUser {
     interests = Map();
     focus = Map();
     availWindow = Map();
-    access = [];
-    dontRecommend = recommend = weightProgress = [];
+    access = List();
+    dontRecommend = List();
+    recommend = List();
+    weightProgress = List();
   }
 
   void setFirstName(String name) {
@@ -176,9 +178,9 @@ class ZotUser {
         TIME_NIGHT: availWindow[TIME_NIGHT],
       },
       'access': access.join(','),
-      'recommend': recommend.join(','),
-      'dontRecommend': dontRecommend.join(','),
-      'weightProgress': weightProgress.join(',')
+      'recommend': recommend,
+      'dontRecommend': dontRecommend,
+      'weightProgress': weightProgress,
     };
   }
 
@@ -210,7 +212,10 @@ class ZotUser {
                       TIME_NOON: json['availWindow'][TIME_NOON],
                       TIME_NIGHT: json['availWindow'][TIME_NIGHT]
         },
-        access =  stringToList(json['access']);
+        access =  stringToList(json['access']),
+        recommend = json['recommend'].cast<int>(),
+        dontRecommend =  json['dontRecommend'].cast<int>(),
+        weightProgress = json['weightProgress'].cast<int>();
 
 }
 
