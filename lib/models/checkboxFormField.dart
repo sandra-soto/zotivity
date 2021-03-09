@@ -16,6 +16,7 @@ class CheckboxFormField extends FormField<bool> {
             // autovalidate: autovalidate,
             builder: (FormFieldState<bool> state) {
               return CheckboxListTile(
+                activeColor: const Color.fromRGBO(255, 210, 0, 1),
                 dense: state.hasError,
                 title: title,
                 value: state.value,

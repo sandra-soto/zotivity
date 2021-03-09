@@ -50,6 +50,7 @@ dependencies:
   intl: ^0.16.1
   sortedmap: ^0.4.2+1
   mongo_dart: ^0.4.4
+  url_launcher: ^5.7.10
 
 
 dev_dependencies:

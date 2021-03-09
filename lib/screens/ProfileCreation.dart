@@ -10,75 +10,53 @@ class ProfileCreationState extends State<ProfileCreation> {
   ZotUser _user = new ZotUser();
   User googleInfo = getCurrentUser();
 
-  Widget _buildFirstName() {
+  Widget _buildName() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 16),
-      child: Column(
+      child: Row (
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "First Name",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
+          Expanded (
+            child: TextFormField(
+              cursorColor: Theme.of(context).accentColor,
+              decoration: InputDecoration(
+                icon: const Icon(Icons.person),
+                labelStyle: Theme.of(context).textTheme.bodyText2,
+                labelText: 'First Name',
+              ),
+              initialValue: googleInfo.displayName.split(' ').first,
+              keyboardType: TextInputType.name,
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return 'Please enter your first name';
+                }
+                return null;
+              },
+              onSaved: (String value) {
+                _user.setFirstName(value);
+              }
             ),
           ),
-          TextFormField(
-            decoration: InputDecoration(
-              // helperText: "Example: Jane Doe",
-              border: const OutlineInputBorder(),
-              // contentPadding: EdgeInsets.symmetric(vertical: 4),
-            ),
-            initialValue: googleInfo.displayName.split(' ').first,
-            keyboardType: TextInputType.name,
-            validator: (String value) {
-              if (value.isEmpty) {
-                return 'Please enter your first name';
+          Expanded (
+            child: TextFormField(
+              cursorColor: Theme.of(context).accentColor,
+              decoration: InputDecoration(
+                labelStyle: Theme.of(context).textTheme.bodyText2,
+                labelText: 'Last Name'
+              ),
+              initialValue: googleInfo.displayName.split(' ').last,
+              keyboardType: TextInputType.name,
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return 'Please enter your last name';
+                }
+                return null;
+              },
+              onSaved: (String value) {
+                _user.setLastName(value);
               }
-              return null;
-            },
-            onSaved: (String value) {
-              // NOTE: can grab info from signed in user by doing
-              // _user.setFirstName(getCurrentUser().displayName);
-              _user.setFirstName(value);
-            }
-          )
-        ],
-      )
-    );
-  }
-
-  Widget _buildLastName() {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Last Name",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
             ),
           ),
-          TextFormField(
-            decoration: InputDecoration(
-              // helperText: "Example: Jane Doe",
-              border: const OutlineInputBorder(),
-              // contentPadding: EdgeInsets.symmetric(vertical: 4),
-            ),
-            initialValue: googleInfo.displayName.split(' ').last,  // TODO: prepopulate using Google data! 
-            keyboardType: TextInputType.name,
-            validator: (String value) {
-              if (value.isEmpty) {
-                return 'Please enter your last name';
-              }
-              return null;
-            },
-            onSaved: (String value) {
-              _user.setLastName(value);
-            }
-          )
         ],
       )
     );
@@ -90,18 +68,12 @@ class ProfileCreationState extends State<ProfileCreation> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Email",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
           TextFormField(
+            cursorColor: Theme.of(context).accentColor,
             decoration: InputDecoration(
-              // helperText: "Example: Jane Doe",
-              border: const OutlineInputBorder(),
-              // contentPadding: EdgeInsets.symmetric(vertical: 4),
+              icon: const Icon(Icons.email),
+              labelStyle: Theme.of(context).textTheme.bodyText2,
+              labelText: 'Email'
             ),
             initialValue: googleInfo.email,
             keyboardType: TextInputType.emailAddress,
@@ -131,18 +103,12 @@ class ProfileCreationState extends State<ProfileCreation> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Age",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-            ),
-          ),
           TextFormField(
+            cursorColor: Theme.of(context).accentColor,
             decoration: InputDecoration(
-              // helperText: "Example: Jane Doe",
-              border: const OutlineInputBorder(),
-              // contentPadding: EdgeInsets.symmetric(vertical: 4),
+              icon: const Icon(Icons.calendar_today),
+              labelStyle: Theme.of(context).textTheme.bodyText2,
+              labelText: 'Age',
             ),
             keyboardType: TextInputType.number,
             validator: (String value) {
@@ -166,6 +132,76 @@ class ProfileCreationState extends State<ProfileCreation> {
     );
   }
 
+  Widget _buildWeight() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextFormField(
+            cursorColor: Theme.of(context).accentColor,
+            decoration: InputDecoration(
+              icon: const Icon(Icons.leaderboard),
+              labelStyle: Theme.of(context).textTheme.bodyText2,
+              labelText: 'Current weight',
+            ),
+            keyboardType: TextInputType.number,
+            validator: (String value) {
+              if (value.isEmpty) {
+                return 'Please enter your weight';
+              }
+
+              int weight = int.tryParse(value);
+
+              if (weight < 1) {
+                return 'Please enter a valid weight';
+              }
+              return null;
+            },
+            onSaved: (String value) {
+              _user.addWeight(int.tryParse(value));
+            }
+          )
+        ],
+      )
+    );
+  }
+
+  Widget _buildGoal() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextFormField(
+            cursorColor: Theme.of(context).accentColor,
+            decoration: InputDecoration(
+              icon: const Icon(Icons.star_outlined),
+              labelStyle: Theme.of(context).textTheme.bodyText2,
+              labelText: 'Weight Goal',
+            ),
+            keyboardType: TextInputType.number,
+            validator: (String value) {
+              if (value.isEmpty) {
+                return 'Please enter your weight goal';
+              }
+
+              int weight = int.tryParse(value);
+
+              if (weight < 1) {
+                return 'Please enter a valid weight';
+              }
+              return null;
+            },
+            onSaved: (String value) {
+              _user.setGoal(int.tryParse(value));
+            }
+          )
+        ],
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -173,16 +209,17 @@ class ProfileCreationState extends State<ProfileCreation> {
       appBar: AppBar(title: Text('Profile Creation')),
       body: SingleChildScrollView(
         child: Container (
-          padding: EdgeInsets.all(32),
+          padding: EdgeInsets.all(16),
           child: Form(
             key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                _buildFirstName(),
-                _buildLastName(),
+                _buildName(),
                 _buildEmail(),
                 _buildAge(),
+                _buildWeight(),
+                _buildGoal(),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
