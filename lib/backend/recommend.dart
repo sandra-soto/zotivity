@@ -7,6 +7,7 @@ import 'package:zotivity/models/activityCategory.dart';
 import 'package:zotivity/screens/RoutinePage.dart';
 import 'package:sortedmap/sortedmap.dart';
 import '../models/Activity.dart';
+import 'package:zotivity/screens/CalendarPage.dart';
 
 
 
@@ -73,7 +74,7 @@ Future<List<Activity>> getRoutineRecs() async {
     weightedActivityList.add(activityMap[key]);
   });
 
-  return List.from(weightedActivityList.reversed);
+  return Get.to(() => RoutinePage(items: List.from(weightedActivityList.reversed)));
 }
 
 int getScore(Activity element) {
