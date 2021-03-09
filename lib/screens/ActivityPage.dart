@@ -79,13 +79,19 @@ class _ActivityPageState extends State<ActivityPage> {
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: IconButton(
                           icon: Icon(
-                            Icons.star_outline,
+                            currentUser.getGoodRecs().contains(activitySnap.data.getTitle())? Icons.star : Icons.star_outline,
                             color: Theme.of(context).accentColor,
                           ),
                           tooltip: 'Add activity to favorites',
-                          onPressed: () { // TODO: fill in outline & change icon 
-                            print("test star");
-                            currentUser.addGoodRec(activitySnap.data.getid());  // TODO: make sure this works & got right data
+                          onPressed: () {
+                            setState(() {
+                              if (currentUser.getGoodRecs().contains(activitySnap.data.getTitle())) {
+                                currentUser.removeGoodRec(activitySnap.data.getTitle());
+                              }
+                              else {
+                                currentUser.addGoodRec(activitySnap.data.getTitle());
+                              }  
+                            });
                           },
                         ),
                       ),
