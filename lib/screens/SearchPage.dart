@@ -37,6 +37,7 @@ class _SearchPageState extends State<SearchPage> {
   bool low = false;
   bool medium = false;
   bool high = false;
+  bool matchAll = true;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,77 @@ class _SearchPageState extends State<SearchPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              Row(
+                children: [
+                  Text("Filter Type: ", style: TextStyle(fontSize: 15)),
+                  RaisedButton(
+                    color: matchAll ? Colors.blue : Colors.grey.shade300,
+                    onPressed: () {
+                      setState(() {
+                        matchAll = !matchAll;
+                        indoor = false;
+                        outdoor = false;
+                        gym = false;
+                        arms = false;
+                        chest = false;
+                        shoulders = false;
+                        torso = false;
+                        back = false;
+                        glutes = false;
+                        legs = false;
+                        full = false;
+                        focusNone = false;
+                        bike = false;
+                        dumbbells = false;
+                        barbell = false;
+                        resistanceBand = false;
+                        pullupBar = false;
+                        yogamat = false;
+                        bench = false;
+                        machine = false;
+                        equipmentNone = false;
+                        low = false;
+                        medium = false;
+                        high = false;
+                      });
+                    },
+                    child: Text("Match All"),
+                  ),
+                  RaisedButton(
+                    color: matchAll ? Colors.grey.shade300 : Colors.blue,
+                    onPressed: () {
+                      setState(() {
+                        matchAll = !matchAll;
+                        indoor = false;
+                        outdoor = false;
+                        gym = false;
+                        arms = false;
+                        chest = false;
+                        shoulders = false;
+                        torso = false;
+                        back = false;
+                        glutes = false;
+                        legs = false;
+                        full = false;
+                        focusNone = false;
+                        bike = false;
+                        dumbbells = false;
+                        barbell = false;
+                        resistanceBand = false;
+                        pullupBar = false;
+                        yogamat = false;
+                        bench = false;
+                        machine = false;
+                        equipmentNone = false;
+                        low = false;
+                        medium = false;
+                        high = false;
+                      });
+                    },
+                    child: Text("Match Any"),
+                  )
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Text(
@@ -65,7 +137,13 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: indoor ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {indoor = !indoor; outdoor = false; gym = false;});
+                      setState(() {
+                        indoor = !indoor;
+                        if (matchAll) {
+                          outdoor = false;
+                          gym = false;
+                        }
+                      });
                       // Navigator.push(
                       //     context,
                       //     new MaterialPageRoute(
@@ -79,7 +157,13 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: outdoor ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {outdoor = !outdoor; indoor = false; gym = false;});
+                      setState(() {
+                        outdoor = !outdoor;
+                        if (matchAll) {
+                          indoor = false;
+                          gym = false;
+                        }
+                      });
                       // Navigator.push(
                       //     context,
                       //     new MaterialPageRoute(
@@ -93,7 +177,13 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: gym ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {gym = !gym; indoor = false; outdoor = false;});
+                      setState(() {
+                        gym = !gym;
+                        if (matchAll) {
+                          indoor = false;
+                          outdoor = false;
+                        }
+                      });
                       // Navigator.push(
                       //     context,
                       //     new MaterialPageRoute(
@@ -119,7 +209,19 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: arms ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {arms = !arms; chest = false; shoulders = false; torso = false; back = false; glutes = false; legs = false; full = false; focusNone = false;});
+                      setState(() {
+                        arms = !arms;
+                        if (matchAll) {
+                          chest = false;
+                          shoulders = false;
+                          torso = false;
+                          back = false;
+                          glutes = false;
+                          legs = false;
+                          full = false;
+                          focusNone = false;
+                        }
+                      });
                       // Navigator.push(
                       //     context,
                       //     new MaterialPageRoute(
@@ -133,7 +235,19 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: chest ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {arms = false; chest = !chest; shoulders = false; torso = false; back = false; glutes = false; legs = false; full = false; focusNone = false;});
+                      setState(() {
+                        chest = !chest;
+                        if (matchAll) {
+                          arms = false;
+                          shoulders = false;
+                          torso = false;
+                          back = false;
+                          glutes = false;
+                          legs = false;
+                          full = false;
+                          focusNone = false;
+                        }
+                      });
                       // Navigator.push(
                       //     context,
                       //     new MaterialPageRoute(
@@ -147,7 +261,19 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: shoulders ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {arms = false; chest = false; shoulders = !shoulders; torso = false; back = false; glutes = false; legs = false; full = false; focusNone = false;});
+                      setState(() {
+                        shoulders = !shoulders;
+                        if (matchAll) {
+                          arms = false;
+                          chest = false;
+                          torso = false;
+                          back = false;
+                          glutes = false;
+                          legs = false;
+                          full = false;
+                          focusNone = false;
+                        }
+                      });
                       // Navigator.push(
                       //     context,
                       //     new MaterialPageRoute(
@@ -166,7 +292,19 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: torso ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {arms = false; chest = false; shoulders = false; torso = !torso; back = false; glutes = false; legs = false; full = false; focusNone = false;});
+                      setState(() {
+                        torso = !torso;
+                        if (matchAll) {
+                          arms = false;
+                          chest = false;
+                          shoulders = false;
+                          back = false;
+                          glutes = false;
+                          legs = false;
+                          full = false;
+                          focusNone = false;
+                        }
+                      });
                       // Navigator.push(
                       //     context,
                       //     new MaterialPageRoute(
@@ -180,7 +318,19 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: back ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {arms = false; chest = false; shoulders = false; torso = false; back = !back; glutes = false; legs = false; full = false; focusNone = false;});
+                      setState(() {
+                        back = !back;
+                        if (matchAll) {
+                          arms = false;
+                          chest = false;
+                          shoulders = false;
+                          torso = false;
+                          glutes = false;
+                          legs = false;
+                          full = false;
+                          focusNone = false;
+                        }
+                      });
                       // Navigator.push(
                       //     context,
                       //     new MaterialPageRoute(
@@ -194,7 +344,19 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: glutes ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {arms = false; chest = false; shoulders = false; torso = false; back = false; glutes = !glutes; legs = false; full = false; focusNone = false;});
+                      setState(() {
+                        glutes = !glutes;
+                        if (matchAll) {
+                          arms = false;
+                          chest = false;
+                          shoulders = false;
+                          torso = false;
+                          back = false;
+                          legs = false;
+                          full = false;
+                          focusNone = false;
+                        }
+                      });
                       // Navigator.push(
                       //     context,
                       //     new MaterialPageRoute(
@@ -213,7 +375,19 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: legs ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {arms = false; chest = false; shoulders = false; torso = false; back = false; glutes = false; legs = !legs; full = false; focusNone = false;});
+                      setState(() {
+                        legs = !legs;
+                        if (matchAll) {
+                          arms = false;
+                          chest = false;
+                          shoulders = false;
+                          torso = false;
+                          back = false;
+                          glutes = false;
+                          full = false;
+                          focusNone = false;
+                        }
+                      });
                       // Navigator.push(
                       //     context,
                       //     new MaterialPageRoute(
@@ -227,7 +401,19 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: full ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {arms = false; chest = false; shoulders = false; torso = false; back = false; glutes = false; legs = false; full = !full; focusNone = false;});
+                      setState(() {
+                        full = !full;
+                        if (matchAll) {
+                          arms = false;
+                          chest = false;
+                          shoulders = false;
+                          torso = false;
+                          back = false;
+                          glutes = false;
+                          legs = false;
+                          focusNone = false;
+                        }
+                      });
                       // Navigator.push(
                       //     context,
                       //     new MaterialPageRoute(
@@ -241,7 +427,19 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: focusNone ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {arms = false; chest = false; shoulders = false; torso = false; back = false; glutes = false; legs = false; full = false; focusNone = !focusNone;});
+                      setState(() {
+                        focusNone = !focusNone;
+                        if (matchAll) {
+                          arms = false;
+                          chest = false;
+                          shoulders = false;
+                          torso = false;
+                          back = false;
+                          glutes = false;
+                          legs = false;
+                          full = false;
+                        }
+                      });
                       // Navigator.push(
                       //     context,
                       //     new MaterialPageRoute(
@@ -415,37 +613,56 @@ class _SearchPageState extends State<SearchPage> {
                   RaisedButton(
                     color: low ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {low = !low; medium = false; high = false;});
+                      setState(() {
+                        if (matchAll) {
+                          medium = false;
+                          high = false;
+                        }
+                        low = !low;
+                      });
                     },
                     child: Text("Low"),
                   ),
                   RaisedButton(
                     color: medium ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {medium = !medium; low = false; high = false;});
+                      setState(() {
+                        if (matchAll) {
+                          low = false;
+                          high = false;
+                        }
+                        medium = !medium;
+                      });
                     },
                     child: Text("Medium"),
                   ),
                   RaisedButton(
                     color: high ? Colors.blue : Colors.grey.shade300,
                     onPressed: () {
-                      setState(() {high = !high; low = false; medium = false;});
+                      setState(() {
+                        if (matchAll) {
+                          low = false;
+                          medium = false;
+                        }
+                        high = !high;
+                      });
                     },
                     child: Text("High"),
                   ),
                 ],
               ),
-              Container(margin: EdgeInsets.all(50),),
+              Container(
+                margin: EdgeInsets.all(35),
+              ),
               RaisedButton(
                 onPressed: () {
                   Navigator.push(
                       context,
                       new MaterialPageRoute(
-                          builder: (__) =>
-                          new CategoryPage(
+                          builder: (__) => new CategoryPage(
                               categoryName: "Search Results",
-                              futureActivityList:
-                              getActivityList(
+                              futureActivityList: getActivityList(
+                                  matchAll,
                                   indoor,
                                   outdoor,
                                   gym,
