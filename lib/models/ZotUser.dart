@@ -15,8 +15,8 @@ class ZotUser {
   Map<BodyFocus, bool> focus;
   Map<String, bool> availWindow;
   List<Equipment> access; // idk if list or map is best here
-  List<int> dontRecommend;
-  List<int> recommend;
+  List<String> dontRecommend;
+  List<String> recommend; // might be better if int list
   List<int> weightProgress;
 
   ZotUser() {
@@ -27,10 +27,9 @@ class ZotUser {
     interests = Map();
     focus = Map();
     availWindow = Map();
-    access = List();
-    dontRecommend = List();
-    recommend = List();
-    weightProgress = List();
+    access = [];
+    dontRecommend = recommend = [];
+    weightProgress = [];
   }
 
   void setFirstName(String name) {
@@ -90,7 +89,7 @@ class ZotUser {
     return access.remove(equipment);
   }
 
-  bool addGoodRec(int rec) {
+  bool addGoodRec(String rec) {
     if (recommend.contains(rec)) {
       return false;
     }
@@ -99,11 +98,11 @@ class ZotUser {
     return true;
   }
 
-  bool removeGoodRec(int rec) {
+  bool removeGoodRec(String rec) {
     return recommend.remove(rec);
   }
 
-  bool addBadRec(int rec) {
+  bool addBadRec(String rec) {
     if (dontRecommend.contains(rec)) {
       return false;
     }
@@ -112,7 +111,7 @@ class ZotUser {
     return true;
   }
 
-  bool removeBadRec(int rec) {
+  bool removeBadRec(String rec) {
     return dontRecommend.remove(rec);
   }
 
@@ -137,8 +136,8 @@ class ZotUser {
   Map<BodyFocus, bool> getFocus() => this.focus;
   Map<String, bool> getAvailWindow() => this.availWindow;
   List<Equipment> getAccess() => this.access;
-  List<int> getGoodRecs() => this.recommend;
-  List<int> getBadRecs() => this.dontRecommend;
+  List<String> getGoodRecs() => this.recommend;
+  List<String> getBadRecs() => this.dontRecommend;
   List<int> getWeightProgress() => this.weightProgress;
 
   @override

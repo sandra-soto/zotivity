@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         ),
         appBarTheme: AppBarTheme(
           textTheme: TextTheme(
-            title: TextStyle(
+            headline6: TextStyle(
               // fontFamily: FontNameDefault,
               fontSize: 24,
               color: const Color.fromRGBO(255, 210, 0, 1)
@@ -64,8 +64,12 @@ class MyApp extends StatelessWidget {
         ),
         elevatedButtonTheme: ElevatedButtonThemeData (
           style: ElevatedButton.styleFrom(
-            primary: const Color.fromRGBO(27, 61, 109, 1),
-            onPrimary: const Color.fromRGBO(255, 210, 0, 1),
+            textStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 15,
+            ),
+            onPrimary: const Color.fromRGBO(27, 61, 109, 1),
+            primary: const Color.fromRGBO(255, 210, 0, 1),
           )
         )
       ),
