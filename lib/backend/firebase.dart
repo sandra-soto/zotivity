@@ -117,7 +117,8 @@ getActivityByName(String name) {
       activityList.add(new Activity(
           element["title"],
           catToEnum(element["category"]),
-          element["reps"], //Todo: change this later, added bc activities require reps
+          element["reps"],
+          //Todo: change this later, added bc activities require reps
           element["time"],
           element["intensity"],
           focusToEnum(element["focus"]),
@@ -130,7 +131,166 @@ getActivityByName(String name) {
   });
 }
 
-queryActivityList(String query, String value){
+getActivityList(bool indoor, bool outdoor, bool gym, bool arms, bool chest,
+    bool shoulders, bool torso, bool back, bool glutes, bool legs, bool full,
+    bool focusNone, bool bike, bool dumbbells, bool barbell,
+    bool resistanceBand, bool pullupBar, bool yogamat, bool bench, bool machine,
+    bool equipmentNone, bool low, bool medium, bool high) {
+  List lists = new List();
+  List<Activity> activityList = new List();
+  return databaseReference
+      .once()
+      .then((DataSnapshot snapshot) {
+    // print(snapshot.value);
+    snapshot.value.forEach((element) {
+      activityList.add(new Activity(
+          element["title"],
+          catToEnum(element["category"]),
+          element["reps"],
+          //Todo: change this later, added bc activities require reps
+          element["time"],
+          element["intensity"],
+          focusToEnum(element["focus"]),
+          element["description"],
+          stringToList(element["equipment"]),
+          element["imgLink"],
+          element["resources"]));
+    });
+
+    for(int i = 0; i < activityList.length; i++){
+      Activity a = activityList[i];
+      if(indoor && (a.getCategory() != ActivityCategory.indoor)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(outdoor && (a.getCategory() != ActivityCategory.outdoor)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(gym && (a.getCategory() != ActivityCategory.gym)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(arms && (a.getFocus() != BodyFocus.arms)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(chest && (a.getFocus() != BodyFocus.chest)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(shoulders && (a.getFocus() != BodyFocus.shoulders)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(torso && (a.getFocus() != BodyFocus.torso)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(back && (a.getFocus() != BodyFocus.back)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(glutes && (a.getFocus() != BodyFocus.glutes)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(legs && (a.getFocus() != BodyFocus.legs)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(full && (a.getFocus() != BodyFocus.full)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(focusNone && (a.getFocus() != BodyFocus.none)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(bike && (!a.getEquipment().contains(Equipment.bike))){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(dumbbells && (!a.getEquipment().contains(Equipment.dumbbells))){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(barbell && (!a.getEquipment().contains(Equipment.barbell))){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(resistanceBand && (!a.getEquipment().contains(Equipment.resistance_bands))){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(pullupBar && (!a.getEquipment().contains(Equipment.pull_up_bar))){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(yogamat && (!a.getEquipment().contains(Equipment.yoga_mat))){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(bench && (!a.getEquipment().contains(Equipment.bench))){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(machine && (!a.getEquipment().contains(Equipment.machine))){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(equipmentNone && (!a.getEquipment().contains(Equipment.none))){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(low && (a.getIntensity() != 0)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(medium && (a.getIntensity() != 1)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      if(high && (a.getIntensity() != 2)){
+        activityList.removeAt(i);
+        i--;
+        continue;
+      }
+      // if(activityList[i].getTitle() == "arnold press"){
+      //   activityList.removeAt(i);
+      //   i--;
+      //   continue;
+      // }
+    }
+
+    return activityList;
+  });
+}
+
+queryActivityList(String query, String value) {
   List lists = new List();
   List<Activity> activityList = new List();
   return databaseReference
@@ -155,7 +315,8 @@ queryActivityList(String query, String value){
       activityList.add(new Activity(
           element["title"],
           catToEnum(element["category"]),
-          element["reps"], //Todo: change this later, added bc activities require reps
+          element["reps"],
+          //Todo: change this later, added bc activities require reps
           element["time"],
           element["intensity"],
           focusToEnum(element["focus"]),
@@ -186,7 +347,8 @@ getActivitiesByCategory(String category) {
       activityList.add(new Activity(
           element["title"],
           catToEnum(element["category"]),
-          element["reps"], //Todo: change this later, added bc activities require reps
+          element["reps"],
+          //Todo: change this later, added bc activities require reps
           element["time"],
           element["intensity"],
           focusToEnum(element["focus"]),
