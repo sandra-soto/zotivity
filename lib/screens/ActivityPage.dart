@@ -4,6 +4,8 @@ import 'package:zotivity/backend/mongo.dart';
 import '../models/Activity.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zotivity/backend/globals.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
 
 class ActivityPage extends StatefulWidget {
   final Future<Activity> futureActivity;
@@ -14,6 +16,18 @@ class ActivityPage extends StatefulWidget {
 }
 
 class _ActivityPageState extends State<ActivityPage> {
+  YoutubePlayerController _controller = YoutubePlayerController(
+    initialVideoId: YoutubePlayer.convertUrlToId(""),//Place the acitvity URL here
+    flags: YoutubePlayerFlags(
+      autoPlay: true,
+      mute: false,
+      loop: false,
+      isLive: false,
+      forceHD: false,
+      enableCaption: true,
+    ),
+  );
+
   buildTime(time, reps){
     if(time != "0") {
       return Padding(
@@ -132,6 +146,14 @@ class _ActivityPageState extends State<ActivityPage> {
                           "' completed.");
                     },
                   ),
+                  Container(
+                    child:
+                    YoutubePlayer(
+                      controller: _controller,
+                      liveUIColor: Colors.amber,
+                    ),
+                  )
+
                 ],
               ),
             ),
