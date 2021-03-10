@@ -7,7 +7,7 @@ import '../models/Activity.dart';
 // https://medium.com/nonstopio/flutter-future-builder-with-list-view-builder-d7212314e8c9
 
 class CategoryPage extends StatefulWidget {
-  final ActivityCategory categoryName;
+  final String categoryName;
   final Future<List<Activity>> futureActivityList;
   CategoryPage({this.categoryName, this.futureActivityList});
 
@@ -32,13 +32,19 @@ class _CategoryPageState extends State<CategoryPage> {
         if (activityListSnap.data == null) {
           return Scaffold(
             appBar: AppBar(
-              title: Text("Category: " + widget.categoryName.str),
+              title: Text(widget.categoryName),
+              backgroundColor: Colors.blue,
             ),
           );
         }
         return Scaffold(
             appBar: AppBar(
-              title: Text("Category: " + widget.categoryName.str),
+// <<<<<<< HEAD
+//               title: Text("Category: " + widget.categoryName.str),
+// =======
+              title: Text(widget.categoryName),
+              backgroundColor: Colors.blue,
+// >>>>>>> kelson
             ),
             body: ListView.builder(
               padding: const EdgeInsets.all(8.0),

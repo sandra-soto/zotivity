@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
                   new MaterialPageRoute(
                       builder: (__) => new CategoryPage(
                             // Todo: change this later
-                            categoryName: ActivityCategory.gym,
+                            categoryName: "Gym",
                             futureActivityList:
                                 getActivitiesByCategory("gym"),
                           )));
