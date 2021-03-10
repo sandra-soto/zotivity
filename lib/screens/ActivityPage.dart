@@ -16,17 +16,7 @@ class ActivityPage extends StatefulWidget {
 }
 
 class _ActivityPageState extends State<ActivityPage> {
-  YoutubePlayerController _controller = YoutubePlayerController(
-    initialVideoId: YoutubePlayer.convertUrlToId(""),//Place the acitvity URL here
-    flags: YoutubePlayerFlags(
-      autoPlay: true,
-      mute: false,
-      loop: false,
-      isLive: false,
-      forceHD: false,
-      enableCaption: true,
-    ),
-  );
+
 
   buildTime(time, reps){
     if(time != "0") {
@@ -60,6 +50,17 @@ class _ActivityPageState extends State<ActivityPage> {
             ),
           );
         }
+        YoutubePlayerController _controller = YoutubePlayerController(
+          initialVideoId: YoutubePlayer.convertUrlToId(activitySnap.data.getResources()),//Place the acitvity URL here
+          flags: YoutubePlayerFlags(
+            autoPlay: true,
+            mute: false,
+            loop: false,
+            isLive: false,
+            forceHD: false,
+            enableCaption: true,
+          ),
+        );
         return Scaffold(
           appBar: AppBar(
             title: Text(activitySnap.data.getTitle()),
