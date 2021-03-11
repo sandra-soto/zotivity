@@ -17,7 +17,6 @@ class CategoryPage extends StatefulWidget {
 class _CategoryPageState extends State<CategoryPage> {
   buildDesc(time, reps) {
     return Container (
-        // color: const Color.fromRGBO(27, 61, 109, 1),
         child: Row(
           children: [
             Icon(
@@ -40,18 +39,29 @@ class _CategoryPageState extends State<CategoryPage> {
           return Scaffold(
             appBar: AppBar(
               title: Text(widget.categoryName),
-              backgroundColor: Colors.blue,
+            ),
+            body: Center(
+              child: Text(
+                "Searching...",
+              )
+            ),
+          );
+        }
+        if (activityListSnap.data.length == 0) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(widget.categoryName),
+            ),
+            body: Center(
+              child: Text(
+                "Sorry, no results found!",
+              )
             ),
           );
         }
         return Scaffold(
             appBar: AppBar(
-// <<<<<<< HEAD
-//               title: Text("Category: " + widget.categoryName.str),
-// =======
               title: Text(widget.categoryName),
-              backgroundColor: Colors.blue,
-// >>>>>>> kelson
             ),
             body: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -63,7 +73,6 @@ class _CategoryPageState extends State<CategoryPage> {
                       Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          // color: const Color.fromRGBO(144, 149, 154, 1),
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10),
                             topRight: Radius.circular(10)
@@ -81,7 +90,6 @@ class _CategoryPageState extends State<CategoryPage> {
                       ),
                       Container(
                         decoration: BoxDecoration(
-                          // color: const Color.fromRGBO(144, 149, 154, 0.75),
                           color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(10),

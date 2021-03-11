@@ -104,13 +104,10 @@ getActivityByName(String name) {
   });
 }
 
-getActivityList(bool matchAll, bool indoor, bool outdoor, bool gym, bool arms, bool chest,
-    bool shoulders, bool torso, bool back, bool glutes, bool legs, bool full,
-    bool focusNone, bool bike, bool dumbbells, bool barbell,
-    bool resistanceBand, bool pullupBar, bool yogamat, bool bench, bool machine,
-    bool equipmentNone, bool low, bool medium, bool high) {
-  List<Activity> activityList = new List();
-  List<Activity> activityList2 = new List();
+getActivityList(bool matchAll, List<bool> categorySelect, List<bool> intensitySelect, 
+                List<bool> focusSelect, List<bool> equipSelect) {
+  List<Activity> activityList = [];
+  List<Activity> activityList2 = [];
   return databaseReference
       .once()
       .then((DataSnapshot snapshot) {
@@ -133,235 +130,35 @@ getActivityList(bool matchAll, bool indoor, bool outdoor, bool gym, bool arms, b
     if(matchAll){
       for(int i = 0; i < activityList.length; i++){
         Activity a = activityList[i];
-        if(indoor && (a.getCategory() != ActivityCategory.indoor)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(outdoor && (a.getCategory() != ActivityCategory.outdoor)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(gym && (a.getCategory() != ActivityCategory.gym)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(arms && (a.getFocus() != BodyFocus.arms)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(chest && (a.getFocus() != BodyFocus.chest)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(shoulders && (a.getFocus() != BodyFocus.shoulders)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(torso && (a.getFocus() != BodyFocus.torso)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(back && (a.getFocus() != BodyFocus.back)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(glutes && (a.getFocus() != BodyFocus.glutes)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(legs && (a.getFocus() != BodyFocus.legs)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(full && (a.getFocus() != BodyFocus.full)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(focusNone && (a.getFocus() != BodyFocus.none)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(bike && (!a.getEquipment().contains(Equipment.bike))){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(dumbbells && (!a.getEquipment().contains(Equipment.dumbbells))){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(barbell && (!a.getEquipment().contains(Equipment.barbell))){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(resistanceBand && (!a.getEquipment().contains(Equipment.resistance_bands))){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(pullupBar && (!a.getEquipment().contains(Equipment.pull_up_bar))){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(yogamat && (!a.getEquipment().contains(Equipment.yoga_mat))){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(bench && (!a.getEquipment().contains(Equipment.bench))){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(machine && (!a.getEquipment().contains(Equipment.machine))){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(equipmentNone && (!a.getEquipment().contains(Equipment.none))){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(low && (a.getIntensity() != 0)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(medium && (a.getIntensity() != 1)){
-          activityList.removeAt(i);
-          i--;
-          continue;
-        }
-        if(high && (a.getIntensity() != 2)){
+        if ( !categorySelect[a.getCategory().index]
+            || !intensitySelect[a.getIntensity()]
+            || !focusSelect[a.getFocus().index]) {
           activityList.removeAt(i);
           i--;
           continue;
         }
       }
+
       return activityList;
     }
     else {
-      if((indoor || outdoor || gym || arms || chest || shoulders || torso || back || glutes || legs || full || focusNone || bike || dumbbells || barbell || resistanceBand || pullupBar || yogamat || bench || machine || equipmentNone || low || medium || high) == false){
-        return activityList;
-      }
+      bool anything = false;
       for(int i = 0; i < activityList.length; i++){
         Activity a = activityList[i];
-        if(indoor && (a.getCategory() == ActivityCategory.indoor)){
-          activityList2.add(a);
-          continue;
-        }
-        if(outdoor && (a.getCategory() == ActivityCategory.outdoor)){
-          activityList2.add(a);
-          continue;
-        }
-        if(gym && (a.getCategory() == ActivityCategory.gym)){
-          activityList2.add(a);
-          continue;
-        }
-        if(arms && (a.getFocus() == BodyFocus.arms)){
-          activityList2.add(a);
-          continue;
-        }
-        if(chest && (a.getFocus() == BodyFocus.chest)){
-          activityList2.add(a);
-          continue;
-        }
-        if(shoulders && (a.getFocus() == BodyFocus.shoulders)){
-          activityList2.add(a);
-          continue;
-        }
-        if(torso && (a.getFocus() == BodyFocus.torso)){
-          activityList2.add(a);
-          continue;
-        }
-        if(back && (a.getFocus() == BodyFocus.back)){
-          activityList2.add(a);
-          continue;
-        }
-        if(glutes && (a.getFocus() == BodyFocus.glutes)){
-          activityList2.add(a);
-          continue;
-        }
-        if(legs && (a.getFocus() == BodyFocus.legs)){
-          activityList2.add(a);
-          continue;
-        }
-        if(full && (a.getFocus() == BodyFocus.full)){
-          activityList2.add(a);
-          continue;
-        }
-        if(focusNone && (a.getFocus() == BodyFocus.none)){
-          activityList2.add(a);
-          continue;
-        }
-        if(bike && (a.getEquipment().contains(Equipment.bike))){
-          activityList2.add(a);
-          continue;
-        }
-        if(dumbbells && (a.getEquipment().contains(Equipment.dumbbells))){
-          activityList2.add(a);
-          continue;
-        }
-        if(barbell && (a.getEquipment().contains(Equipment.barbell))){
-          activityList2.add(a);
-          continue;
-        }
-        if(resistanceBand && (a.getEquipment().contains(Equipment.resistance_bands))){
-          activityList2.add(a);
-          continue;
-        }
-        if(pullupBar && (a.getEquipment().contains(Equipment.pull_up_bar))){
-          activityList2.add(a);
-          continue;
-        }
-        if(yogamat && (a.getEquipment().contains(Equipment.yoga_mat))){
-          activityList2.add(a);
-          continue;
-        }
-        if(bench && (a.getEquipment().contains(Equipment.bench))){
-          activityList2.add(a);
-          continue;
-        }
-        if(machine && (a.getEquipment().contains(Equipment.machine))){
-          activityList2.add(a);
-          continue;
-        }
-        if(equipmentNone && (a.getEquipment().contains(Equipment.none))){
-          activityList2.add(a);
-          continue;
-        }
-        if(low && (a.getIntensity() == 0)){
-          activityList2.add(a);
-          continue;
-        }
-        if(medium && (a.getIntensity() == 1)){
-          activityList2.add(a);
-          continue;
-        }
-        if(high && (a.getIntensity() == 2)){
+        if ( categorySelect[a.getCategory().index]
+            || intensitySelect[a.getIntensity()]
+            || focusSelect[a.getFocus().index] ) {
+          anything = true;
           activityList2.add(a);
           continue;
         }
       }
-      return activityList2;
-    }
 
+      if (anything)
+        return activityList2;
+      else    // no filter was selected, show everything
+        return activityList;
+    }
   });
 }
 
