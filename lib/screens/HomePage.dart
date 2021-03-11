@@ -4,6 +4,7 @@ import 'package:zotivity/screens/CategoryPage.dart';
 import 'package:zotivity/styles/components.dart';
 import '../models/Activity.dart';
 import './ActivityPage.dart';
+import './GraphPage.dart';
 
 import '../models/BodyFocus.dart';
 import '../models/Equipment.dart';
@@ -58,6 +59,19 @@ class HomePage extends StatelessWidget {
                   new MaterialPageRoute(
                       builder: (__) => new ActivityPage(
                           futureActivity: getActivityByName("deadlift"))));
+            },
+          ),
+          ElevatedButton(
+            child: Text('Graph Page'),
+            onPressed: () {
+              // Navigator.push(
+              //     context,
+              //     new MaterialPageRoute(
+              //         builder: (__) => new ActivityPage(activity: a)));
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (__) => new GraphPage()));
             },
           ),
           ElevatedButton(
