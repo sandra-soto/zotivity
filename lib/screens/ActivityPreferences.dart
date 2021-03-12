@@ -8,7 +8,7 @@ import 'package:zotivity/models/BodyFocus.dart';
 import 'package:zotivity/models/Equipment.dart';
 import 'package:zotivity/models/checkboxFormField.dart';
 import '../models/ZotUser.dart';
-import 'SearchPage.dart';
+import 'package:zotivity/screens/HomePage.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 
@@ -384,14 +384,9 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
                       _formKey.currentState.save();
                       submitDB();
                       // going to category page
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return SearchPage();
 
-                          },
-                        ),
-                      );
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                          HomePage()), (Route<dynamic> route) => false);
                     },
                     child: Text('Submit'),
                   ),
@@ -408,13 +403,8 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
   void submitDB() async{
 
     currentZotUser = widget.prevInfo;
-    // turning the user into a stringified JSON object, with their email as the key
-    // currentUserEmail is from globals.dart and assigned in Login.dart on the _signInButton
     updateMongoUser();
-    localStorage.setString(currentUserEmail, jsonEncode(currentZotUser.toJson()));
 
-
-    //printAllActivities();
   }
 }
 

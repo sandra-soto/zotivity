@@ -23,12 +23,12 @@ ZotUser currentZotUser;
 
 
 
-var storedUser = localStorage.get(currentUserEmail);
+var storedUser = sharedPrefs.get(currentUserEmail);
 
-var localStorage;
+var sharedPrefs;
 
-initLocalStorage() async {
-  localStorage = await SharedPreferences.getInstance();
+initSharedPreferences() async {
+  sharedPrefs = await SharedPreferences.getInstance();
 }
 
 // this is to make google api calls, see more in the sign_in.dart file
@@ -100,20 +100,15 @@ void configureSelectNotificationSubject() {
     print("click clacked");
     print("this is the payload $payload");
     if (payload == "ROUTINE"){
-      getRoutineRecs().then((routine){
-        Get.to(() => new RoutinePage(items: routine));
-      });
-
-
-    }
+        Get.to(() => new RoutinePage(futureActivityList: getRoutineRecs()));
+     }
     else if (payload == "WEIGHT"){
       Get.to(() => new LoginPage());
     }
+    else if(payload == "NOTIF"){
+      // Todo: maybe redirect to something, but not necessary
+    }
 
-//    await Navigator.push(
-//      context,
-//      MaterialPageRoute(builder: (context) => SecondScreen(payload)),
-//    );
   });
 }
 
@@ -131,7 +126,7 @@ void requestIOSPermissions() {
 
 
 }
-  Future<void> showRoutineNotif() async {
+  Future<void> showNotifToggle() async {
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'Zotivity', 'routines', 'new reminders',
         importance: Importance.Max, priority: Priority.High, ticker: 'ticker');
@@ -139,18 +134,20 @@ void requestIOSPermissions() {
     var platformChannelSpecifics = NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.show(
-        0, 'Zotivity | New routine for X', 'Time for a quick run!', platformChannelSpecifics,
-        payload: 'ROUTINE');
+        100, 'Zotivity', 'Notifications On', platformChannelSpecifics,
+        payload: 'NOTIF');
+
   }
 
 
-  Future<void> scheduledRoutine(int id, DateTime date)  async {
+  Future<void> scheduleRoutineNotif(int id, DateTime date)  async {
     var scheduledNotificationDateTime = date;
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
         'Zotivity', 'routines', 'new reminders',
-        icon: 'ic_stat_name',
+        importance: Importance.Max, priority: Priority.High, ticker: 'ticker',
+        //icon: 'ic_stat_name',
         sound: RawResourceAndroidNotificationSound('slow_spring_board'),
-        largeIcon: DrawableResourceAndroidBitmap('ic_stat_name'),
+        //largeIcon: DrawableResourceAndroidBitmap('ic_stat_name'),
     );
 
     var iOSPlatformChannelSpecifics = IOSNotificationDetails(sound: 'slow_spring_board.aiff');
@@ -166,6 +163,15 @@ void requestIOSPermissions() {
         payload: "ROUTINE");
 }
 
+Future<void> scheduleRoutineNotifBatch(List<DateTime> dateList) async {
+  int id = 0;
+  dateList.forEach((element) {
+    scheduleRoutineNotif(id++, element);
+  });
 
+}
+Future<void> cancelAllNotifications() async {
+   await flutterLocalNotificationsPlugin.cancelAll();
+}
 
 ////////////////// local notifications

@@ -22,7 +22,7 @@ void main() async{
   initNotifs();
   requestIOSPermissions();
   await initAuthFirebase();
-  await initLocalStorage();
+  await initSharedPreferences();
   runApp(MyApp());
 }
 

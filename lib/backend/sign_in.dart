@@ -55,7 +55,7 @@ Future<User> signInWithGoogle() async {
     print('signInWithGoogle succeeded');
     return user;
   }
-
+  print('signInWithGoogle failed');
   return null;
 }
 
@@ -91,8 +91,9 @@ Future<User> signInWithGoogleSilently() async {
     currentUserEmail = user.email;
     print('signInWithGoogle succeeded');
     return user;
-  }
+}
 
+  print('signInWithGoogle failed');
   return null;
 }
 
@@ -102,8 +103,10 @@ User getCurrentUser(){
 }
 
 Future<void> signOutGoogle() async {
+  currentZotUser = null;
   await googleSignIn.signOut();
   await auth.signOut();
+
 
   print("User Signed Out");
 }

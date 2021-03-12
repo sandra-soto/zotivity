@@ -6,9 +6,12 @@ import 'package:zotivity/backend/firebase.dart';
 import 'package:zotivity/backend/globals.dart';
 import 'package:zotivity/backend/mongo.dart';
 import 'package:zotivity/backend/recommend.dart';
+import 'package:zotivity/screens/ActivityPreferences.dart';
 import 'package:zotivity/screens/CalendarPage.dart';
 import 'package:zotivity/screens/ProfileCreation.dart';
 import 'package:zotivity/backend/sign_in.dart';
+import 'package:zotivity/screens/RoutinePage.dart';
+import '../models/Activity.dart';
 
 import '../screens/Login.dart';
 
@@ -42,7 +45,7 @@ class CustomDrawer extends StatelessWidget {
                   Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) {
-                          return ProfileCreation();
+                          return ActivityPreferences(currentZotUser);//ProfileCreation();
                         },
                       ),
                   );
@@ -57,7 +60,7 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () async {
                   configureSelectNotificationSubject();
                   //await showNotification();
-                  await showRoutineNotif();
+                  await scheduleRoutineNotif(23, DateTime.now().add(Duration(seconds: 2)));
                   Navigator.pop(context);
                 }
               ),
@@ -68,7 +71,15 @@ class CustomDrawer extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   onTap: () async {
-                    getCalendarRecs();
+                    List<DateTime> calendarRecs = await getCalendarRecs();
+                    Navigator.pop(context);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return CalendarPage(items: calendarRecs);
+                        },
+                      ),
+                    );
 
                   }
               ),
@@ -79,7 +90,14 @@ class CustomDrawer extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   onTap: () async {
-                    getRoutineRecs();
+                    Navigator.pop(context);
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return RoutinePage(futureActivityList: getRoutineRecs());
+                        },
+                      ),
+                    );
                   }
               ),
               ListTile(
@@ -113,13 +131,8 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () async {
                   signOutGoogle().then((_) {
                     Navigator.pop(context);
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return LoginPage();
-                        },
-                      ),
-                    );
+                    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                        LoginPage()), (Route<dynamic> route) => false);
                   });
                 },
               ),
