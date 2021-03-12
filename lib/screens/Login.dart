@@ -7,6 +7,7 @@ import 'package:zotivity/models/ZotUser.dart';
 import 'package:zotivity/screens/HomePage.dart';
 import 'package:zotivity/backend/sign_in.dart';
 import 'package:zotivity/backend/globals.dart';
+import 'package:zotivity/screens/ProfileCreation.dart';
 import 'package:zotivity/styles/components.dart';
 import '../backend/sign_in.dart';
 
@@ -49,32 +50,23 @@ Widget _signInButton(BuildContext context) {
   return OutlineButton(
     splashColor: Colors.grey,
     onPressed: () {
-      signInWithGoogle().then((user) {
-        getMongoUser();
 
-        if (user != null) {
+     signInWithGoogle().then((user){
 
-          //currentUserEmail
+        getMongoUser().then((result_2) {
+          print("the google user $user");
+          if (user != null) {
+            print(user);
 
-          //currentUserEmail = user.email;
+            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+            currentZotUser == null ? ProfileCreation(googleInfo: user) : HomePage()), (Route<dynamic> route) => false);
 
-//          var storedUser = localStorage.get(currentUserEmail);
-//          if (storedUser != null){
-//            currentUser = ZotUser.fromJson(jsonDecode(storedUser));
-//            print("Retrieved user from local storage: $currentUser");
-//          }
-
-
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return HomePage();
-              },
-            ),
-          );
-        }
+          }
+        });
       });
-    },
+
+
+      },
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
     highlightElevation: 0,
     borderSide: BorderSide(color: Colors.grey),

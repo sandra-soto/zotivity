@@ -63,10 +63,9 @@ getMongoUser() async{
       currentZotUser = ZotUser.fromJson(retrievedUser[0]);
       print("Retrieved from MongoDB: $currentZotUser");
     }
-    else{
-      print("Adding user to DB: ${currentZotUser.toJson()}");
-      users.insertAll([currentZotUser.toJson()]);
-  }
+    else {
+      print("$currentZotUser not found in DB");
+    }
 }
 
 

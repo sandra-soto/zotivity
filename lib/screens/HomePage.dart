@@ -17,13 +17,27 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Row 2 UI'),
+        title: Text('Zotivity'),
         // backgroundColor: Colors.blue,
       ),
       drawer:CustomDrawer(),
       body: Center(
           child: Column(
+
         children: <Widget>[
+          Card(
+            child: InkWell(
+              splashColor: Colors.blue.withAlpha(30),
+              onTap: () {
+                print('Card tapped.');
+              },
+              child: Container(
+                width: 300,
+                height: 100,
+                child: Text('A card that can be tapped'),
+              ),
+            ),
+          ),
           ElevatedButton(
             child: Text('Search Page'),
             onPressed: () {

@@ -8,7 +8,7 @@ import 'ActivityPreferences.dart';
 class ProfileCreationState extends State<ProfileCreation> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   ZotUser _user = new ZotUser();
-  User googleInfo = getCurrentUser();
+
 
   Widget _buildName() {
     return Container(
@@ -24,7 +24,7 @@ class ProfileCreationState extends State<ProfileCreation> {
                 labelStyle: Theme.of(context).textTheme.bodyText2,
                 labelText: 'First Name',
               ),
-              initialValue: googleInfo.displayName.split(' ').first,
+              initialValue: widget.googleInfo.displayName.split(' ').first,
               keyboardType: TextInputType.name,
               validator: (String value) {
                 if (value.isEmpty) {
@@ -44,7 +44,7 @@ class ProfileCreationState extends State<ProfileCreation> {
                 labelStyle: Theme.of(context).textTheme.bodyText2,
                 labelText: 'Last Name'
               ),
-              initialValue: googleInfo.displayName.split(' ').last,
+              initialValue: widget.googleInfo.displayName.split(' ').last,
               keyboardType: TextInputType.name,
               validator: (String value) {
                 if (value.isEmpty) {
@@ -75,7 +75,7 @@ class ProfileCreationState extends State<ProfileCreation> {
               labelStyle: Theme.of(context).textTheme.bodyText2,
               labelText: 'Email'
             ),
-            initialValue: googleInfo.email,
+            initialValue: widget.googleInfo.email,
             keyboardType: TextInputType.emailAddress,
             validator: (String value) {
               if (value.isEmpty) {
@@ -231,15 +231,8 @@ class ProfileCreationState extends State<ProfileCreation> {
 
                       _formKey.currentState.save();
 
-
-                      //https://stackoverflow.com/questions/59706862/flutter-form-multi-screens
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return ActivityPreferences(_user);  // transfer user info to the next page
-                          }
-                        ),
-                      );
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                          ActivityPreferences(_user)), (Route<dynamic> route) => false);
                     },
                     child: Text('Next'),
                   ),
@@ -254,6 +247,9 @@ class ProfileCreationState extends State<ProfileCreation> {
 }
 
 class ProfileCreation extends StatefulWidget {
+  final User googleInfo;
+  ProfileCreation({this.googleInfo});
+
   @override
   ProfileCreationState createState() => new ProfileCreationState();
 }

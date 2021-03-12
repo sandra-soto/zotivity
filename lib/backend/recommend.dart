@@ -1,3 +1,5 @@
+
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:zotivity/backend/firebase.dart';
@@ -12,7 +14,7 @@ import 'package:zotivity/screens/CalendarPage.dart';
 
 
 
-Future<List<Activity>> getRoutineRecs() async {
+ Future<List<Activity>> getRoutineRecs() async {
   var activityMap = Map<int, Activity>();
   var activityByScore = new SortedMap(Ordering.byValue());
   List<Activity> weightedActivityList = List<Activity>();
@@ -75,7 +77,8 @@ Future<List<Activity>> getRoutineRecs() async {
     weightedActivityList.add(activityMap[key]);
   });
 
-  return Get.to(() => RoutinePage(items: List.from(weightedActivityList.reversed)));
+  return List.from(weightedActivityList.reversed);
+
 }
 
 int getScore(Activity element) {
