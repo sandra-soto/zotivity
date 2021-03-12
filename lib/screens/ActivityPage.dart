@@ -17,6 +17,22 @@ class ActivityPage extends StatefulWidget {
 }
 
 class _ActivityPageState extends State<ActivityPage> {
+  createVidWidget(activitySnap) {
+    return YoutubePlayer(
+      controller: YoutubePlayerController(
+        initialVideoId: YoutubePlayer.convertUrlToId(activitySnap.data.getResources()),
+        flags: YoutubePlayerFlags(
+          autoPlay: true,
+          mute: true,
+          loop: false,
+          isLive: false,
+          forceHD: false,
+          enableCaption: true,
+        ),
+      ),
+      liveUIColor: Theme.of(context).accentColor,
+    );
+  }
   buildTime(time, reps) {
     return Container (
         child: Row(
@@ -38,11 +54,7 @@ class _ActivityPageState extends State<ActivityPage> {
   }
 
   Widget buildActivity() {
-    var cat_icons = {
-      ActivityCategory.indoor: Icons.home, 
-      ActivityCategory.outdoor: Icons.cloud, 
-      ActivityCategory.gym: Icons.sports_outlined
-    };
+    var catIcons = [Icons.home, Icons.cloud, Icons.sports_outlined];
     var screenSize = MediaQuery.of(context).size;
     return FutureBuilder(
       future: widget.futureActivity,
@@ -54,17 +66,6 @@ class _ActivityPageState extends State<ActivityPage> {
             ),
           );
         }
-        YoutubePlayerController _controller = YoutubePlayerController(
-          initialVideoId: YoutubePlayer.convertUrlToId(activitySnap.data.getResources()),//Place the acitvity URL here
-          flags: YoutubePlayerFlags(
-            autoPlay: true,
-            mute: false,
-            loop: false,
-            isLive: false,
-            forceHD: false,
-            enableCaption: true,
-          ),
-        );
         return Scaffold(
           appBar: AppBar(
             title: Text(activitySnap.data.getTitle()),
@@ -101,7 +102,7 @@ class _ActivityPageState extends State<ActivityPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
                         child: Icon(
-                          cat_icons[activitySnap.data.getCategory()],
+                          catIcons[activitySnap.data.getCategory().index],
                           color: Theme.of(context).accentColor,
                         ),
                       ),
@@ -142,35 +143,31 @@ class _ActivityPageState extends State<ActivityPage> {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                    child: SingleChildScrollView(
-                        child: Text(
-                          activitySnap.data.getDescription(),
-                          style: Theme.of(context).textTheme.bodyText1,
-                          textAlign: TextAlign.center,
-                        ),
+                    child: Text(
+                      activitySnap.data.getDescription(),
+                      style: Theme.of(context).textTheme.bodyText1,
+                      textAlign: TextAlign.center,
                     ),
-                    width: double.infinity,
-                    height: (1 / 5) * screenSize.height,
+                  ),
+                  Visibility(
+                    visible: activitySnap.data.getResources().contains("youtube"),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                      child: activitySnap.data.getResources().contains("youtube")? createVidWidget(activitySnap): 
+                                                                                  Center(child: Text("shouldn't show")),
+                    )
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
-                  ),
-                  ElevatedButton(
-                    child: Text("Complete Activity"),
-                    onPressed: () {
-                      print("Activity '" +
-                          activitySnap.data.getTitle() +
-                          "' completed.");
-                    },
-                  ),
-                  Container(
-                    child:
-                    YoutubePlayer(
-                      controller: _controller,
-                      liveUIColor: Colors.amber,
+                    padding: EdgeInsets.symmetric(vertical: 16.0),
+                    child: ElevatedButton(
+                      child: Text("Complete Activity"),
+                      onPressed: () {
+                        print("Activity '" +
+                            activitySnap.data.getTitle() +
+                            "' completed.");
+                      },
                     ),
-                  )
-
+                  ),
                 ],
               ),
             ),
