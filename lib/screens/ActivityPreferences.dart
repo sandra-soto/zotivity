@@ -30,10 +30,16 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               style: Theme.of(context).textTheme.bodyText1,
           ),
           onSaved: (bool value) {
-            if (value) {
-              widget.prevInfo.addEquipment(e);
-            }
+            setState(() {
+              if (value) {
+                currentZotUser == null? widget.prevInfo.addEquipment(e):currentZotUser.addEquipment(e);
+              }
+              else {
+                currentZotUser == null? widget.prevInfo.removeEquipment(e):currentZotUser.removeEquipment(e);
+              }
+            });
           },
+          initialValue: currentZotUser == null? false:currentZotUser.getAccess().contains(e),
         )
       );
     }
@@ -56,8 +62,11 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               style: Theme.of(context).textTheme.bodyText1,
           ),
           onSaved: (bool value) {
-            widget.prevInfo.setFocus(b, value);
+            setState(() {
+              currentZotUser == null? widget.prevInfo.setFocus(b, value):currentZotUser.setFocus(b, value);
+            });
           },
+          initialValue: currentZotUser == null? false:currentZotUser.getFocus()[b],
         )
       );
     }
@@ -86,8 +95,11 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     onSaved: (bool value) {
-                      widget.prevInfo.setWindow(ZotUser.TIME_MORN, value);
+                      setState(() {
+                        currentZotUser == null? widget.prevInfo.setWindow(ZotUser.TIME_MORN, value):currentZotUser.setWindow(ZotUser.TIME_MORN, value);
+                      });
                     },
+                    initialValue: currentZotUser == null? false:currentZotUser.getAvailWindow()[ZotUser.TIME_MORN],
                   ),
               )
             ],
@@ -103,8 +115,11 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     onSaved: (bool value) {
-                      widget.prevInfo.setWindow(ZotUser.TIME_NOON, value);
+                      setState(() {
+                        currentZotUser == null? widget.prevInfo.setWindow(ZotUser.TIME_NOON, value):currentZotUser.setWindow(ZotUser.TIME_NOON, value);
+                      });
                     },
+                    initialValue: currentZotUser == null? false:currentZotUser.getAvailWindow()[ZotUser.TIME_NOON],
                   ),
               )
             ],
@@ -120,8 +135,11 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     onSaved: (bool value) {
-                      widget.prevInfo.setWindow(ZotUser.TIME_NIGHT, value);
+                      setState(() {
+                        currentZotUser == null? widget.prevInfo.setWindow(ZotUser.TIME_NIGHT, value):currentZotUser.setWindow(ZotUser.TIME_NIGHT, value);
+                      });
                     },
+                    initialValue: currentZotUser == null? false:currentZotUser.getAvailWindow()[ZotUser.TIME_NIGHT],
                   ),
               )
             ],
@@ -151,8 +169,11 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   onSaved: (bool value) {
-                    widget.prevInfo.setInterest(ActivityCategory.gym, value);
+                    setState(() {
+                        currentZotUser == null? widget.prevInfo.setInterest(ActivityCategory.gym, value):currentZotUser.setInterest(ActivityCategory.gym, value);
+                    });
                   },
+                  initialValue: currentZotUser == null? false:currentZotUser.getInterests()[ActivityCategory.gym],
                 )
               )
             ]
@@ -167,8 +188,11 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   onSaved: (bool value) {
-                    widget.prevInfo.setInterest(ActivityCategory.indoor, value);
+                    setState(() {
+                        currentZotUser == null? widget.prevInfo.setInterest(ActivityCategory.indoor, value):currentZotUser.setInterest(ActivityCategory.indoor, value);
+                    });
                   },
+                  initialValue: currentZotUser == null? false:currentZotUser.getInterests()[ActivityCategory.indoor],
                 ),
               )
             ]
@@ -183,8 +207,11 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   onSaved: (bool value) {
-                    widget.prevInfo.setInterest(ActivityCategory.outdoor, value);
+                    setState(() {
+                        currentZotUser == null? widget.prevInfo.setInterest(ActivityCategory.outdoor, value):currentZotUser.setInterest(ActivityCategory.outdoor, value);
+                    });
                   },
+                  initialValue: currentZotUser == null? false:currentZotUser.getInterests()[ActivityCategory.outdoor],
                 )
               )
             ]
@@ -250,7 +277,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             groupValue: widget.prevInfo.getExperience(),
             onChanged: (int value) {
               setState(() {
-                widget.prevInfo.setExperience(value);
+                currentZotUser == null? widget.prevInfo.setExperience(value):currentZotUser.setExperience(value);
               });
             },
             selected: widget.prevInfo.getExperience() == 0
@@ -265,7 +292,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             groupValue: widget.prevInfo.getExperience(),
             onChanged: (int value) {
               setState(() {
-                widget.prevInfo.setExperience(value);
+                currentZotUser == null? widget.prevInfo.setExperience(value):currentZotUser.setExperience(value);
               });
             },
             selected: widget.prevInfo.getExperience() == 1
@@ -280,7 +307,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
             groupValue: widget.prevInfo.getExperience(),
             onChanged: (int value) {
               setState(() {
-                widget.prevInfo.setExperience(value);
+                currentZotUser == null? widget.prevInfo.setExperience(value):currentZotUser.setExperience(value);
               });
             },
             selected: widget.prevInfo.getExperience() == 2
@@ -309,9 +336,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               maxValue: 7, 
               onChanged: (num value) {
                 setState(() {
-                  // print("changed to ");
-                  // print(value);
-                  widget.prevInfo.setIntensity(value);
+                currentZotUser == null? widget.prevInfo.setIntensity(value):currentZotUser.setIntensity(value);
                 });
               }
             ),
@@ -340,9 +365,7 @@ class ActivityPreferencesState extends State<ActivityPreferences> {
               maxValue: 120, 
               onChanged: (num value) {
                 setState(() {
-                  // print("changed to ");
-                  // print(value);
-                  widget.prevInfo.setRoutineLen(value);
+                currentZotUser == null? widget.prevInfo.setRoutineLen(value):currentZotUser.setRoutineLen(value);
                 });
               }
             )
