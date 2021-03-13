@@ -140,7 +140,8 @@ class _SearchPageState extends State<SearchPage> {
         width: double.infinity,
         margin: EdgeInsets.all(10),
         alignment: Alignment.topCenter,
-        child: SingleChildScrollView(
+        child:
+        SingleChildScrollView(
           child: Column(
             children: [
               Row(
@@ -215,6 +216,9 @@ class _SearchPageState extends State<SearchPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Text(
                   "Categories",
                 ),
@@ -226,6 +230,9 @@ class _SearchPageState extends State<SearchPage> {
                   _buildCatButton(ActivityCategory.outdoor),
                   _buildCatButton(ActivityCategory.gym),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -243,34 +250,64 @@ class _SearchPageState extends State<SearchPage> {
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Text(
                   "Body Focus",
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      _buildBodyButton(BodyFocus.arms),
-                      _buildBodyButton(BodyFocus.torso),
-                      _buildBodyButton(BodyFocus.legs),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      _buildBodyButton(BodyFocus.chest),
-                      _buildBodyButton(BodyFocus.back),
-                      _buildBodyButton(BodyFocus.full),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      _buildBodyButton(BodyFocus.shoulders),
-                      _buildBodyButton(BodyFocus.glutes),
-                    ],
-                  ),
-                ],
+              Container(
+                height: 50,
+                width: MediaQuery.of(context).size.width,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+                    _buildBodyButton(BodyFocus.arms),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildBodyButton(BodyFocus.torso),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildBodyButton(BodyFocus.legs),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildBodyButton(BodyFocus.chest),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildBodyButton(BodyFocus.back),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildBodyButton(BodyFocus.full),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildBodyButton(BodyFocus.shoulders),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildBodyButton(BodyFocus.glutes),
+                  ],
+                ),
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: [
+              //     Column(
+              //       children: [
+              //         _buildBodyButton(BodyFocus.arms),
+              //         _buildBodyButton(BodyFocus.torso),
+              //         _buildBodyButton(BodyFocus.legs),
+              //       ],
+              //     ),
+              //     Column(
+              //       children: [
+              //         _buildBodyButton(BodyFocus.chest),
+              //         _buildBodyButton(BodyFocus.back),
+              //         _buildBodyButton(BodyFocus.full),
+              //       ],
+              //     ),
+              //     Column(
+              //       children: [
+              //         _buildBodyButton(BodyFocus.shoulders),
+              //         _buildBodyButton(BodyFocus.glutes),
+              //       ],
+              //     ),
+              //   ],
+              // ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
               ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -278,31 +315,60 @@ class _SearchPageState extends State<SearchPage> {
                   "Equipment",
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      _buildEquipButton(Equipment.bike),
-                      _buildEquipButton(Equipment.machine),
-                      _buildEquipButton(Equipment.pull_up_bar),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      _buildEquipButton(Equipment.bench),
-                      _buildEquipButton(Equipment.barbell),
-                      _buildEquipButton(Equipment.resistance_bands),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      _buildEquipButton(Equipment.yoga_mat),
-                      _buildEquipButton(Equipment.dumbbells),
-                      _buildEquipButton(Equipment.none),
-                    ],
-                  ),
-                ],
+              Container(
+                height: 50,
+                width: MediaQuery.of(context).size.width,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: <Widget>[
+                    _buildEquipButton(Equipment.bike),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildEquipButton(Equipment.machine),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildEquipButton(Equipment.pull_up_bar),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildEquipButton(Equipment.bench),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildEquipButton(Equipment.barbell),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildEquipButton(Equipment.resistance_bands),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildEquipButton(Equipment.yoga_mat),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildEquipButton(Equipment.dumbbells),
+                    Padding(padding: const EdgeInsets.all(5.0),),
+                    _buildEquipButton(Equipment.none),
+                  ],
+                ),
+              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   children: [
+              //     Column(
+              //       children: [
+              //         _buildEquipButton(Equipment.bike),
+              //         _buildEquipButton(Equipment.machine),
+              //         _buildEquipButton(Equipment.pull_up_bar),
+              //       ],
+              //     ),
+              //     Column(
+              //       children: [
+              //         _buildEquipButton(Equipment.bench),
+              //         _buildEquipButton(Equipment.barbell),
+              //         _buildEquipButton(Equipment.resistance_bands),
+              //       ],
+              //     ),
+              //     Column(
+              //       children: [
+              //         _buildEquipButton(Equipment.yoga_mat),
+              //         _buildEquipButton(Equipment.dumbbells),
+              //         _buildEquipButton(Equipment.none),
+              //       ],
+              //     ),
+              //   ],
+              // ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
               ),
               Container(
                 margin: EdgeInsets.all(35),
@@ -322,6 +388,7 @@ class _SearchPageState extends State<SearchPage> {
             ],
           ),
         ),
+
       ),
     );
   }
