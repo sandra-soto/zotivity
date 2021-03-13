@@ -97,7 +97,7 @@ int getScore(Activity element) {
       score += (weights["equipment"]);
     }
 
-    if ((element.equipment[0] == null && currentZotUser.access[0] == Equipment.none) || currentZotUser.access.contains(element.equipment[0])){
+    if ((element.equipment[0] == null && currentZotUser.access == null) || currentZotUser.access.contains(element.equipment[0])){
       score += (weights["equipment"]);
     }
     if (currentZotUser.experience >= element.intensity) {

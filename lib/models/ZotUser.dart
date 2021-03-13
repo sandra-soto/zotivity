@@ -15,21 +15,24 @@ class ZotUser {
   Map<BodyFocus, bool> focus;
   Map<String, bool> availWindow;
   List<Equipment> access; // idk if list or map is best here
-  List<String> dontRecommend;
-  List<String> recommend; // might be better if int list
+  List<int> dontRecommend;
+  List<int> recommend;
   List<int> weightProgress;
+  List<String> weightDateLog;
 
   ZotUser() {
     firstName = lastName = email =  '';
-    age = experience = goal = -1; 
+    age = experience = goal = -1;
     intensity = 3;
     routineLen = 30;
     interests = Map();
     focus = Map();
     availWindow = Map();
-    access = [];
-    dontRecommend = recommend = [];
-    weightProgress = [];
+    access = List();
+    dontRecommend = List();
+    recommend = List();
+    weightProgress = List();
+    weightDateLog = List();
   }
 
   void setFirstName(String name) {
@@ -89,7 +92,7 @@ class ZotUser {
     return access.remove(equipment);
   }
 
-  bool addGoodRec(String rec) {
+  bool addGoodRec(int rec) {
     if (recommend.contains(rec)) {
       return false;
     }
@@ -98,11 +101,11 @@ class ZotUser {
     return true;
   }
 
-  bool removeGoodRec(String rec) {
+  bool removeGoodRec(int rec) {
     return recommend.remove(rec);
   }
 
-  bool addBadRec(String rec) {
+  bool addBadRec(int rec) {
     if (dontRecommend.contains(rec)) {
       return false;
     }
@@ -111,16 +114,16 @@ class ZotUser {
     return true;
   }
 
-  bool removeBadRec(String rec) {
+  bool removeBadRec(int rec) {
     return dontRecommend.remove(rec);
   }
 
-  bool addWeight(int weight) {
+  bool addWeight(int weight, DateTime date) {
     if (weight < 0) {
       return false;
     }
-
     weightProgress.add(weight);
+    weightDateLog.add(date.toString());
     return true;
   }
 
@@ -136,9 +139,10 @@ class ZotUser {
   Map<BodyFocus, bool> getFocus() => this.focus;
   Map<String, bool> getAvailWindow() => this.availWindow;
   List<Equipment> getAccess() => this.access;
-  List<String> getGoodRecs() => this.recommend;
-  List<String> getBadRecs() => this.dontRecommend;
+  List<int> getGoodRecs() => this.recommend;
+  List<int> getBadRecs() => this.dontRecommend;
   List<int> getWeightProgress() => this.weightProgress;
+  List<String> getWeightDateLog() => this.weightDateLog;
 
   @override
   String toString() {
@@ -158,7 +162,7 @@ class ZotUser {
       'goal': goal,
       'interests': {
         'indoor': interests[ActivityCategory.indoor],
-        'outdoor': interests[ActivityCategory.outdoor], 
+        'outdoor': interests[ActivityCategory.outdoor],
         'gym': interests[ActivityCategory.gym]
       },
       'focus': {
@@ -180,6 +184,7 @@ class ZotUser {
       'recommend': recommend,
       'dontRecommend': dontRecommend,
       'weightProgress': weightProgress,
+      'weightDateLog':weightDateLog,
     };
   }
 
@@ -192,29 +197,29 @@ class ZotUser {
         email = json['email'],
         age = json['age'],
         interests = {ActivityCategory.indoor: json['interests']['indoor'],
-                    ActivityCategory.outdoor : json['interests']['outdoor'],
-                    ActivityCategory.gym: json['interests']['gym']},
+          ActivityCategory.outdoor : json['interests']['outdoor'],
+          ActivityCategory.gym: json['interests']['gym']},
         experience = json['experience'],
         intensity = json['intensity'],
         routineLen = json['routineLen'],
         focus = {BodyFocus.arms: json['focus']['arms'],
-                BodyFocus.chest : json['focus']['chest'],
-                BodyFocus.shoulders : json['focus']['shoulders'],
-                BodyFocus.torso : json['focus']['torso'],
-                BodyFocus.back : json['focus']['back'],
-                BodyFocus.glutes : json['focus']['glutes'],
-                BodyFocus.legs : json['focus']['legs'],
-                BodyFocus.full : json['focus']['full'],
+          BodyFocus.chest : json['focus']['chest'],
+          BodyFocus.shoulders : json['focus']['shoulders'],
+          BodyFocus.torso : json['focus']['torso'],
+          BodyFocus.back : json['focus']['back'],
+          BodyFocus.glutes : json['focus']['glutes'],
+          BodyFocus.legs : json['focus']['legs'],
+          BodyFocus.full : json['focus']['full'],
 
         },
         availWindow = {TIME_MORN: json['availWindow'][TIME_MORN],
-                      TIME_NOON: json['availWindow'][TIME_NOON],
-                      TIME_NIGHT: json['availWindow'][TIME_NIGHT]
+          TIME_NOON: json['availWindow'][TIME_NOON],
+          TIME_NIGHT: json['availWindow'][TIME_NIGHT]
         },
         access =  stringToList(json['access']),
         recommend = json['recommend'].cast<int>(),
         dontRecommend =  json['dontRecommend'].cast<int>(),
-        weightProgress = json['weightProgress'].cast<int>();
+        weightProgress = json['weightProgress'].cast<int>(),
+        weightDateLog = json['weightDateLog'].cast<String>();
 
 }
-

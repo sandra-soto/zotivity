@@ -14,15 +14,23 @@ class RoutinePage extends StatefulWidget {
 }
 
 class _RoutinePageState extends State<RoutinePage> {
-  buildTime(time, reps){
-    if(time != "0") {
-      return Text(time +
-          " minutes");
-    } else {
-      return Text(reps +
-          " reps");
+  buildDesc(time, reps) {
+    return Container (
+        child: Row(
+          children: [
+            Icon(
+              time != 0? Icons.timer: Icons.format_list_numbered,
+              color: Theme.of(context).accentColor,
+            ),
+            Text(
+                time != 0? time.toString() + " mins": reps.toString() + " reps"
+            ),
+          ],
+        )
+    );
     }
-  }
+
+
   Widget buildRoutinePage() {
     var screenSize = MediaQuery.of(context).size;
     return FutureBuilder(
@@ -33,6 +41,23 @@ class _RoutinePageState extends State<RoutinePage> {
             appBar: AppBar(
               title: Text("Your routine"),
             ),
+            body: Center(
+                child: Text(
+                  "Searching...",
+                )
+            ),
+          );
+        }
+        if (activityListSnap.data.length == 0) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Your routine"),
+            ),
+            body: Center(
+                child: Text(
+                  "Sorry, no results found!",
+                )
+            ),
           );
         }
         return Scaffold(
@@ -40,57 +65,78 @@ class _RoutinePageState extends State<RoutinePage> {
               title: Text("Your routine"),
             ),
             body: ListView.builder(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
               itemCount: activityListSnap.data.length,
               itemBuilder: (BuildContext context, int index) {
                 return Container(
                   child: Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: Image(
-                          image: NetworkImage(
-                              activityListSnap.data[index].getImgLink()),
-                          width: screenSize.width,
-                          height: 200,
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10)
+                            )
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20.0),
+                          child: Image(
+                            image: NetworkImage(
+                                activityListSnap.data[index].getImgLink()),
+                            width: screenSize.width,
+                            height: 200,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)
+                            )
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      activityListSnap.data[index].getTitle(),
+                                      style: Theme.of(context).textTheme.headline1,
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    buildDesc(activityListSnap.data[index].getTime(),
+                                        activityListSnap.data[index].getReps()),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(right: 15.0),
+                                child: ElevatedButton(
+                                  child: Text("Let's Do It!"),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        new MaterialPageRoute(
+                                            builder: (__) => new ActivityPage(
+                                                futureActivity: getActivityByName(
+                                                    activityListSnap.data[index]
+                                                        .getTitle()))));
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 10.0, bottom: 60.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    activityListSnap.data[index].getTitle(),
-                                    style: Theme.of(context).textTheme.headline1,
-                                    textAlign: TextAlign.left,
-                                  ),
-                                  buildTime(activityListSnap.data[index].getTime().toString(),
-                                      activityListSnap.data[index].getReps().toString()),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 15.0),
-                              child: ElevatedButton(
-                                child: Text("Let's Do It!"),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      new MaterialPageRoute(
-                                          builder: (__) => new ActivityPage(
-                                              futureActivity: getActivityByName(
-                                                  activityListSnap.data[index]
-                                                      .getTitle()))));
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
+                          padding: const EdgeInsets.only(top: 10.0, bottom: 40.0)
                       ),
                     ],
                   ),

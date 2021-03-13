@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:zotivity/backend/globals.dart';
+import 'package:zotivity/screens/GraphPage.dart';
 import 'package:zotivity/screens/Login.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:zotivity/screens/HomePage.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color.fromRGBO(27, 61, 109, 1),
         accentColor: const Color.fromRGBO(255, 210, 0, 1),
         brightness: Brightness.dark,
+        canvasColor: const Color.fromRGBO(29, 40, 56, 1),
         textTheme: TextTheme(
           headline1: TextStyle(
             fontWeight: FontWeight.normal,
@@ -73,7 +75,7 @@ class MyApp extends StatelessWidget {
           )
         )
       ),
-      home: HomePage(), // IntroScreen(),
+      home: IntroScreen(),
     );
   }
 }

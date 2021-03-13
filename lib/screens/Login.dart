@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:zotivity/backend/mongo.dart';
 import 'package:zotivity/models/ZotUser.dart';
 import 'package:zotivity/screens/HomePage.dart';
@@ -26,13 +27,14 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.white,
+        color: Color.fromRGBO(29, 40, 56, 1),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              FlutterLogo(size: 150),
+              Text("Zotivity", style: TextStyle(fontSize: 50)),
+              Text("Finding time to exercise", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300)),
               SizedBox(height: 50),
               _signInButton(context),
             ],
@@ -48,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
 // Todo: find a better way to connect screens lol
 Widget _signInButton(BuildContext context) {
   return OutlineButton(
-    splashColor: Colors.grey,
+    splashColor: Colors.blue,
     onPressed: () {
 
      signInWithGoogle().then((user){
@@ -69,14 +71,14 @@ Widget _signInButton(BuildContext context) {
       },
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
     highlightElevation: 0,
-    borderSide: BorderSide(color: Colors.grey),
+    borderSide: BorderSide(color: Colors.blue),
     child: Padding(
       padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          //Image(image: AssetImage("assets/google_logo.png"), height: 35.0),
+          FaIcon(FontAwesomeIcons.google),
           Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Text(
@@ -94,35 +96,3 @@ Widget _signInButton(BuildContext context) {
 }
 
 
-
-// TODO: remove this later, only for testing
-class FirstScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Zotivity'),
-      ),
-      drawer: CustomDrawer(),
-      body: Container(color: Colors.white)
-//      body: new MaterialButton(
-//          color: Colors.blue,
-//          onPressed: () async {
-//            final List<DateTime> picked = await DateRagePicker.showDatePicker(
-//                context: context,
-//                initialFirstDate: new DateTime.now(),
-//                initialLastDate: (new DateTime.now().add(new Duration(days: 10))),
-//                firstDate: new DateTime(2015),
-//                lastDate: new DateTime(2022)
-//            );
-//            if (picked != null && picked.length == 2) {
-//              print(picked);
-//
-//            }
-//          },
-//          child: new Text("Pick date range")
-//      )
-    );
-
-  }
-}

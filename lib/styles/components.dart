@@ -37,7 +37,7 @@ class CustomDrawer extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.account_circle),
                 title: Text(
-                  'Profile Creation Screen',
+                  'Preferences',
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 onTap: ()  {
@@ -118,7 +118,7 @@ class CustomDrawer extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   onTap: () async {
-
+                    await sampleWeightData();
 
                   }
               ),

@@ -55,6 +55,7 @@ dependencies:
   weather: ^1.2.4
   youtube_player_flutter: ^7.0.0+7
   fl_animated_linechart: ^1.1.4
+  charts_flutter: ^0.10.0
 
 dev_dependencies:
   flutter_test:

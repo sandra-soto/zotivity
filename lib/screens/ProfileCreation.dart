@@ -159,7 +159,7 @@ class ProfileCreationState extends State<ProfileCreation> {
               return null;
             },
             onSaved: (String value) {
-              _user.addWeight(int.tryParse(value));
+              _user.addWeight(int.tryParse(value), DateTime.now());
             }
           )
         ],
