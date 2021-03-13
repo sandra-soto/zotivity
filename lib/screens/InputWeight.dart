@@ -7,13 +7,18 @@ class InputWeight extends StatelessWidget {
   Future<String> _buildPopupDialog(BuildContext context) {
     return showDialog(context: context, builder:(context){
       return new AlertDialog(
-        title: const Text('Enter Your Weight'),
+        title: Text(
+          'Enter Your Weight',
+          style: Theme.of(context).textTheme.headline4,
+        ),
         content:
         TextField(
           controller: textcontroller,
+          cursorColor: Theme.of(context).accentColor,
+          keyboardType: TextInputType.number,
         ),
         actions: <Widget>[
-          new FlatButton(
+          new ElevatedButton(
             child: Text('Submit'),
             onPressed: () {
               Navigator.of(context).pop(textcontroller.text.toString());
@@ -29,22 +34,26 @@ class InputWeight extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter Your Current Weight'),
-        backgroundColor: Colors.blue,
+        title: Text('Weight Log'),
       ),
-      body: Center(
-        child: RaisedButton(
-          child: Text(
-            'Click to enter your weight',
-            style: TextStyle(
-              color: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: EdgeInsets.all(16),
+            child:IconButton(
+              icon: Icon(
+                Icons.add_outlined,
+                color: Theme.of(context).accentColor,
+              ),
+            // child: ElevatedButton(
+            //   child: Text('Add an entry'),
+              onPressed: () {
+                _buildPopupDialog(context);
+              },
             ),
-          ),
-          color: Colors.blue,
-          onPressed: () {
-            _buildPopupDialog(context);
-          },
-        ),
+          )
+        ]
       ),
     );
   }

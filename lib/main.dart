@@ -44,6 +44,21 @@ class MyApp extends StatelessWidget {
             fontSize: 28,
             color: Colors.white,
           ),
+          headline2: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 25,
+            color: Colors.white,
+          ),
+          headline3: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 20,
+            color: Colors.white,
+          ),
+          headline4: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 20,
+            color: const Color.fromRGBO(255, 210, 0, 1)
+          ),
           bodyText1: TextStyle(
             fontWeight: FontWeight.normal,
             fontSize: 18,

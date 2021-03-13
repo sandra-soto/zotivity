@@ -23,7 +23,6 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Zotivity'),
-        // backgroundColor: Colors.blue,
       ),
       drawer:CustomDrawer(),
       body: Column(
@@ -35,7 +34,8 @@ class HomePage extends StatelessWidget {
                 children: [
                   Text("${currentZotUser.getFirstName()}'s weight progress",
                     textAlign: TextAlign.left,
-                    style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20, color: Colors.white),)]),
+                    style: Theme.of(context).textTheme.headline3
+                  )]),
           ),
           GraphPage(),
           Expanded(
@@ -69,7 +69,7 @@ class CardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Container(
       child: Card(
-        color: const Color.fromRGBO(27, 61, 109, 1),
+        color: Theme.of(context).primaryColor,
         child: InkWell(
             splashColor: Colors.blue.withAlpha(30),
             onTap: () {
@@ -87,14 +87,17 @@ class CardWidget extends StatelessWidget {
                 Center(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10.0, left:25.0, right: 25.0),
-                      child: Text(this.title, style:TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w400),),
+                      child: Text(
+                        this.title, 
+                        style: Theme.of(context).textTheme.headline2,
+                      ),
                     ),
                 ) ,
                 Container(
                   alignment:Alignment.bottomLeft,
                   child: Padding(
                       padding: const EdgeInsets.only(left:27.0, right: 27.0, bottom: 15.0),
-                      child:FaIcon(icon, color: Colors.amber, size:40.0)
+                      child:FaIcon(icon, color: Theme.of(context).accentColor, size:40.0)
                     ),
                   ),
                 ])
