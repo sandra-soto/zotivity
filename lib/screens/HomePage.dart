@@ -13,6 +13,7 @@ import '../models/BodyFocus.dart';
 import '../models/Equipment.dart';
 import 'RoutinePage.dart';
 import 'SearchPage.dart';
+import 'InputWeight.dart';
 import '../backend/firebase.dart';
 import 'package:firebase_database/firebase_database.dart';
 
@@ -47,7 +48,7 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 CardWidget(title: "My Routine", redirect: RoutinePage(futureActivityList:getRoutineRecs()), icon: FontAwesomeIcons.running),
                 CardWidget(title: "Explore exercises", redirect: SearchPage(), icon:FontAwesomeIcons.search),
-                CardWidget(title: "Log my weight", redirect: SearchPage(), icon:FontAwesomeIcons.balanceScale),
+                CardWidget(title: "Log my weight", redirect: InputWeight(), icon:FontAwesomeIcons.balanceScale),
                 CardWidget(title: "See my data", redirect: SearchPage(), icon: FontAwesomeIcons.list),
               ],
             )
